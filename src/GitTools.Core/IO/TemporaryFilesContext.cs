@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TemporaryFilesContext.cs" company="GitTools">
-//   Copyright (c) 2014 - 2015 GitTools. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace GitTools
+﻿namespace GitTools
 {
     using System;
     using System.IO;

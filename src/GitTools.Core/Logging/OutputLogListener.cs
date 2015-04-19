@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="OutputLogListener.cs" company="GitTools">
-//   Copyright (c) 2014 - 2015 GitTools. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace GitTools.Logging
+﻿namespace GitTools.Logging
 {
     using System;
     using Catel.Logging;

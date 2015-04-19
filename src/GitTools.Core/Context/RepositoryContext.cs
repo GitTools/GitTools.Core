@@ -1,11 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RepositoryContext.cs" company="GitTools">
-//   Copyright (c) 2014 - 2015 GitTools. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-namespace GitTools
+﻿namespace GitTools
 {
     public class RepositoryContext : IRepositoryContext
     {
