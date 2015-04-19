@@ -2,6 +2,7 @@
 <Weavers>
   <Costura>
     <IncludeAssemblies>
+      Catel.Core
       LibGit2Sharp
     </IncludeAssemblies>
   </Costura>
