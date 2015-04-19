@@ -5,7 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace GitLink.Logging
+namespace GitTools.Logging
 {
     using System;
     using Catel.Logging;

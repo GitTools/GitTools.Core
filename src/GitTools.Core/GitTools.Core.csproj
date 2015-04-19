@@ -67,6 +67,22 @@
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="Context\ContextBase.cs" />
+    <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />
+    <Compile Include="Context\Interfaces\IContext.cs" />
+    <Compile Include="Context\Interfaces\IRepositoryContext.cs" />
+    <Compile Include="Context\RepositoryContext.cs" />
+    <Compile Include="Exceptions\GitToolsException.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
+    <Compile Include="Extensions\LibGitExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Git\GitDirFinder.cs" />
+    <Compile Include="Git\GitPreparer.cs" />
+    <Compile Include="Git\Interfaces\IRepositoryPreparer.cs" />
+    <Compile Include="Git\RepositoryLoader.cs" />
+    <Compile Include="Helpers\DeleteHelper.cs" />
+    <Compile Include="Helpers\GitHelper.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="IO\TemporaryFilesContext.cs" />
     <Compile Include="Logging\OutputLogListener.cs" />
     <Compile Include="ModuleInitializer.cs" />
