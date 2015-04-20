@@ -6,9 +6,12 @@
     using System.Linq;
     using System.Text;
     using LibGit2Sharp;
+    using Logging;
 
     public static class GitTestExtensions
     {
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+
         private static int pad = 1;
 
         public static void DumpGraph(this IRepository repository)
@@ -23,7 +26,7 @@
                 @"log --graph --abbrev-commit --decorate --date=relative --all",
                 repository.Info.Path);
 
-            Trace.Write(output.ToString());
+            Log.Info(output.ToString);
         }
 
         public static Commit MakeACommit(this IRepository repository)
