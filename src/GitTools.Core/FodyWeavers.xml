@@ -5,6 +5,7 @@
       LibGit2Sharp
     </IncludeAssemblies>
   </Costura>
-  <ModuleInit/>
-  <MethodTimer/>
+  <ModuleInit />
+  <MethodTimer />
+  <JetBrainsAnnotations />
 </Weavers>

@@ -1,4 +1,4 @@
 ﻿namespace GitTools
 {
-    // TODO: Constants go here
+    // TODO: constants classes go here
 }
