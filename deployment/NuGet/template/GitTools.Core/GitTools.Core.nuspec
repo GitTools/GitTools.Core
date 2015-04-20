@@ -24,7 +24,7 @@
 	<!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
     
     <dependencies>
-      <dependency id="Catel.Core" version="[replaced]" />
+      <dependency id="LibGit2Sharp" version="[replaced]" />
     </dependencies>
   </metadata>
 </package>
