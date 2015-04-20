@@ -2,26 +2,21 @@
 {
     using System.IO;
     using System.Linq;
-    using Catel;
-    using Catel.Logging;
     using LibGit2Sharp;
+    using Logging;
 
     public class GitPreparer : IRepositoryPreparer
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
         public bool IsPreparationRequired(IRepositoryContext context)
         {
-            Argument.IsNotNull(() => context);
-
             var gitPath = GitDirFinder.TreeWalkForGitDir(context.Directory);
             return string.IsNullOrEmpty(gitPath);
         }
 
         public string Prepare(IRepositoryContext context, TemporaryFilesContext temporaryFilesContext)
         {
-            Argument.IsNotNull(() => context);
-
             var gitDirectory = temporaryFilesContext.GetDirectory("git");
 
             // TODO: convert to io service to abstract away IO

@@ -1,18 +1,15 @@
 ﻿namespace GitTools.Git
 {
     using System;
-    using Catel;
-    using Catel.Logging;
     using LibGit2Sharp;
+    using Logging;
 
     public class RepositoryLoader
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
         public static Repository GetRepo(string gitDirectory)
         {
-            Argument.IsNotNull(() => gitDirectory);
-
             try
             {
                 var repository = new Repository(gitDirectory);

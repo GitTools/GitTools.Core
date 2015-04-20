@@ -1,12 +1,12 @@
 namespace GitTools
 {
     using System.Linq;
-    using Catel.Logging;
     using LibGit2Sharp;
+    using Logging;
 
     public static class GitHelper
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
         public static void NormalizeGitDirectory(string gitDirectory)
         {

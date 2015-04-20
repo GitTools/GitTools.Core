@@ -38,14 +38,6 @@
     <DocumentationFile>..\..\output\release\GitTools.Core\GitTools.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Catel.Core, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Core.4.1.0\lib\net45\Catel.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Catel.Fody.Attributes, Version=2.5.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\Catel.Fody.2.5.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
@@ -66,6 +58,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Context\ContextBase.cs" />
     <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />
@@ -82,9 +75,8 @@
     <Compile Include="Git\RepositoryLoader.cs" />
     <Compile Include="Helpers\DeleteHelper.cs" />
     <Compile Include="Helpers\GitHelper.cs" />
-    <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="IO\TemporaryFilesContext.cs" />
-    <Compile Include="Logging\OutputLogListener.cs" />
+    <Compile Include="Logging\Extensions\LogExtensions.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

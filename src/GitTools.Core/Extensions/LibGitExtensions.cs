@@ -3,15 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Catel;
     using LibGit2Sharp;
 
     public static class LibGitExtensions
     {
         public static bool IsDetachedHead(this Branch branch)
         {
-            Argument.IsNotNull(() => branch);
-
             return branch.CanonicalName.Equals("(no branch)", StringComparison.OrdinalIgnoreCase);
         }
 

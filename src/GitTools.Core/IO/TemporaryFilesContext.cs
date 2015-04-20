@@ -2,11 +2,11 @@
 {
     using System;
     using System.IO;
-    using Catel.Logging;
+    using Logging;
 
     public class TemporaryFilesContext : IDisposable
     {
-        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
         private readonly Guid _randomGuid = Guid.NewGuid();
         private readonly string _rootDirectory;
 
@@ -33,7 +33,7 @@
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to delete temporary files");
+                Log.ErrorException("Failed to delete temporary files", ex);
             }
         }
 

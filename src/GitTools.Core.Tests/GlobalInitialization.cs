@@ -1,5 +1,4 @@
-﻿using Catel.Logging;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 [SetUpFixture]
 public class GlobalInitialization
@@ -8,7 +7,7 @@ public class GlobalInitialization
     public static void SetUp()
     {
 #if DEBUG
-        LogManager.AddDebugListener(true);
+        //LogManager.AddDebugListener(true);
 #endif
     }
 }
