@@ -68,6 +68,7 @@
     <Compile Include="Exceptions\GitToolsException.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\LibGitExtensions.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Git\GitDirFinder.cs" />
     <Compile Include="Git\GitPreparer.cs" />
@@ -75,10 +76,15 @@
     <Compile Include="Git\RepositoryLoader.cs" />
     <Compile Include="Helpers\DeleteHelper.cs" />
     <Compile Include="Helpers\GitHelper.cs" />
+    <Compile Include="Helpers\ProcessHelper.cs" />
     <Compile Include="IO\TemporaryFilesContext.cs" />
     <Compile Include="Logging\Extensions\LogExtensions.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Testing\Extensions\GitTestExtensions.cs" />
+    <Compile Include="Testing\Fixtures\EmptyRepositoryFixture.cs" />
+    <Compile Include="Testing\Fixtures\RemoteRepositoryFixture.cs" />
+    <Compile Include="Testing\Fixtures\RepositoryFixtureBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\NativeBinaries\amd64\git2-e0902fb.dll">
