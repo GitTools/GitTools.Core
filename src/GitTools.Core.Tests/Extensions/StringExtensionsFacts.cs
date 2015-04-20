@@ -1,6 +1,7 @@
 ﻿namespace GitTools.Tests
 {
     using NUnit.Framework;
+    using Shouldly;
 
     [TestFixture]
     public class StringExtensionsFacts
@@ -13,8 +14,8 @@
         public void TheIsPullRequestMethod(string input, bool expectedValue)
         {
             var actualValue = input.IsPullRequest();
-            
-            Assert.AreEqual(expectedValue, actualValue);
+
+            actualValue.ShouldBe(expectedValue);
         }
     }
 }
