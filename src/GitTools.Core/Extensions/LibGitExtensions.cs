@@ -60,7 +60,7 @@
             {
                 try
                 {
-                    Log.Info("  Trying to check out '{0}'", fileName);
+                    Log.InfoFormat("  Trying to check out '{0}'", fileName);
 
                     var headBranch = repository.Head;
                     var tip = headBranch.Tip;
@@ -82,7 +82,7 @@
                 }
                 catch (Exception ex)
                 {
-                    Log.Warning("  An error occurred while checking out '{0}': '{1}'", fileName, ex.Message);
+                    Log.WarnFormat("  An error occurred while checking out '{0}': '{1}'", fileName, ex.Message);
                 }
             }
         }

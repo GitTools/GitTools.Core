@@ -6,45 +6,6 @@
 
     internal static class LogExtensions
     {
-        public static void Debug(this ILog log, string messageFormat, params object[] args)
-        {
-            var message = FormatMessage(messageFormat, args);
-
-            log.Debug(message);
-        }
-
-        public static void Info(this ILog log, string messageFormat, params object[] args)
-        {
-            var message = FormatMessage(messageFormat, args);
-
-            log.Info(message);
-        }
-
-        public static void Warning(this ILog log, string messageFormat, params object[] args)
-        {
-            var message = FormatMessage(messageFormat, args);
-
-            log.Warning(message);
-        }
-
-        public static void Error(this ILog log, string messageFormat, params object[] args)
-        {
-            var message = FormatMessage(messageFormat, args);
-
-            log.Error(message);
-        }
-
-        private static string FormatMessage(string messageFormat, params object[] args)
-        {
-            var message = messageFormat ?? string.Empty;
-            if (args != null && args.Length > 0)
-            {
-                message = string.Format(message, args);
-            }
-
-            return message;
-        }
-
         /// <summary>
         /// Writes the specified message as error message and then throws the specified exception.
         /// <para/>

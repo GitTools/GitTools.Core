@@ -35,17 +35,17 @@
             gitDirectory = Path.Combine(gitDirectory, ".git");
             if (Directory.Exists(gitDirectory))
             {
-                Log.Info("Deleting existing .git folder from '{0}' to force new checkout from url", gitDirectory);
+                Log.InfoFormat("Deleting existing .git folder from '{0}' to force new checkout from url", gitDirectory);
 
                 DeleteHelper.DeleteGitRepository(gitDirectory);
             }
 
-            Log.Info("Retrieving git info from url '{0}'", context.Url);
+            Log.InfoFormat("Retrieving git info from url '{0}'", context.Url);
 
             Credentials credentials = null;
             if (!string.IsNullOrWhiteSpace(context.Username) && !string.IsNullOrWhiteSpace(context.Password))
             {
-                Log.Info("Setting up credentials using name '{0}'", context.Username);
+                Log.InfoFormat("Setting up credentials using name '{0}'", context.Username);
 
                 credentials = new UsernamePasswordCredentials
                 {
@@ -91,7 +91,7 @@
 
                     if (newHead != null)
                     {
-                        Log.Info("Switching to branch '{0}'", context.Branch);
+                        Log.InfoFormat("Switching to branch '{0}'", context.Branch);
 
                         repository.Refs.UpdateTarget(repository.Refs.Head, newHead);
                     }

@@ -14,7 +14,7 @@ namespace GitTools
             {
                 var remote = EnsureOnlyOneRemoteIsDefined(repo);
 
-                Log.Info("Fetching from remote '{0}' using the following refspecs: {1}.",
+                Log.InfoFormat("Fetching from remote '{0}' using the following refspecs: {1}.",
                     remote.Name, string.Join(", ", remote.FetchRefSpecs.Select(r => r.Specification)));
 
                 var fetchOptions = new FetchOptions();
@@ -24,11 +24,11 @@ namespace GitTools
 
                 if (!repo.Info.IsHeadDetached)
                 {
-                    Log.Info("HEAD points at branch '{0}'.", repo.Refs.Head.TargetIdentifier);
+                    Log.InfoFormat("HEAD points at branch '{0}'.", repo.Refs.Head.TargetIdentifier);
                     return;
                 }
 
-                Log.Info("HEAD is detached and points at commit '{0}'.", repo.Refs.Head.TargetIdentifier);
+                Log.InfoFormat("HEAD is detached and points at commit '{0}'.", repo.Refs.Head.TargetIdentifier);
 
                 CreateFakeBranchPointingAtThePullRequestTip(repo);
             }
@@ -55,7 +55,7 @@ namespace GitTools
             }
 
             var canonicalName = refs[0].CanonicalName;
-            Log.Info("Found remote tip '{0}' pointing at the commit '{1}'.", canonicalName, headTipSha);
+            Log.InfoFormat("Found remote tip '{0}' pointing at the commit '{1}'.", canonicalName, headTipSha);
 
             if (!canonicalName.StartsWith("refs/pull/"))
             {
@@ -64,10 +64,10 @@ namespace GitTools
 
             var fakeBranchName = canonicalName.Replace("refs/pull/", "refs/heads/pull/");
 
-            Log.Info("Creating fake local branch '{0}'.", fakeBranchName);
+            Log.InfoFormat("Creating fake local branch '{0}'.", fakeBranchName);
             repo.Refs.Add(fakeBranchName, new ObjectId(headTipSha));
 
-            Log.Info("Checking local branch '{0}' out.", fakeBranchName);
+            Log.InfoFormat("Checking local branch '{0}' out.", fakeBranchName);
             repo.Checkout(fakeBranchName);
         }
 
@@ -80,11 +80,11 @@ namespace GitTools
                 var localCanonicalName = "refs/heads/" + remoteTrackingReference.CanonicalName.Substring(prefix.Length);
                 if (repo.Refs.Any(x => x.CanonicalName == localCanonicalName))
                 {
-                    Log.Info("Skipping local branch creation since it already exists '{0}'.", remoteTrackingReference.CanonicalName);
+                    Log.InfoFormat("Skipping local branch creation since it already exists '{0}'.", remoteTrackingReference.CanonicalName);
                     continue;
                 }
 
-                Log.Info("Creating local branch from remote tracking '{0}'.", remoteTrackingReference.CanonicalName);
+                Log.InfoFormat("Creating local branch from remote tracking '{0}'.", remoteTrackingReference.CanonicalName);
 
                 var symbolicReference = remoteTrackingReference as SymbolicReference;
                 if (symbolicReference == null)
@@ -106,7 +106,7 @@ namespace GitTools
             if (howMany == 1)
             {
                 var remote = remotes.Single();
-                Log.Info("One remote found ({0} -> '{1}').", remote.Name, remote.Url);
+                Log.InfoFormat("One remote found ({0} -> '{1}').", remote.Name, remote.Url);
                 return remote;
             }
 

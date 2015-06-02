@@ -22,7 +22,7 @@
         /// </summary>
         public void Dispose()
         {
-            Log.Info("Deleting temporary files from '{0}'", _rootDirectory);
+            Log.InfoFormat("Deleting temporary files from '{0}'", _rootDirectory);
 
             try
             {
