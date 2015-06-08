@@ -1,6 +1,6 @@
 ﻿namespace GitTools
 {
-    public class RepositoryContext : IRepositoryContext
+    public class RepositoryContext : Disposable, IRepositoryContext
     {
         public RepositoryContext()
         {
@@ -14,5 +14,16 @@
         public string Url { get; set; }
 
         public IAuthenticationContext Authentication { get; private set; }
+
+        protected override void DisposeManaged()
+        {
+            base.DisposeManaged();
+
+            var authentication = Authentication;
+            if (authentication != null)
+            {
+                authentication.Dispose();
+            }
+        }
     }
 }

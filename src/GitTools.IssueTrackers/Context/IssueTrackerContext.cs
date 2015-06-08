@@ -1,6 +1,6 @@
 ﻿namespace GitTools.IssueTrackers
 {
-    public class IssueTrackerContext : IIssueTrackerContext
+    public class IssueTrackerContext : Disposable, IIssueTrackerContext
     {
         public IssueTrackerContext()
         {
@@ -12,5 +12,16 @@
         public string ProjectId { get; set; }
 
         public IAuthenticationContext Authentication { get; private set; }
+
+        protected override void DisposeManaged()
+        {
+            base.DisposeManaged();
+
+            var authentication = Authentication;
+            if (authentication != null)
+            {
+                authentication.Dispose();
+            }
+        }
     }
 }

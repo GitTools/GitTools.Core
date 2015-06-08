@@ -1,6 +1,8 @@
 ﻿namespace GitTools.IssueTrackers
 {
-    public interface IIssueTrackerContext
+    using System;
+
+    public interface IIssueTrackerContext : IDisposable
     {
         string Server { get; set; }
 

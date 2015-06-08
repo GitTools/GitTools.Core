@@ -66,6 +66,7 @@
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Context\AuthenticationContext.cs" />
+    <Compile Include="Disposable.cs" />
     <Compile Include="Context\Extensions\IAuthenticationContextExtensions.cs" />
     <Compile Include="Context\Extensions\IRepositoryContextExtensions.cs" />
     <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />

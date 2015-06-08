@@ -1,6 +1,8 @@
 ﻿namespace GitTools
 {
-    public class AuthenticationContext : IAuthenticationContext
+    using System.Security;
+
+    public class AuthenticationContext : Disposable, IAuthenticationContext
     {
         public AuthenticationContext()
         {
@@ -20,5 +22,15 @@
         public string Username { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
+
+        /// <summary>
+        /// Disposes the managed resources.
+        /// </summary>
+        protected override void DisposeManaged()
+        {
+            base.DisposeManaged();
+
+            // TODO: dipose secure strings if needed
+        }
     }
 }

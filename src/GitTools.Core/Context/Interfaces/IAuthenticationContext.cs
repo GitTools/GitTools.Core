@@ -1,6 +1,9 @@
 ﻿namespace GitTools
 {
-    public interface IAuthenticationContext
+    using System;
+    using System.Security;
+
+    public interface IAuthenticationContext : IDisposable
     {
         string Username { get; set; }
 
