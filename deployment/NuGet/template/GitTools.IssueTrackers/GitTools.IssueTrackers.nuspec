@@ -4,8 +4,8 @@
     <id>GitTools.IssueTrackers</id>
     <version>[VERSION]</version>
     <title>GitTools.IssueTrackers</title>
-    <authors>geertvanhorrik</authors>
-    <owners>geertvanhorrik</owners>
+    <authors>gittools</authors>
+    <owners>gittools</owners>
 
 	<description>
 	  Issue Trackers core library for GitTools.
