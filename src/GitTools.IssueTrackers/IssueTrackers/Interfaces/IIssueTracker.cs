@@ -4,7 +4,7 @@
 
     public interface IIssueTracker
     {
-        IEnumerable<Issue> GetIssues();
+        IEnumerable<Issue> GetIssues(string filter);
 
         //IEnumerable<OnlineIssue> GetClosedIssues(IIssueTrackerContext context, DateTimeOffset? since);
     }

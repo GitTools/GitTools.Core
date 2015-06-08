@@ -4,6 +4,6 @@
 
     public abstract class IssueTrackerBase : IIssueTracker
     {
-        public abstract IEnumerable<Issue> GetIssues();
+        public abstract IEnumerable<Issue> GetIssues(string filter);
     }
 }

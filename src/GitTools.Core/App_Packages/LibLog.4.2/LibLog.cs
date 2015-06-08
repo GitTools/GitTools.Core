@@ -38,6 +38,8 @@
 
 #pragma warning disable 1591
 
+#define LIBLOG_PUBLIC
+
 // If you copied this file manually, you need to change all "YourRootNameSpace" so not to clash with other libraries
 // that use LibLog
 #if LIBLOG_PROVIDERS_ONLY

@@ -36,6 +36,10 @@
     <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Jira.SDK">
+      <HintPath>..\..\lib\Jira.SDK.1.1.1.2\lib\net45\Jira.SDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +63,7 @@
     <Compile Include="ArgumentParserFacts.cs" />
     <Compile Include="ContextFacts.cs" />
     <Compile Include="Context\Context.cs" />
+    <Compile Include="Context\Extensions\IAuthenticationContextExtensionsFacts.cs" />
     <Compile Include="Extensions\StringExtensionsFacts.cs" />
     <Compile Include="GlobalInitialization.cs" />
     <Compile Include="ModuleInitializer.cs" />
@@ -68,10 +73,6 @@
     <ProjectReference Include="..\GitTools.Core\GitTools.Core.csproj">
       <Project>{c11252f9-0eca-44dc-860b-e029c04fbd10}</Project>
       <Name>GitTools.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GitTools.IssueTrackers.Jira\GitTools.IssueTrackers.Jira.csproj">
-      <Project>{0c2fece5-bcfd-4bea-97b9-4bf6ecae51ee}</Project>
-      <Name>GitTools.IssueTrackers.Jira</Name>
     </ProjectReference>
     <ProjectReference Include="..\GitTools.IssueTrackers\GitTools.IssueTrackers.csproj">
       <Project>{ac5f41ea-962e-491b-8557-a2a10dc757e4}</Project>
