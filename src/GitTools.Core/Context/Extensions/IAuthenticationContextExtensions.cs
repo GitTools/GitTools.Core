@@ -1,7 +1,11 @@
 ﻿namespace GitTools
 {
+    using Logging;
+
     public static class IAuthenticationContextExtensions
     {
+        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+
         public static bool IsEmpty(this IAuthenticationContext authenticationContext)
         {
             if (authenticationContext == null)

@@ -1,6 +1,6 @@
 ﻿namespace GitTools.IssueTrackers
 {
-    public abstract class IssueTrackerContext : IIssueTrackerContext
+    public class IssueTrackerContext : IIssueTrackerContext
     {
         public IssueTrackerContext()
         {

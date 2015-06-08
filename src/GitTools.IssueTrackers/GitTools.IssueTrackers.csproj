@@ -69,9 +69,12 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Context\Extensions\IIssueTrackerContextExtensions.cs" />
     <Compile Include="Context\Interfaces\IIssueTrackerContext.cs" />
     <Compile Include="Context\IssueTrackerContext.cs" />
     <Compile Include="IssueTrackers\IssueTrackerBase.cs" />
+    <Compile Include="IssueTrackers\IssueTrackerFactoryr.cs" />
     <Compile Include="IssueTrackers\Jira\JiraIssueTracker.cs" />
     <Compile Include="Models\Contributor.cs" />
     <Compile Include="Models\Issue.cs" />

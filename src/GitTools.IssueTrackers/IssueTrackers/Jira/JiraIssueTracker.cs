@@ -37,6 +37,8 @@
                 issues.Add(gitIssue);
             }
 
+            Log.DebugFormat("Found '{0}' issues using filter '{1}'", issues.Count, filter);
+
             return issues;
         }
     }

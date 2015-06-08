@@ -67,6 +67,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Context\AuthenticationContext.cs" />
     <Compile Include="Context\Extensions\IAuthenticationContextExtensions.cs" />
+    <Compile Include="Context\Extensions\IRepositoryContextExtensions.cs" />
+    <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />
+    <Compile Include="Git\TaggedCommit.cs" />
     <Compile Include="Testing\TestValues.cs" />
     <Compile Include="Context\ContextBase.cs" />
     <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />

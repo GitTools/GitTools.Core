@@ -2,6 +2,6 @@
 {
     public interface IIssueTrackerFactory
     {
-        IIssueTracker CreateIssueTracker();
+        IIssueTracker CreateIssueTracker(IIssueTrackerContext issueTrackerContext);
     }
 }
