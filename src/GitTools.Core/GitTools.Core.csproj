@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Context\AuthenticationContext.cs" />
     <Compile Include="Testing\TestValues.cs" />
     <Compile Include="Context\ContextBase.cs" />
     <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />
