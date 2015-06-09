@@ -41,16 +41,16 @@
 // If you copied this file manually, you need to change all "YourRootNameSpace" so not to clash with other libraries
 // that use LibLog
 #if LIBLOG_PROVIDERS_ONLY
-namespace GitTools.LibLog
+namespace GitTools.IssueTrackers.LibLog
 #else
-namespace GitTools.Logging
+namespace GitTools.IssueTrackers.Logging
 #endif
 {
     using System.Collections.Generic;
 #if LIBLOG_PROVIDERS_ONLY
-    using GitTools.LibLog.LogProviders;
+    using GitTools.IssueTrackers.LibLog.LogProviders;
 #else
-    using GitTools.Logging.LogProviders;
+    using GitTools.IssueTrackers.Logging.LogProviders;
 #endif
     using System;
 #if !LIBLOG_PROVIDERS_ONLY
@@ -420,7 +420,7 @@ namespace GitTools.Logging
         /// The disable logging environment variable. If the environment variable is set to 'true', then logging
         /// will be disabled.
         /// </summary>
-        public const string DisableLoggingEnvironmentVariable = "GitTools_LIBLOG_DISABLE";
+        public const string DisableLoggingEnvironmentVariable = "GitTools.IssueTrackers_LIBLOG_DISABLE";
         private const string NullLogProvider = "Current Log Provider is not set. Call SetCurrentLogProvider " +
                                                "with a non-null value first.";
         private static dynamic s_currentLogProvider;
@@ -714,9 +714,9 @@ namespace GitTools.Logging
 }
 
 #if LIBLOG_PROVIDERS_ONLY
-namespace GitTools.LibLog.LogProviders
+namespace GitTools.IssueTrackers.LibLog.LogProviders
 #else
-namespace GitTools.Logging.LogProviders
+namespace GitTools.IssueTrackers.Logging.LogProviders
 #endif
 {
     using System;
