@@ -39,12 +39,12 @@
     <DocumentationFile>..\..\output\release\NET45\GitTools.IssueTrackers\GitTools.IssueTrackers.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JetBrains.Annotations">
-      <HintPath>..\..\lib\JetBrainsAnnotations.Fody.1.0.2\Lib\JetBrains.Annotations.dll</HintPath>
+    <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atlassian.SDK.2.5.0\lib\Atlassian.Jira.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Jira.SDK">
-      <HintPath>..\..\lib\Jira.SDK.1.1.1.2\lib\net45\Jira.SDK.dll</HintPath>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\..\lib\JetBrainsAnnotations.Fody.1.0.2\Lib\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
@@ -82,7 +82,7 @@
     <Compile Include="IssueTrackers\Interfaces\IIssueNumberExtractor.cs" />
     <Compile Include="IssueTrackers\Interfaces\IIssueTracker.cs" />
     <Compile Include="IssueTrackers\Interfaces\IIssueTrackerFactory.cs" />
-    <Compile Include="Models\IssueType.cs" />
+    <Compile Include="Models\Version.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

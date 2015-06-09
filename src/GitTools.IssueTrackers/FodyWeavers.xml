@@ -2,7 +2,7 @@
 <Weavers>
     <Costura>
         <IncludeAssemblies>
-            Jira.SDK
+            Atlassian.Jira
         </IncludeAssemblies>
     </Costura>
   <JetBrainsAnnotations />
