@@ -1,7 +1,11 @@
 ﻿namespace GitTools
 {
-    public interface IRepositoryContext : IAuthenticationContext
+    using System;
+
+    public interface IRepositoryContext : IDisposable
     {
+        IAuthenticationContext Authentication { get; }
+
         string Directory { get; set; }
 
         string Branch { get; set; }

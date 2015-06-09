@@ -1,5 +1,6 @@
 ﻿namespace GitTools.Git
 {
+    using System;
     using System.IO;
     using System.Linq;
     using LibGit2Sharp;
@@ -43,15 +44,20 @@
             Log.InfoFormat("Retrieving git info from url '{0}'", context.Url);
 
             Credentials credentials = null;
-            if (!string.IsNullOrWhiteSpace(context.Username) && !string.IsNullOrWhiteSpace(context.Password))
+            if (!string.IsNullOrWhiteSpace(context.Authentication.Username) && !string.IsNullOrWhiteSpace(context.Authentication.Password))
             {
-                Log.InfoFormat("Setting up credentials using name '{0}'", context.Username);
+                Log.InfoFormat("Setting up credentials using name '{0}'", context.Authentication.Username);
 
                 credentials = new UsernamePasswordCredentials
                 {
-                    Username = context.Username,
-                    Password = context.Password
+                    Username = context.Authentication.Username,
+                    Password = context.Authentication.Password
                 };
+            }
+            else if (!string.IsNullOrWhiteSpace(context.Authentication.Token))
+            {
+                // TODO: set up credentials using a token
+                throw new NotSupportedException("Token based authentication is not yet supported");
             }
 
             var cloneOptions = new CloneOptions

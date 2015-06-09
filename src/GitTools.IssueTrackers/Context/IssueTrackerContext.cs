@@ -1,17 +1,15 @@
-﻿namespace GitTools
+﻿namespace GitTools.IssueTrackers
 {
-    public class RepositoryContext : Disposable, IRepositoryContext
+    public class IssueTrackerContext : Disposable, IIssueTrackerContext
     {
-        public RepositoryContext()
+        public IssueTrackerContext()
         {
             Authentication = new AuthenticationContext();
         }
 
-        public string Directory { get; set; }
+        public string Server { get; set; }
 
-        public string Branch { get; set; }
-
-        public string Url { get; set; }
+        public string ProjectId { get; set; }
 
         public IAuthenticationContext Authentication { get; private set; }
 
