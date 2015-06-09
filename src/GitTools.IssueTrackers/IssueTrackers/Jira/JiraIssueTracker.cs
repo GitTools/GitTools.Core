@@ -25,7 +25,7 @@
             Log.DebugFormat("Connecting to Jira server '{0}'", _issueTrackerContext.Server);
 
             var jira = new Jira(_issueTrackerContext.Server, _issueTrackerContext.Authentication.Username, _issueTrackerContext.Authentication.Password);
-            jira.MaxIssuesPerRequest = 200;
+            jira.MaxIssuesPerRequest = 500;
 
             Log.Debug("Retrieving statuses");
 

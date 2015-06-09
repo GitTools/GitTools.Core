@@ -24,7 +24,8 @@
         {
             if (!Cache.ContainsKey(fromTag))
             {
-                Cache.Add(fromTag, GetLastTaggedCommit(repository, t => string.IsNullOrEmpty(fromTag) || t.TagName == fromTag));
+                var lastTaggedCommit = GetLastTaggedCommit(repository, t => string.IsNullOrEmpty(fromTag) || t.TagName == fromTag);
+                Cache.Add(fromTag, lastTaggedCommit);
             }
 
             return Cache[fromTag];
