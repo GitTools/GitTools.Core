@@ -4,7 +4,7 @@
 
     public class Version
     {
-        public string Value { get; set; }
+        public string Name { get; set; }
 
         public DateTimeOffset? ReleaseDate { get; set; }
 

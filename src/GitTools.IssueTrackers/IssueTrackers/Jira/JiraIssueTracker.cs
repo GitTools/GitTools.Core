@@ -57,7 +57,7 @@
                 {
                     gitIssue.FixVersions.Add(new Version
                     {
-                        Value = fixVersion.Name,
+                        Name = fixVersion.Name,
                         ReleaseDate = fixVersion.ReleasedDate,
                         IsReleased = fixVersion.IsReleased
                     });
