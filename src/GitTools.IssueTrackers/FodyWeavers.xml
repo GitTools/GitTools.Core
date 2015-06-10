@@ -3,6 +3,7 @@
     <Costura>
         <IncludeAssemblies>
             Atlassian.Jira
+            Octokit
         </IncludeAssemblies>
     </Costura>
   <JetBrainsAnnotations />

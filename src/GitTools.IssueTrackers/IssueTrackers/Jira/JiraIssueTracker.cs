@@ -1,11 +1,13 @@
 ﻿namespace GitTools.IssueTrackers.Jira
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Atlassian.Jira;
     using Logging;
     using Issue = IssueTrackers.Issue;
     using IssueType = IssueTrackers.IssueType;
+    using Version = IssueTrackers.Version;
 
     public class JiraIssueTracker : IssueTrackerBase
     {
@@ -13,18 +15,16 @@
 
         private static readonly HashSet<string> KnownClosedStatuses = new HashSet<string>(new [] { "resolved", "closed", "done" }); 
 
-        private readonly IIssueTrackerContext _issueTrackerContext;
-
         public JiraIssueTracker(IIssueTrackerContext issueTrackerContext)
+            : base(issueTrackerContext)
         {
-            _issueTrackerContext = issueTrackerContext;
         }
 
-        public override IEnumerable<Issue> GetIssues(string filter = null, bool includeOpen = true, bool includeClosed = true)
+        public override IEnumerable<Issue> GetIssues(string filter = null, bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null)
         {
-            Log.DebugFormat("Connecting to Jira server '{0}'", _issueTrackerContext.Server);
+            Log.DebugFormat("Connecting to Jira server '{0}'", IssueTrackerContext.Server);
 
-            var jira = new Jira(_issueTrackerContext.Server, _issueTrackerContext.Authentication.Username, _issueTrackerContext.Authentication.Password);
+            var jira = new Jira(IssueTrackerContext.Server, IssueTrackerContext.Authentication.Username, IssueTrackerContext.Authentication.Password);
             jira.MaxIssuesPerRequest = 500;
 
             Log.Debug("Retrieving statuses");
@@ -32,7 +32,7 @@
             var openedStatuses = GetOpenedStatuses(jira);
             var closedStatuses = GetClosedStatuses(jira);
 
-            filter = PrepareFilter(filter, openedStatuses, closedStatuses, includeOpen, includeClosed);
+            filter = PrepareFilter(filter, openedStatuses, closedStatuses, includeOpen, includeClosed, since);
 
             var issues = new List<Issue>();
 
@@ -72,7 +72,7 @@
         }
 
         private string PrepareFilter(string filter, IEnumerable<IssueStatus> openedStatuses, IEnumerable<IssueStatus> closedStatuses, 
-            bool includeOpen = true, bool includeClosed = true)
+            bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null)
         {
             if (string.IsNullOrWhiteSpace(filter))
             {
