@@ -46,23 +46,23 @@
 
             var readOnlyList = forRepository.Result.Where(i => i.ClosedAt > since);
 
-            var userCache = new Dictionary<string, User>();
-            Func<User, string> getUserName = u =>
-            {
-                var login = u.Login;
-                if (!userCache.ContainsKey(login))
-                {
-                    userCache.Add(login, string.IsNullOrEmpty(u.Name) ? gitHubClient.User.Get(login).Result : u);
-                }
+            //var userCache = new Dictionary<string, User>();
+            //Func<User, string> getUserName = u =>
+            //{
+            //    var login = u.Login;
+            //    if (!userCache.ContainsKey(login))
+            //    {
+            //        userCache.Add(login, string.IsNullOrEmpty(u.Name) ? gitHubClient.User.Get(login).Result : u);
+            //    }
 
-                var user = userCache[login];
-                if (user != null)
-                {
-                    return user.Name;
-                }
+            //    var user = userCache[login];
+            //    if (user != null)
+            //    {
+            //        return user.Name;
+            //    }
 
-                return null;
-            };
+            //    return null;
+            //};
 
             return readOnlyList.Select(i => new Issue("#" + i.Number.ToString(CultureInfo.InvariantCulture))
             {
