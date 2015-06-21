@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using Octokit;
 
     public interface IIssueTracker
     {
-        IEnumerable<Issue> GetIssues(string filter = null, bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null);
+        IEnumerable<Issue> GetIssues(IssueTrackerFilter filter);
     }
 }

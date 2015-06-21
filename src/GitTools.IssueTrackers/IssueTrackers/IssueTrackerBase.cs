@@ -12,6 +12,6 @@
 
         protected IIssueTrackerContext IssueTrackerContext { get; private set; }
 
-        public abstract IEnumerable<Issue> GetIssues(string filter = null, bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null);
+        public abstract IEnumerable<Issue> GetIssues(IssueTrackerFilter filter);
     }
 }

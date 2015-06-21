@@ -19,7 +19,7 @@
             
         }
 
-        public override IEnumerable<Issue> GetIssues(string filter = null, bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null)
+        public override IEnumerable<Issue> GetIssues(IssueTrackerFilter filter)
         {
             var gitHubClient = new GitHubClient(new ProductHeaderValue("GitReleaseNotes"));
 
@@ -41,10 +41,10 @@
             string repository;
             GetRepository(out organisation, out repository);
 
-            var repositoryIssueRequest = PrepareFilter(filter, includeOpen, includeClosed, since);
+            var repositoryIssueRequest = PrepareFilter(filter);
             var forRepository = gitHubClient.Issue.GetAllForRepository(organisation, repository, repositoryIssueRequest);
 
-            var readOnlyList = forRepository.Result.Where(i => i.ClosedAt > since);
+            var readOnlyList = forRepository.Result.Where(i => i.ClosedAt > filter.Since);
 
             //var userCache = new Dictionary<string, User>();
             //Func<User, string> getUserName = u =>
@@ -78,23 +78,23 @@
             });
         }
 
-        private RepositoryIssueRequest PrepareFilter(string filter, bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null)
+        private RepositoryIssueRequest PrepareFilter(IssueTrackerFilter filter)
         {
             var repositoryIssueRequest = new RepositoryIssueRequest
             {
                 Filter = IssueFilter.All,
-                Since = since,
+                Since = filter.Since,
             };
 
-            if (includeOpen && includeClosed)
+            if (filter.IncludeOpen && filter.IncludeClosed)
             {
                 repositoryIssueRequest.State = ItemState.All;
             }
-            else if (includeOpen)
+            else if (filter.IncludeOpen)
             {
                 repositoryIssueRequest.State = ItemState.Open;
             }
-            else if (includeClosed)
+            else if (filter.IncludeClosed)
             {
                 repositoryIssueRequest.State = ItemState.Closed;
             }

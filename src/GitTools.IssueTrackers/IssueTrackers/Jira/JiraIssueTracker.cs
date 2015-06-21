@@ -20,7 +20,7 @@
         {
         }
 
-        public override IEnumerable<Issue> GetIssues(string filter = null, bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null)
+        public override IEnumerable<Issue> GetIssues(IssueTrackerFilter filter)
         {
             Log.DebugFormat("Connecting to Jira server '{0}'", IssueTrackerContext.Server);
 
@@ -32,13 +32,13 @@
             var openedStatuses = GetOpenedStatuses(jira);
             var closedStatuses = GetClosedStatuses(jira);
 
-            filter = PrepareFilter(filter, openedStatuses, closedStatuses, includeOpen, includeClosed, since);
+            var finalFilter = PrepareFilter(filter, openedStatuses, closedStatuses);
 
             var issues = new List<Issue>();
 
             Log.DebugFormat("Searching for issues using filter '{0}'", filter);
 
-            foreach (var issue in jira.GetIssuesFromJql(filter))
+            foreach (var issue in jira.GetIssuesFromJql(finalFilter))
             {
                 var gitIssue = new Issue(issue.Key.Value)
                 {
@@ -71,39 +71,35 @@
             return issues;
         }
 
-        private string PrepareFilter(string filter, IEnumerable<IssueStatus> openedStatuses, IEnumerable<IssueStatus> closedStatuses, 
-            bool includeOpen = true, bool includeClosed = true, DateTimeOffset? since = null)
+        private string PrepareFilter(IssueTrackerFilter filter, IEnumerable<IssueStatus> openedStatuses, IEnumerable<IssueStatus> closedStatuses)
         {
-            if (string.IsNullOrWhiteSpace(filter))
+            var finalFilter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(filter.Filter))
             {
-                filter = "";
-            }
-            else
-            {
-                filter += " AND ";
+                finalFilter = filter.Filter + " AND ";
             }
 
-            if (includeOpen && includeClosed)
+            if (filter.IncludeOpen && filter.IncludeClosed)
             {
                 // no need to filter anything
             }
 
-            if (!includeOpen && !includeClosed)
+            if (!filter.IncludeOpen && !filter.IncludeClosed)
             {
                 throw new GitToolsException("Cannot exclude both open and closed issues, nothing will be returned");
             }
 
-            if (includeOpen)
+            if (filter.IncludeOpen)
             {
-                filter += string.Format("status in ({0})", string.Join(", ", openedStatuses.Select(x => string.Format("\"{0}\"", x))));
+                finalFilter += string.Format("status in ({0})", string.Join(", ", openedStatuses.Select(x => string.Format("\"{0}\"", x))));
             }
 
-            if (includeClosed)
+            if (filter.IncludeClosed)
             {
-                filter += string.Format("status in ({0})", string.Join(", ", closedStatuses.Select(x => string.Format("\"{0}\"", x))));
+                finalFilter += string.Format("status in ({0})", string.Join(", ", closedStatuses.Select(x => string.Format("\"{0}\"", x))));
             }
 
-            return filter;
+            return finalFilter;
         }
 
         private List<IssueStatus> GetOpenedStatuses(Jira jira)
