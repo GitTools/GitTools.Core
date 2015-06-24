@@ -1,3 +1,5 @@
+![Icon](https://raw.github.com/GitTools/GitTools.Core/master/GitTools_logo.png)
+
 GitTools.Core
 =============
 
@@ -7,3 +9,6 @@ GitTools.Core
 ![Pre-release version](https://img.shields.io/nuget/vpre/gittools.core.svg)
 
 Core library for all git tools
+
+## Icon
+[Network](https://thenounproject.com/term/network/60865/) by Lorena Salagre from the Noun Project
