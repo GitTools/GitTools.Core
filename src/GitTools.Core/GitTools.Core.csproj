@@ -108,10 +108,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
-    <Error Condition="!Exists('..\packages\Fody.1.29.0-beta01\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.1.29.0-beta01\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.1.29.2\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.2\build\dotnet\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets'))" />
   </Target>
-  <Import Project="..\packages\Fody.1.29.0-beta01\build\Fody.targets" Condition="Exists('..\packages\Fody.1.29.0-beta01\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
   <Import Project="..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets" Condition="Exists('..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

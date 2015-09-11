@@ -8,10 +8,8 @@
     <owners>GitTools Contributors</owners>
     <description>Core library for GitTools</description>
     <tags>git tools</tags>
-
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>Copyright GitTools 2015</copyright>
-
     <language>en-US</language>
     <projectUrl>https://github.com/GitTools/GitTools.Core</projectUrl>
     <licenseUrl>https://github.com/GitTools/GitTools.Core/blob/develop/LICENSE</licenseUrl>
