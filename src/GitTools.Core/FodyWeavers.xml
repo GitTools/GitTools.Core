@@ -7,5 +7,4 @@
   </Costura>
   <ModuleInit />
   <MethodTimer />
-  <JetBrainsAnnotations />
 </Weavers>

@@ -39,10 +39,6 @@
     <DocumentationFile>..\..\output\Release\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JetBrains.Annotations, Version=8.1.11.55, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrainsAnnotations.Fody.1.0.2\Lib\JetBrains.Annotations.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
@@ -71,6 +67,7 @@
     <Compile Include="Context\Extensions\IRepositoryContextExtensions.cs" />
     <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="Git\TaggedCommit.cs" />
+    <Compile Include="Properties\JetBrainsAnnotations.cs" />
     <Compile Include="Testing\TestValues.cs" />
     <Compile Include="Context\ContextBase.cs" />
     <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />
