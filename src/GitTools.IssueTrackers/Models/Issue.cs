@@ -10,6 +10,7 @@
             Id = id;
 
             FixVersions = new List<Version>();
+            Contributors = new List<Contributor>();
         }
 
         public string Id { get; private set; }
@@ -32,6 +33,6 @@
 
         //public Uri HtmlUrl { get; set; }
 
-        //public Contributor[] Contributors { get; set; }
+        public List<Contributor> Contributors { get; set; }
     }
 }

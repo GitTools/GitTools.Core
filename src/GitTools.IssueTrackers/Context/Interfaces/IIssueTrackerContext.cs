@@ -6,6 +6,8 @@
     {
         string Server { get; set; }
 
+        string DiffUrlFormat { get; set; }
+
         string ProjectId { get; set; }
 
         IAuthenticationContext Authentication { get; }

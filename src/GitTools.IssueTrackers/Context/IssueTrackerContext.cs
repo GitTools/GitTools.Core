@@ -9,6 +9,8 @@
 
         public string Server { get; set; }
 
+        public string DiffUrlFormat { get; set; }
+
         public string ProjectId { get; set; }
 
         public IAuthenticationContext Authentication { get; private set; }

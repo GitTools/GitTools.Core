@@ -14,6 +14,8 @@
     {
         private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
+        private readonly Dictionary<string, User> _userCache = new Dictionary<string, User>();
+
         public GitHubIssueTracker(IIssueTrackerContext issueTrackerContext)
             : base(issueTrackerContext)
         {
@@ -47,23 +49,22 @@
 
             var readOnlyList = forRepository.Where(i => i.ClosedAt > filter.Since);
 
-            //var userCache = new Dictionary<string, User>();
-            //Func<User, string> getUserName = u =>
-            //{
-            //    var login = u.Login;
-            //    if (!userCache.ContainsKey(login))
-            //    {
-            //        userCache.Add(login, string.IsNullOrEmpty(u.Name) ? gitHubClient.User.Get(login).Result : u);
-            //    }
+            Func<User, string> getUserName = u =>
+            {
+                var login = u.Login;
+                if (!_userCache.ContainsKey(login))
+                {
+                    _userCache.Add(login, string.IsNullOrEmpty(u.Name) ? gitHubClient.User.Get(login).Result : u);
+                }
 
-            //    var user = userCache[login];
-            //    if (user != null)
-            //    {
-            //        return user.Name;
-            //    }
+                var user = _userCache[login];
+                if (user != null)
+                {
+                    return user.Name;
+                }
 
-            //    return null;
-            //};
+                return null;
+            };
 
             return readOnlyList.Select(i => new Issue("#" + i.Number.ToString(CultureInfo.InvariantCulture))
             {
@@ -72,10 +73,10 @@
                 Title = i.Title,
                 IssueType = i.PullRequest == null ? IssueType.Issue : IssueType.PullRequest,
                 Labels = i.Labels.Select(l => l.Name).ToArray(),
-                //Contributors = i.PullRequest == null ? new GitReleaseNotes.Contributor[0] : new[]
-                //{
-                //    new GitReleaseNotes.Contributor(getUserName(i.User), i.User.Login, i.User.HtmlUrl)
-                //}
+                Contributors = i.PullRequest == null ? new List<GitTools.IssueTrackers.Contributor>() : new List<GitTools.IssueTrackers.Contributor>
+                {
+                    new GitTools.IssueTrackers.Contributor(getUserName(i.User), i.User.Login, i.User.HtmlUrl)
+                }
             });
         }
 
