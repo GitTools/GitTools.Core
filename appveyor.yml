@@ -19,7 +19,9 @@ build:
 
 after_build:
   - cmd: nuget pack src\GitTools.Core\GitTools.Core.nuspec -BasePath output\%CONFIGURATION%\GitTools.Core\ -version "%GitVersion_NuGetVersion%"
+  - cmd: nuget pack src\GitTools.IssueTrackers\GitTools.IssueTrackers.nuspec -BasePath output\%CONFIGURATION%\GitTools.IssueTrackers\ -version "%GitVersion_NuGetVersion%"
   - cmd: appveyor PushArtifact "GitTools.Core.%GitVersion_NuGetVersion%.nupkg"
+  - cmd: appveyor PushArtifact "GitTools.IssueTrackers.%GitVersion_NuGetVersion%.nupkg"
 
 cache:
   - src\packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified

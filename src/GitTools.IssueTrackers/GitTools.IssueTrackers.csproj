@@ -19,24 +19,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\NET45\GitTools.IssueTrackers\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET;NET45</DefineConstants>
+    <OutputPath>..\..\output\Debug\GitTools.IssueTrackers\net45\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591;1998</NoWarn>
-    <DocumentationFile>..\..\output\debug\NET45\GitTools.IssueTrackers\GitTools.IssueTrackers.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\Debug\GitTools.IssueTrackers\net45\GitTools.IssueTrackers.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\NET45\GitTools.IssueTrackers\</OutputPath>
-    <DefineConstants>TRACE;NET;NET45</DefineConstants>
+    <OutputPath>..\..\output\Release\GitTools.IssueTrackers\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591;1998</NoWarn>
-    <DocumentationFile>..\..\output\release\NET45\GitTools.IssueTrackers\GitTools.IssueTrackers.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\Release\GitTools.IssueTrackers\net45\GitTools.IssueTrackers.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
