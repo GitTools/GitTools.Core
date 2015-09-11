@@ -49,23 +49,6 @@
 
             var readOnlyList = forRepository.Where(i => i.ClosedAt > filter.Since);
 
-            Func<User, string> getUserName = u =>
-            {
-                var login = u.Login;
-                if (!_userCache.ContainsKey(login))
-                {
-                    _userCache.Add(login, string.IsNullOrEmpty(u.Name) ? gitHubClient.User.Get(login).Result : u);
-                }
-
-                var user = _userCache[login];
-                if (user != null)
-                {
-                    return user.Name;
-                }
-
-                return null;
-            };
-
             return readOnlyList.Select(i => new Issue("#" + i.Number.ToString(CultureInfo.InvariantCulture))
             {
                 DateClosed = i.ClosedAt,
@@ -73,11 +56,28 @@
                 Title = i.Title,
                 IssueType = i.PullRequest == null ? IssueType.Issue : IssueType.PullRequest,
                 Labels = i.Labels.Select(l => l.Name).ToArray(),
-                Contributors = i.PullRequest == null ? new List<GitTools.IssueTrackers.Contributor>() : new List<GitTools.IssueTrackers.Contributor>
+                Contributors = i.PullRequest == null ? new GitTools.IssueTrackers.Contributor[0] : new []
                 {
-                    new GitTools.IssueTrackers.Contributor(getUserName(i.User), i.User.Login, i.User.HtmlUrl)
+                    new GitTools.IssueTrackers.Contributor(GetUserName(gitHubClient, i.User), i.User.Login, i.User.HtmlUrl)
                 }
             });
+        }
+
+        private string GetUserName(GitHubClient client, User u)
+        {
+            var login = u.Login;
+            if (!_userCache.ContainsKey(login))
+            {
+                _userCache.Add(login, string.IsNullOrEmpty(u.Name) ? client.User.Get(login).Result : u);
+            }
+
+            var user = _userCache[login];
+            if (user != null)
+            {
+                return user.Name;
+            }
+
+            return null;
         }
 
         private RepositoryIssueRequest PrepareFilter(IssueTrackerFilter filter)
