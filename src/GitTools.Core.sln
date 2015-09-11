@@ -1,32 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core", "GitTools.Core\GitTools.Core.csproj", "{C11252F9-0ECA-44DC-860B-E029C04FBD10}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{17E77AE6-5E23-4898-BCAB-7AF62BB0DFBA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1E56230A-4CDE-4142-A7F0-BE0625746DA0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{377F4B45-0F5E-4F78-8A7B-27725DC79197}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
 	ProjectSection(SolutionItems) = preProject
 		GitTools.Core.sln.DotSettings = GitTools.Core.sln.DotSettings
-		nuget.config = nuget.config
 		Settings.StyleCop = Settings.StyleCop
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{532E0393-2C1F-4F04-A6A7-F194A578DAEB}"
-	ProjectSection(SolutionItems) = preProject
-		..\lib\repositories.config = ..\lib\repositories.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.Tests", "GitTools.Core.Tests\GitTools.Core.Tests.csproj", "{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core.IssueTrackers", "Core.IssueTrackers", "{5E7A6723-E488-4CFF-B838-B5ABA6B38479}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.IssueTrackers", "GitTools.IssueTrackers\GitTools.IssueTrackers.csproj", "{AC5F41EA-962E-491B-8557-A2A10DC757E4}"
 EndProject
@@ -51,13 +37,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C11252F9-0ECA-44DC-860B-E029C04FBD10} = {1E56230A-4CDE-4142-A7F0-BE0625746DA0}
-		{1E56230A-4CDE-4142-A7F0-BE0625746DA0} = {17E77AE6-5E23-4898-BCAB-7AF62BB0DFBA}
-		{377F4B45-0F5E-4F78-8A7B-27725DC79197} = {17E77AE6-5E23-4898-BCAB-7AF62BB0DFBA}
-		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B} = {377F4B45-0F5E-4F78-8A7B-27725DC79197}
-		{5E7A6723-E488-4CFF-B838-B5ABA6B38479} = {17E77AE6-5E23-4898-BCAB-7AF62BB0DFBA}
-		{AC5F41EA-962E-491B-8557-A2A10DC757E4} = {5E7A6723-E488-4CFF-B838-B5ABA6B38479}
 	EndGlobalSection
 EndGlobal
