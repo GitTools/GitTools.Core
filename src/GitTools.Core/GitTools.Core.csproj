@@ -19,24 +19,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\NET45\GitTools.Core\</OutputPath>
+    <OutputPath>..\..\output\Debug\GitTools.Core\net45\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\output\debug\NET45\GitTools.Core\GitTools.Core.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\Debug\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591;1998</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\NET45\GitTools.Core\</OutputPath>
+    <OutputPath>..\..\output\Release\GitTools.Core\net45\</OutputPath>
     <DefineConstants>TRACE;NET;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591;1998</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>..\..\output\release\NET45\GitTools.Core\GitTools.Core.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\Release\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=8.1.11.55, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">

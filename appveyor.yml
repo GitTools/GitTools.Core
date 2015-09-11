@@ -1,0 +1,25 @@
+                          install:
+  - choco install gitversion.portable -pre -y
+  
+platform:
+  - Mixed Platforms
+
+configuration:
+  - Debug
+
+assembly_info:
+  patch: false
+
+before_build:
+  - nuget restore src\
+  - ps: gitversion /l console /output buildserver /updateAssemblyInfo src\SolutionAssemblyInfo.cs
+
+build:
+  project: src\GitTools.Core.sln
+
+after_build:
+  - cmd: nuget pack src\GitTools.Core\GitTools.Core.nuspec -BasePath output\%CONFIGURATION%\GitTools.Core\ -version "%GitVersion_NuGetVersion%"
+  - cmd: appveyor PushArtifact "GitTools.Core.%GitVersion_NuGetVersion%.nupkg"
+
+cache:
+  - src\packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified

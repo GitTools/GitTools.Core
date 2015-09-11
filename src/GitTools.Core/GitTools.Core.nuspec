@@ -14,11 +14,14 @@
 
     <language>en-US</language>
     <projectUrl>https://github.com/GitTools/GitTools.Core</projectUrl>
-    <!--<licenseUrl>http://catel.codeplex.com/license</licenseUrl>-->
-    <!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
-
+    <licenseUrl>https://github.com/GitTools/GitTools.Core/blob/develop/LICENSE</licenseUrl>
+    <iconUrl>https://raw.github.com/GitTools/GitTools.Core/develop/GitTools_logo.png</iconUrl>
     <dependencies>
-      <dependency id="LibGit2Sharp" version="[replaced]" />
+      <dependency id="LibGit2Sharp" version="0.21.0.176" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="net45\GitTools.Core.dll" target="lib\net45\" />
+    <file src="net45\GitTools.Core.xml" target="lib\net45\" />
+  </files>
 </package>
