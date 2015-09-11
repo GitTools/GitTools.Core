@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public abstract class IssueTrackerBase : IIssueTracker
     {
@@ -12,6 +13,6 @@
 
         protected IIssueTrackerContext IssueTrackerContext { get; private set; }
 
-        public abstract IEnumerable<Issue> GetIssues(IssueTrackerFilter filter);
+        public abstract Task<IEnumerable<Issue>> GetIssuesAsync(IssueTrackerFilter filter);
     }
 }

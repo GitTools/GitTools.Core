@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Atlassian.Jira;
     using Logging;
     using Issue = IssueTrackers.Issue;
@@ -20,7 +21,7 @@
         {
         }
 
-        public override IEnumerable<Issue> GetIssues(IssueTrackerFilter filter)
+        public override async Task<IEnumerable<Issue>> GetIssuesAsync(IssueTrackerFilter filter)
         {
             Log.DebugFormat("Connecting to Jira server '{0}'", IssueTrackerContext.Server);
 

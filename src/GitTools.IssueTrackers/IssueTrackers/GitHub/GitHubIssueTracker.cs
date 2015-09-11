@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
     using Logging;
     using Octokit;
     using Issue = IssueTrackers.Issue;
@@ -19,7 +20,7 @@
             
         }
 
-        public override IEnumerable<Issue> GetIssues(IssueTrackerFilter filter)
+        public override async Task<IEnumerable<Issue>> GetIssuesAsync(IssueTrackerFilter filter)
         {
             var gitHubClient = new GitHubClient(new ProductHeaderValue("GitReleaseNotes"));
 
@@ -42,9 +43,9 @@
             GetRepository(out organisation, out repository);
 
             var repositoryIssueRequest = PrepareFilter(filter);
-            var forRepository = gitHubClient.Issue.GetAllForRepository(organisation, repository, repositoryIssueRequest);
+            var forRepository = await gitHubClient.Issue.GetAllForRepository(organisation, repository, repositoryIssueRequest);
 
-            var readOnlyList = forRepository.Result.Where(i => i.ClosedAt > filter.Since);
+            var readOnlyList = forRepository.Where(i => i.ClosedAt > filter.Since);
 
             //var userCache = new Dictionary<string, User>();
             //Func<User, string> getUserName = u =>

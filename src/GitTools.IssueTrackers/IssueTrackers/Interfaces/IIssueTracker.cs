@@ -1,11 +1,10 @@
 ﻿namespace GitTools.IssueTrackers
 {
-    using System;
     using System.Collections.Generic;
-    using Octokit;
+    using System.Threading.Tasks;
 
     public interface IIssueTracker
     {
-        IEnumerable<Issue> GetIssues(IssueTrackerFilter filter);
+        Task<IEnumerable<Issue>> GetIssuesAsync(IssueTrackerFilter filter);
     }
 }

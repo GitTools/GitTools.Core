@@ -1,6 +1,8 @@
 ﻿namespace GitTools.IssueTrackers
 {
+    using GitHub;
     using Jira;
+    using Octokit;
 
     public class IssueTrackerFactory : IIssueTrackerFactory
     {
@@ -11,17 +13,8 @@
                 //case IssueTracker.BitBucket:
                 //    break;
 
-                //case IssueTracker.GitHub:
-                //    return new GitHubIssueTracker(repository, () =>
-                //    {
-                //        var gitHubClient = new GitHubClient(new ProductHeaderValue("GitReleaseNotes"));
-                //        if (context.IssueTracker.Token != null)
-                //        {
-                //            gitHubClient.Credentials = new Octokit.Credentials(context.IssueTracker.Token);
-                //        }
-
-                //        return gitHubClient;
-                //    }, context);
+                case IssueTracker.GitHub:
+                    return new GitHubIssueTracker(context);
 
                 case IssueTracker.Jira:
                     return new JiraIssueTracker(context);

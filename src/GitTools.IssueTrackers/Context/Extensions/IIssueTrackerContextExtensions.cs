@@ -26,19 +26,24 @@
 
         public static IssueTracker? GetIssueTracker(this IIssueTrackerContext context)
         {
-            return IssueTracker.Jira;
+            var server = string.IsNullOrWhiteSpace(context.Server) ? string.Empty : context.Server.ToLower();
 
             // TODO: implement more detections
 
-            //if (context.IssueTracker is BitBucketContext)
-            //{
-            //    return IssueTracker.BitBucket;
-            //}
+            if (server.Contains("bitbucket"))
+            {
+                return IssueTracker.BitBucket;
+            }
 
-            //if (context.IssueTracker is GitHubContext)
-            //{
-            //    return IssueTracker.GitHub;
-            //}
+            if (server.Contains("github"))
+            {
+                return IssueTracker.GitHub;
+            }
+
+            if (server.Contains("atlassian"))
+            {
+                return IssueTracker.Jira;
+            }
 
             //if (context.IssueTracker is JiraContext)
             //{
@@ -51,6 +56,8 @@
             //}
 
             //return null;
+
+            return IssueTracker.Jira;
         }
     }
 }
