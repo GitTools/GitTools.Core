@@ -18,7 +18,7 @@
       <dependency id="GitTools.Core" version="$version$" />
       <dependency id="Atlassian.SDK" version="2.5.0" />
       <dependency id="LibGit2Sharp" version="0.21.0.176" />
-      <dependency id="Octokit" version="0.12.0" />
+      <dependency id="Octokit" version="0.15.0" />
     </dependencies>
   </metadata>
   <files>
