@@ -40,15 +40,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=8.1.11.55, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\JetBrainsAnnotations.Fody.1.0.2\Lib\JetBrains.Annotations.dll</HintPath>
+      <HintPath>..\packages\JetBrainsAnnotations.Fody.1.0.2\Lib\JetBrains.Annotations.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
+      <HintPath>..\packages\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MethodTimer">
-      <HintPath>..\..\lib\MethodTimer.Fody.1.15.3.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\MethodTimer.dll</HintPath>
+      <HintPath>..\packages\MethodTimer.Fody.1.15.3.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\MethodTimer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -99,15 +99,16 @@
     <Compile Include="Testing\Fixtures\RepositoryFixtureBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\NativeBinaries\amd64\git2-e0902fb.dll">
+    <EmbeddedResource Include="..\packages\LibGit2Sharp.0.21.0.176\lib\net40\NativeBinaries\amd64\git2-e0902fb.dll">
       <Link>costura64\git2-e0902fb.dll</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\NativeBinaries\x86\git2-e0902fb.dll">
+    <EmbeddedResource Include="..\packages\LibGit2Sharp.0.21.0.176\lib\net40\NativeBinaries\x86\git2-e0902fb.dll">
       <Link>costura32\git2-e0902fb.dll</Link>
     </EmbeddedResource>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GitTools.Core.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -116,10 +117,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
-    <Error Condition="!Exists('..\..\lib\Fody.1.29.0-beta01\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.1.29.0-beta01\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.1.29.0-beta01\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.1.29.0-beta01\build\Fody.targets'))" />
   </Target>
-  <Import Project="..\..\lib\Fody.1.29.0-beta01\build\Fody.targets" Condition="Exists('..\..\lib\Fody.1.29.0-beta01\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.1.29.0-beta01\build\Fody.targets" Condition="Exists('..\packages\Fody.1.29.0-beta01\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

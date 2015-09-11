@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>GitTools.Core</id>
+    <version>$version$</version>
+    <title>GitTools.Core</title>
+    <authors>GitTools Contributors</authors>
+    <owners>GitTools Contributors</owners>
+    <description>Core library for GitTools</description>
+    <tags>git tools</tags>
+
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright GitTools 2015</copyright>
+
+    <language>en-US</language>
+    <projectUrl>https://github.com/GitTools/GitTools.Core</projectUrl>
+    <!--<licenseUrl>http://catel.codeplex.com/license</licenseUrl>-->
+    <!--<iconUrl>http://www.catenalogic.com/catel.png</iconUrl>-->
+
+    <dependencies>
+      <dependency id="LibGit2Sharp" version="[replaced]" />
+    </dependencies>
+  </metadata>
+</package>
