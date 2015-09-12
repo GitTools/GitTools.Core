@@ -11,12 +11,13 @@ using System.Resources;
 ////[assembly: AssemblyDescription("DEFINED IN ACTUAL ASSEMBLYINFO")]
 
 [assembly: AssemblyCompany("GitTools")]
-[assembly: AssemblyProduct("GitTools")]
-[assembly: AssemblyCopyright("Copyright © GitTools 2014 - 2015")]
+[assembly: AssemblyProduct("GitTools.Core")]
+[assembly: AssemblyCopyright("Copyright © GitTools 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en-US")]
 
-[assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0, manually released in Visual Studio")]
+[assembly: AssemblyVersion("0.0.0")]
+[assembly: AssemblyFileVersion("0.0.0")]
+[assembly: AssemblyInformationalVersion("0.0.0")]
 [assembly: CLSCompliant(false)]
