@@ -19,45 +19,42 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\NET45\GitTools.IssueTrackers\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET;NET45</DefineConstants>
+    <OutputPath>..\..\output\Debug\GitTools.IssueTrackers\net45\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591;1998</NoWarn>
-    <DocumentationFile>..\..\output\debug\NET45\GitTools.IssueTrackers\GitTools.IssueTrackers.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\Debug\GitTools.IssueTrackers\net45\GitTools.IssueTrackers.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\NET45\GitTools.IssueTrackers\</OutputPath>
-    <DefineConstants>TRACE;NET;NET45</DefineConstants>
+    <OutputPath>..\..\output\Release\GitTools.IssueTrackers\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>1591;1998</NoWarn>
-    <DocumentationFile>..\..\output\release\NET45\GitTools.IssueTrackers\GitTools.IssueTrackers.XML</DocumentationFile>
+    <DocumentationFile>..\..\output\Release\GitTools.IssueTrackers\net45\GitTools.IssueTrackers.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Atlassian.Jira, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Atlassian.SDK.2.5.0\lib\Atlassian.Jira.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Annotations">
-      <HintPath>..\..\lib\JetBrainsAnnotations.Fody.1.0.2\Lib\JetBrains.Annotations.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Atlassian.SDK.2.5.0\lib\Atlassian.Jira.dll</HintPath>
     </Reference>
     <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
+      <HintPath>..\packages\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MethodTimer">
-      <HintPath>..\..\lib\MethodTimer.Fody.1.15.3.0\Lib\portable-net4+sl5+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\MethodTimer.dll</HintPath>
+    <Reference Include="MethodTimer, Version=1.15.7.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\MethodTimer.Fody.1.15.7.0\lib\dotnet\MethodTimer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit">
-      <HintPath>..\..\lib\Octokit.0.12.0\lib\net45\Octokit.dll</HintPath>
+    <Reference Include="Octokit, Version=0.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.15.0\lib\net45\Octokit.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -88,33 +85,36 @@
     <Compile Include="IssueTrackers\Interfaces\IIssueTrackerFactory.cs" />
     <Compile Include="Models\IssueTrackerFilter.cs" />
     <Compile Include="Models\Version.cs" />
-    <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GitTools.Core\GitTools.Core.csproj">
-      <Project>{c11252f9-0eca-44dc-860b-e029c04fbd10}</Project>
-      <Name>GitTools.Core</Name>
-    </ProjectReference>
+    <Compile Include="Properties\JetBrainsAnnotations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GitTools.IssueTrackers.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GitTools.Core\GitTools.Core.NET40\GitTools.Core.NET40.csproj">
+      <Project>{C11252F9-0ECA-44DC-860B-E029C04FBD10}</Project>
+      <Name>GitTools.Core.NET40</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
-    <Error Condition="!Exists('..\..\lib\Fody.1.29.0-beta01\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\Fody.1.29.0-beta01\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\lib\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.3\build\dotnet\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets'))" />
   </Target>
-  <Import Project="..\..\lib\Fody.1.29.0-beta01\build\Fody.targets" Condition="Exists('..\..\lib\Fody.1.29.0-beta01\build\Fody.targets')" />
+  <Import Project="..\packages\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" />
+  <Import Project="..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets" Condition="Exists('..\packages\MethodTimer.Fody.1.15.7.0\build\dotnet\MethodTimer.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

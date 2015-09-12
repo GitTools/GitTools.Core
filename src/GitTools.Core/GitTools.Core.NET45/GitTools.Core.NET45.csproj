@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props" Condition="Exists('..\..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GitTools</RootNamespace>
+    <AssemblyName>GitTools.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\output\Debug\GitTools.Core\net45\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\output\Debug\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591;1998</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\output\Release\GitTools.Core\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591;1998</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>..\..\..\output\Release\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LibGit2Sharp, Version=0.21.0.176, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LibGit2Sharp.0.21.0.176\lib\net40\LibGit2Sharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MethodTimer, Version=1.15.7.0, Culture=neutral, PublicKeyToken=cb1364609f40a1dc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MethodTimer.Fody.1.15.7.0\lib\dotnet\MethodTimer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\SolutionAssemblyInfo.cs">
+      <Link>Properties\SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Constants.cs">
+      <Link>Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\AuthenticationContext.cs">
+      <Link>Context\AuthenticationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\ContextBase.cs">
+      <Link>Context\ContextBase.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\Extensions\IAuthenticationContextExtensions.cs">
+      <Link>Context\Extensions\IAuthenticationContextExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\Extensions\IRepositoryContextExtensions.cs">
+      <Link>Context\Extensions\IRepositoryContextExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\Interfaces\IAuthenticationContext.cs">
+      <Link>Context\Interfaces\IAuthenticationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\Interfaces\IContext.cs">
+      <Link>Context\Interfaces\IContext.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\Interfaces\IRepositoryContext.cs">
+      <Link>Context\Interfaces\IRepositoryContext.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Context\RepositoryContext.cs">
+      <Link>Context\RepositoryContext.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Disposable.cs">
+      <Link>Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Exceptions\GitToolsException.cs">
+      <Link>Exceptions\GitToolsException.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Extensions\IntExtensions.cs">
+      <Link>Extensions\IntExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Extensions\LibGitExtensions.cs">
+      <Link>Extensions\LibGitExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Extensions\StringBuilderExtensions.cs">
+      <Link>Extensions\StringBuilderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Extensions\StringExtensions.cs">
+      <Link>Extensions\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Git\Extensions\IRepositoryExtensions.cs">
+      <Link>Git\Extensions\IRepositoryExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Git\GitDirFinder.cs">
+      <Link>Git\GitDirFinder.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Git\GitPreparer.cs">
+      <Link>Git\GitPreparer.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Git\Interfaces\IRepositoryPreparer.cs">
+      <Link>Git\Interfaces\IRepositoryPreparer.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Git\RepositoryLoader.cs">
+      <Link>Git\RepositoryLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Git\TaggedCommit.cs">
+      <Link>Git\TaggedCommit.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Helpers\DeleteHelper.cs">
+      <Link>Helpers\DeleteHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Helpers\GitHelper.cs">
+      <Link>Helpers\GitHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Helpers\ProcessHelper.cs">
+      <Link>Helpers\ProcessHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\IO\TemporaryFilesContext.cs">
+      <Link>IO\TemporaryFilesContext.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Logging\Extensions\LogExtensions.cs">
+      <Link>Logging\Extensions\LogExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Testing\Extensions\GitTestExtensions.cs">
+      <Link>Testing\Extensions\GitTestExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Testing\Fixtures\EmptyRepositoryFixture.cs">
+      <Link>Testing\Fixtures\EmptyRepositoryFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Testing\Fixtures\RemoteRepositoryFixture.cs">
+      <Link>Testing\Fixtures\RemoteRepositoryFixture.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Testing\Fixtures\RepositoryFixtureBase.cs">
+      <Link>Testing\Fixtures\RepositoryFixtureBase.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Testing\TestValues.cs">
+      <Link>Testing\TestValues.cs</Link>
+    </Compile>
+    <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
+    <Compile Include="Properties\JetBrainsAnnotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.3\build\dotnet\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\LibGit2Sharp.0.21.0.176\build\net40\LibGit2Sharp.props'))" />
+  </Target>
+  <Import Project="..\..\packages\Fody.1.29.3\build\dotnet\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.3\build\dotnet\Fody.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

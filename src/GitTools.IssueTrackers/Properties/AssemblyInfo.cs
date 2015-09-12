@@ -11,7 +11,6 @@ using System.Runtime.InteropServices;
 // All other assembly info is defined in SharedAssembly.cs
 
 [assembly: AssemblyTitle("GitTools.IssueTrackers")]
-[assembly: AssemblyProduct("GitTools.IssueTrackers")]
 [assembly: AssemblyDescription("GitTools.IssueTrackers library")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
