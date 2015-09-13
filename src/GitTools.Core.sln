@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
 	ProjectSection(SolutionItems) = preProject
 		..\appveyor.yml = ..\appveyor.yml
 		GitTools.Core.sln.DotSettings = GitTools.Core.sln.DotSettings
+		..\GitVersionConfig.yaml = ..\GitVersionConfig.yaml
+		..\README.md = ..\README.md
 		Settings.StyleCop = Settings.StyleCop
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.Tests", "GitTools.Core.Tests\GitTools.Core.Tests.csproj", "{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.IssueTrackers", "GitTools.IssueTrackers\GitTools.IssueTrackers.csproj", "{AC5F41EA-962E-491B-8557-A2A10DC757E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.NET40", "GitTools.Core\GitTools.Core.NET40\GitTools.Core.NET40.csproj", "{C11252F9-0ECA-44DC-860B-E029C04FBD10}"
 EndProject
@@ -34,10 +34,6 @@ Global
 		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC5F41EA-962E-491B-8557-A2A10DC757E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC5F41EA-962E-491B-8557-A2A10DC757E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC5F41EA-962E-491B-8557-A2A10DC757E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC5F41EA-962E-491B-8557-A2A10DC757E4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
