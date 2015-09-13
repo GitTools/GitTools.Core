@@ -78,10 +78,6 @@
       <Project>{C11252F9-0ECA-44DC-860B-E029C04FBD10}</Project>
       <Name>GitTools.Core.NET40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GitTools.IssueTrackers\GitTools.IssueTrackers.csproj">
-      <Project>{ac5f41ea-962e-491b-8557-a2a10dc757e4}</Project>
-      <Name>GitTools.IssueTrackers</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
