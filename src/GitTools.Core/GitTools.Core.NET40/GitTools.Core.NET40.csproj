@@ -11,6 +11,7 @@
     <RootNamespace>GitTools</RootNamespace>
     <AssemblyName>GitTools.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <LangVersion>5</LangVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -24,7 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\..\output\Debug\GitTools.Core\net4\GitTools.Core.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>1591;1998</NoWarn>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>1591;1998</NoWarn>
+    <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\..\output\Release\GitTools.Core\net4\GitTools.Core.xml</DocumentationFile>
   </PropertyGroup>
@@ -67,7 +68,6 @@
     <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="Git\TaggedCommit.cs" />
     <Compile Include="Properties\JetBrainsAnnotations.cs" />
-    <Compile Include="Testing\TestValues.cs" />
     <Compile Include="Context\ContextBase.cs" />
     <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />
     <Compile Include="Context\Interfaces\IContext.cs" />
@@ -88,10 +88,6 @@
     <Compile Include="IO\TemporaryFilesContext.cs" />
     <Compile Include="Logging\Extensions\LogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Testing\Extensions\GitTestExtensions.cs" />
-    <Compile Include="Testing\Fixtures\EmptyRepositoryFixture.cs" />
-    <Compile Include="Testing\Fixtures\RemoteRepositoryFixture.cs" />
-    <Compile Include="Testing\Fixtures\RepositoryFixtureBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

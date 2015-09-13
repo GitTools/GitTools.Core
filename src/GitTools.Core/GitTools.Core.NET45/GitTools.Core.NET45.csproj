@@ -12,6 +12,7 @@
     <AssemblyName>GitTools.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>5</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\..\output\Debug\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>1591;1998</NoWarn>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>1591;1998</NoWarn>
+    <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DocumentationFile>..\..\..\output\Release\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
   </PropertyGroup>
@@ -134,21 +135,6 @@
     </Compile>
     <Compile Include="..\GitTools.Core.NET40\Logging\Extensions\LogExtensions.cs">
       <Link>Logging\Extensions\LogExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Testing\Extensions\GitTestExtensions.cs">
-      <Link>Testing\Extensions\GitTestExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Testing\Fixtures\EmptyRepositoryFixture.cs">
-      <Link>Testing\Fixtures\EmptyRepositoryFixture.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Testing\Fixtures\RemoteRepositoryFixture.cs">
-      <Link>Testing\Fixtures\RemoteRepositoryFixture.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Testing\Fixtures\RepositoryFixtureBase.cs">
-      <Link>Testing\Fixtures\RepositoryFixtureBase.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Testing\TestValues.cs">
-      <Link>Testing\TestValues.cs</Link>
     </Compile>
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="Properties\JetBrainsAnnotations.cs" />

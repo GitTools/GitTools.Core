@@ -3,10 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
 	ProjectSection(SolutionItems) = preProject
 		..\appveyor.yml = ..\appveyor.yml
 		GitTools.Core.sln.DotSettings = GitTools.Core.sln.DotSettings
+		..\GitVersionConfig.yaml = ..\GitVersionConfig.yaml
+		..\README.md = ..\README.md
 		Settings.StyleCop = Settings.StyleCop
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
 	EndProjectSection
