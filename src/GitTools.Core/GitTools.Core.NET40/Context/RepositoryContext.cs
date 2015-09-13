@@ -22,7 +22,7 @@
                 }
 
                 _directory = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Directory");
             }
         }
 
@@ -37,7 +37,7 @@
                 }
 
                 _branch = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Branch");
             }
         }
 
@@ -52,7 +52,7 @@
                 }
 
                 _url = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Url");
             }
         }
 

@@ -85,9 +85,6 @@
     <Compile Include="..\GitTools.Core.NET40\Context\RepositoryContext.cs">
       <Link>Context\RepositoryContext.cs</Link>
     </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Disposable.cs">
-      <Link>Disposable.cs</Link>
-    </Compile>
     <Compile Include="..\GitTools.Core.NET40\Exceptions\GitToolsException.cs">
       <Link>Exceptions\GitToolsException.cs</Link>
     </Compile>
@@ -135,6 +132,12 @@
     </Compile>
     <Compile Include="..\GitTools.Core.NET40\Logging\Extensions\LogExtensions.cs">
       <Link>Logging\Extensions\LogExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Models\Disposable.cs">
+      <Link>Models\Disposable.cs</Link>
+    </Compile>
+    <Compile Include="..\GitTools.Core.NET40\Models\DisposableWithChangeNotifications.cs">
+      <Link>Models\DisposableWithChangeNotifications.cs</Link>
     </Compile>
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="Properties\JetBrainsAnnotations.cs" />
