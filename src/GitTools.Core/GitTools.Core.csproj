@@ -66,11 +66,12 @@
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Context\AuthenticationContext.cs" />
-    <Compile Include="Disposable.cs" />
+    <Compile Include="Models\Disposable.cs" />
     <Compile Include="Context\Extensions\IAuthenticationContextExtensions.cs" />
     <Compile Include="Context\Extensions\IRepositoryContextExtensions.cs" />
     <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="Git\TaggedCommit.cs" />
+    <Compile Include="Models\DisposableWithChangeNotifications.cs" />
     <Compile Include="Testing\TestValues.cs" />
     <Compile Include="Context\ContextBase.cs" />
     <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />

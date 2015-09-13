@@ -47,5 +47,11 @@
 
             return new TaggedCommit(branch.Commits.Last(), "Initial Commit");
         }
+
+        public static string GetRemoteUrl(this IRepository repository)
+        {
+            var branch = repository.Head;
+            return branch.Remote.Url;
+        }
     }
 }

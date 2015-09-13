@@ -18,6 +18,15 @@
 
         public string Prepare(IRepositoryContext context, TemporaryFilesContext temporaryFilesContext)
         {
+            if (!string.IsNullOrEmpty(context.Directory))
+            {
+                var existingGitDirectory = GitDirFinder.TreeWalkForGitDir(context.Directory);
+                if (!string.IsNullOrEmpty(existingGitDirectory))
+                {
+                    return existingGitDirectory;
+                }
+            }
+
             var gitDirectory = temporaryFilesContext.GetDirectory("git");
 
             // TODO: convert to io service to abstract away IO
