@@ -60,31 +60,14 @@
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Context\AuthenticationContext.cs" />
-    <Compile Include="Disposable.cs" />
-    <Compile Include="Context\Extensions\IAuthenticationContextExtensions.cs" />
-    <Compile Include="Context\Extensions\IRepositoryContextExtensions.cs" />
+    <Compile Include="Git\AuthenticationInfo.cs" />
     <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />
+    <Compile Include="Git\GitRepository.cs" />
     <Compile Include="Git\TaggedCommit.cs" />
     <Compile Include="Properties\JetBrainsAnnotations.cs" />
-    <Compile Include="Context\ContextBase.cs" />
-    <Compile Include="Context\Interfaces\IAuthenticationContext.cs" />
-    <Compile Include="Context\Interfaces\IContext.cs" />
-    <Compile Include="Context\Interfaces\IRepositoryContext.cs" />
-    <Compile Include="Context\RepositoryContext.cs" />
     <Compile Include="Exceptions\GitToolsException.cs" />
-    <Compile Include="Extensions\IntExtensions.cs" />
-    <Compile Include="Extensions\LibGitExtensions.cs" />
-    <Compile Include="Extensions\StringBuilderExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Git\GitDirFinder.cs" />
-    <Compile Include="Git\GitPreparer.cs" />
-    <Compile Include="Git\Interfaces\IRepositoryPreparer.cs" />
+    <Compile Include="Git\LibGitExtensions.cs" />
     <Compile Include="Git\RepositoryLoader.cs" />
-    <Compile Include="Helpers\DeleteHelper.cs" />
-    <Compile Include="Helpers\GitHelper.cs" />
-    <Compile Include="Helpers\ProcessHelper.cs" />
     <Compile Include="IO\TemporaryFilesContext.cs" />
     <Compile Include="Logging\Extensions\LogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
