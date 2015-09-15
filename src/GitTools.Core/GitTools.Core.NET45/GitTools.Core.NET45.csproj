@@ -58,77 +58,23 @@
     <Compile Include="..\..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Constants.cs">
-      <Link>Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\AuthenticationContext.cs">
-      <Link>Context\AuthenticationContext.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\ContextBase.cs">
-      <Link>Context\ContextBase.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\Extensions\IAuthenticationContextExtensions.cs">
-      <Link>Context\Extensions\IAuthenticationContextExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\Extensions\IRepositoryContextExtensions.cs">
-      <Link>Context\Extensions\IRepositoryContextExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\Interfaces\IAuthenticationContext.cs">
-      <Link>Context\Interfaces\IAuthenticationContext.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\Interfaces\IContext.cs">
-      <Link>Context\Interfaces\IContext.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\Interfaces\IRepositoryContext.cs">
-      <Link>Context\Interfaces\IRepositoryContext.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Context\RepositoryContext.cs">
-      <Link>Context\RepositoryContext.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Disposable.cs">
-      <Link>Disposable.cs</Link>
-    </Compile>
     <Compile Include="..\GitTools.Core.NET40\Exceptions\GitToolsException.cs">
       <Link>Exceptions\GitToolsException.cs</Link>
     </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Extensions\IntExtensions.cs">
-      <Link>Extensions\IntExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Extensions\LibGitExtensions.cs">
-      <Link>Extensions\LibGitExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Extensions\StringBuilderExtensions.cs">
-      <Link>Extensions\StringBuilderExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Extensions\StringExtensions.cs">
-      <Link>Extensions\StringExtensions.cs</Link>
+    <Compile Include="..\GitTools.Core.NET40\Git\AuthenticationInfo.cs">
+      <Link>Git\AuthenticationInfo.cs</Link>
     </Compile>
     <Compile Include="..\GitTools.Core.NET40\Git\Extensions\IRepositoryExtensions.cs">
       <Link>Git\Extensions\IRepositoryExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Git\GitDirFinder.cs">
-      <Link>Git\GitDirFinder.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Git\GitPreparer.cs">
-      <Link>Git\GitPreparer.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Git\Interfaces\IRepositoryPreparer.cs">
-      <Link>Git\Interfaces\IRepositoryPreparer.cs</Link>
+    <Compile Include="..\GitTools.Core.NET40\Git\GitRepository.cs">
+      <Link>Git\GitRepository.cs</Link>
     </Compile>
     <Compile Include="..\GitTools.Core.NET40\Git\RepositoryLoader.cs">
       <Link>Git\RepositoryLoader.cs</Link>
     </Compile>
     <Compile Include="..\GitTools.Core.NET40\Git\TaggedCommit.cs">
       <Link>Git\TaggedCommit.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Helpers\DeleteHelper.cs">
-      <Link>Helpers\DeleteHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Helpers\GitHelper.cs">
-      <Link>Helpers\GitHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\GitTools.Core.NET40\Helpers\ProcessHelper.cs">
-      <Link>Helpers\ProcessHelper.cs</Link>
     </Compile>
     <Compile Include="..\GitTools.Core.NET40\IO\TemporaryFilesContext.cs">
       <Link>IO\TemporaryFilesContext.cs</Link>

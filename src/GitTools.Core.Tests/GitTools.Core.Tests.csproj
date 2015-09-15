@@ -64,11 +64,6 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ArgumentParserFacts.cs" />
-    <Compile Include="ContextFacts.cs" />
-    <Compile Include="Context\Context.cs" />
-    <Compile Include="Context\Extensions\IAuthenticationContextExtensionsFacts.cs" />
-    <Compile Include="Extensions\StringExtensionsFacts.cs" />
     <Compile Include="GlobalInitialization.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
