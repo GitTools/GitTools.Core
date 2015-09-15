@@ -1,1 +1,4 @@
-assembly-versioning-scheme: MajorMinorPatch 
+assembly-versioning-scheme: MajorMinorPatch
+branches:
+  master:
+    tag: beta
