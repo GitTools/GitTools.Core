@@ -35,7 +35,7 @@
         {
             var branch = repository.Head;
             var tags = repository.Tags
-                              .Select(t => new TaggedCommit((Commit) t.Target, t.Name))
+                              .Select(t => new TaggedCommit((Commit) t.Target, t.FriendlyName))
                               .Where(filterTags)
                               .ToArray();
             var olderThan = branch.Tip.Author.When;

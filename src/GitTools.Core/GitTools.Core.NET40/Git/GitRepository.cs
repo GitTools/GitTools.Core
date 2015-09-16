@@ -73,7 +73,7 @@
                     const string moveBranchMsg = "Move one of the branches along a commit to remove warning";
 
                     Log.Warn(string.Format("Found more than one local branch pointing at the commit '{0}' ({1}).", headSha, csvNames));
-                    var master = localBranchesWhereCommitShaIsHead.SingleOrDefault(n => n.Name == "master");
+                    var master = localBranchesWhereCommitShaIsHead.SingleOrDefault(n => n.FriendlyName == "master");
                     if (master != null)
                     {
                         Log.Warn("Because one of the branches is 'master', will build master." + moveBranchMsg);
@@ -81,7 +81,7 @@
                     }
                     else
                     {
-                        var branchesWithoutSeparators = localBranchesWhereCommitShaIsHead.Where(b => !b.Name.Contains('/') && !b.Name.Contains('-')).ToList();
+                        var branchesWithoutSeparators = localBranchesWhereCommitShaIsHead.Where(b => !b.FriendlyName.Contains('/') && !b.FriendlyName.Contains('-')).ToList();
                         if (branchesWithoutSeparators.Count == 1)
                         {
                             var branchWithoutSeparator = branchesWithoutSeparators[0];
@@ -101,8 +101,8 @@
                 }
                 else
                 {
-                    Log.Info(string.Format("Checking out local branch 'refs/heads/{0}'.", localBranchesWhereCommitShaIsHead[0].Name));
-                    repo.Checkout(repo.Branches[localBranchesWhereCommitShaIsHead[0].Name]);
+                    Log.Info(string.Format("Checking out local branch 'refs/heads/{0}'.", localBranchesWhereCommitShaIsHead[0].FriendlyName));
+                    repo.Checkout(repo.Branches[localBranchesWhereCommitShaIsHead[0].FriendlyName]);
                 }
             }
         }
