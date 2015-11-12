@@ -61,17 +61,7 @@
     <Compile Include="..\..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
-    <Compile Include="Git\AuthenticationInfo.cs" />
-    <Compile Include="Git\Extensions\IRepositoryExtensions.cs" />
-    <Compile Include="Git\GitRepository.cs" />
-    <Compile Include="Git\TaggedCommit.cs" />
     <Compile Include="Properties\JetBrainsAnnotations.cs" />
-    <Compile Include="Exceptions\GitToolsException.cs" />
-    <Compile Include="Git\LibGitExtensions.cs" />
-    <Compile Include="Git\RepositoryLoader.cs" />
-    <Compile Include="IO\TemporaryFilesContext.cs" />
-    <Compile Include="Logging\Extensions\LogExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +73,7 @@
     </None>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\..\GitTools.Core.Shared\GitTools.Core.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
