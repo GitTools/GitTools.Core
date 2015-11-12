@@ -1,6 +1,7 @@
 ﻿namespace GitTools.Tests
 {
     using Git;
+    using GitTools.Git;
     using LibGit2Sharp;
     using NUnit.Framework;
     using Shouldly;
