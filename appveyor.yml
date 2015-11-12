@@ -1,5 +1,6 @@
 install:
   - choco install gitversion.portable -pre -y
+  - cinst gitlink -pre -y
 
 platform:
   - Any CPU
@@ -18,6 +19,7 @@ build:
   project: src\GitTools.Core.sln
 
 after_build:
+  - cmd: gitlink . -u https://github.com/gittools/gittools.core -b %APPVEYOR_REPO_BRANCH% -s %APPVEYOR_REPO_COMMIT% -f src\GitTools.Core.sln
   - cmd: nuget pack src\GitTools.Core\GitTools.Core.nuspec -BasePath output\%CONFIGURATION%\GitTools.Core\ -version "%GitVersion_NuGetVersion%"
   - cmd: appveyor PushArtifact "GitTools.Core.%GitVersion_NuGetVersion%.nupkg"
 
