@@ -11,7 +11,7 @@
     using Testing;
 
     [TestFixture]
-    public class GitPreparerTests
+    public class GitRepositoryFactoryTests
     {
         const string DefaultBranchName = "master";
         const string SpecificBranchName = "feature/foo";
@@ -41,16 +41,20 @@
                     // Copy contents into working directory
                     File.Copy(Path.Combine(fixture.RepositoryPath, "TestFile.txt"), Path.Combine(tempDir, "TestFile.txt"));
 
-                    var gitPreparer = new GitPreparer(fixture.RepositoryPath, null, new AuthenticationInfo(), false, tempDir);
-                    gitPreparer.Initialise(false, branchName);
-                    dynamicRepositoryPath = gitPreparer.GetDotGitDirectory();
-
-                    gitPreparer.IsDynamicGitRepository.ShouldBe(true);
-                    gitPreparer.DynamicGitRepositoryPath.ShouldBe(expectedDynamicRepoLocation + "\\.git");
-
-                    using (var repository = new Repository(dynamicRepositoryPath))
+                    var repositoryInfo = new RepositoryInfo
                     {
-                        var currentBranch = repository.Head.CanonicalName;
+                        Url = fixture.RepositoryPath,
+                        Branch = branchName
+                    };
+
+                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    {
+                        dynamicRepositoryPath = gitRepository.GetDotGitDirectory();
+
+                        gitRepository.IsDynamic.ShouldBe(true);
+                        gitRepository.GetDotGitDirectory().ShouldBe(expectedDynamicRepoLocation + "\\.git");
+
+                        var currentBranch = gitRepository.Repository.Head.CanonicalName;
 
                         currentBranch.ShouldEndWith(expectedBranchName);
                     }
@@ -59,8 +63,11 @@
             finally
             {
                 Directory.Delete(tempDir, true);
+
                 if (dynamicRepositoryPath != null)
+                {
                     DeleteHelper.DeleteGitRepository(dynamicRepositoryPath);
+                }
             }
         }
 
@@ -79,26 +86,35 @@
                 {
                     mainRepositoryFixture.Repository.MakeCommits(1);
 
-                    var gitPreparer = new GitPreparer(mainRepositoryFixture.RepositoryPath, null, new AuthenticationInfo(), false, tempDir);
-                    gitPreparer.Initialise(false, "master");
-                    dynamicRepositoryPath = gitPreparer.GetDotGitDirectory();
+                    var repositoryInfo = new RepositoryInfo
+                    {
+                        Url = mainRepositoryFixture.RepositoryPath,
+                        Branch = "master"
+                    };
+
+                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    {
+                        dynamicRepositoryPath = gitRepository.GetDotGitDirectory();
+                    }
 
                     var newCommit = mainRepositoryFixture.Repository.MakeACommit();
-                    gitPreparer.Initialise(false, "master");
 
-                    using (var repository = new Repository(dynamicRepositoryPath))
+                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
                     {
                         mainRepositoryFixture.Repository.DumpGraph();
-                        repository.DumpGraph();
-                        repository.Commits.ShouldContain(c => c.Sha == newCommit.Sha);
+                        gitRepository.Repository.DumpGraph();
+                        gitRepository.Repository.Commits.ShouldContain(c => c.Sha == newCommit.Sha);
                     }
                 }
             }
             finally
             {
                 Directory.Delete(tempDir, true);
+
                 if (dynamicRepositoryPath != null)
+                {
                     DeleteHelper.DeleteGitRepository(dynamicRepositoryPath);
+                }
             }
         }
 
@@ -120,32 +136,32 @@
                     expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split('\\').Last());
                     Directory.CreateDirectory(expectedDynamicRepoLocation);
 
-                    var gitPreparer = new GitPreparer(fixture.RepositoryPath, null, new AuthenticationInfo(), false, tempDir);
-                    gitPreparer.Initialise(false, "master");
+                    var repositoryInfo = new RepositoryInfo
+                    {
+                        Url = fixture.RepositoryPath,
+                        Branch = "master"
+                    };
 
-                    gitPreparer.IsDynamicGitRepository.ShouldBe(true);
-                    gitPreparer.DynamicGitRepositoryPath.ShouldBe(expectedDynamicRepoLocation + "_1\\.git");
+                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    {
+                        gitRepository.IsDynamic.ShouldBe(true);
+                        gitRepository.GetDotGitDirectory().ShouldBe(expectedDynamicRepoLocation + "_1\\.git");
+                    }
                 }
             }
             finally
             {
                 Directory.Delete(tempDir, true);
                 if (expectedDynamicRepoLocation != null)
+                {
                     Directory.Delete(expectedDynamicRepoLocation, true);
+                }
+
                 if (expectedDynamicRepoLocation != null)
+                {
                     DeleteHelper.DeleteGitRepository(expectedDynamicRepoLocation + "_1");
+                }
             }
-        }
-
-        [Test]
-        public void WorksCorrectlyWithLocalRepository()
-        {
-            var tempDir = Path.GetTempPath();
-            var gitPreparer = new GitPreparer(null, null, null, false, tempDir);
-            var dynamicRepositoryPath = gitPreparer.GetDotGitDirectory();
-
-            dynamicRepositoryPath.ShouldBe(null);
-            gitPreparer.IsDynamicGitRepository.ShouldBe(false);
         }
 
         [Test]
@@ -162,12 +178,21 @@
                 {
                     mainRepositoryFixture.Repository.MakeACommit();
 
-                    var gitPreparer = new GitPreparer(mainRepositoryFixture.RepositoryPath, null, new AuthenticationInfo(), false, tempDir);
-                    gitPreparer.Initialise(true, "feature1");
+                    var repositoryInfo = new RepositoryInfo
+                    {
+                        Url = mainRepositoryFixture.RepositoryPath,
+                        Branch = "feature1"
+                    };
 
                     mainRepositoryFixture.Repository.Checkout(mainRepositoryFixture.Repository.CreateBranch("feature1"));
 
-                    Should.NotThrow(() => gitPreparer.Initialise(true, "feature1"));
+                    Should.NotThrow(() =>
+                    {
+                        using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                        {
+                            // this code shouldn't throw
+                        }
+                    });
                 }
             }
             finally
@@ -190,9 +215,19 @@
                 {
                     mainRepositoryFixture.Repository.MakeACommit();
 
-                    var gitPreparer = new GitPreparer(mainRepositoryFixture.RepositoryPath, null, new AuthenticationInfo(), false, tempDir);
+                    var repositoryInfo = new RepositoryInfo
+                    {
+                        Url = mainRepositoryFixture.RepositoryPath,
+                        Branch = null
+                    };
 
-                    Should.Throw<Exception>(() => gitPreparer.Initialise(true, null));
+                    Should.Throw<Exception>(() =>
+                    {
+                        using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                        {
+                            // this code shouldn't throw
+                        }
+                    });
                 }
             }
             finally
@@ -211,9 +246,19 @@
 
             try
             {
-                var gitPreparer = new GitPreparer("http://127.0.0.1/testrepo.git", null, new AuthenticationInfo(), false, tempDir);
+                var repositoryInfo = new RepositoryInfo
+                {
+                    Url = "http://127.0.0.1/testrepo.git",
+                    Branch = "master"
+                };
 
-                Should.Throw<Exception>(() => gitPreparer.Initialise(true, "master"));
+                Should.Throw<Exception>(() =>
+                {
+                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    {
+                        // this code shouldn't throw
+                    }
+                });
             }
             finally
             {

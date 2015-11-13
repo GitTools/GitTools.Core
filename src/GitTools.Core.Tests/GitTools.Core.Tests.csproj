@@ -79,7 +79,7 @@
     <Compile Include="Git\Extensions\AuthenticationInfoExtensionsTests.cs" />
     <Compile Include="Git\GitDirFinderTests.cs" />
     <Compile Include="Git\GitHelperTests.cs" />
-    <Compile Include="Git\GitPreparerTests.cs" />
+    <Compile Include="Git\GitRepositoryFactoryTests.cs" />
     <Compile Include="GlobalInitialization.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

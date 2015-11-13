@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App_Packages\LibLog.4.2\LibLog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Diposable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\GitToolsException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\WarningException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
@@ -18,9 +19,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\LibGitExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\GitDirFinder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Git\GitPreparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepositoryFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\GitHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\GitRepositoryHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\TaggedCommit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProcessHelper.cs" />
