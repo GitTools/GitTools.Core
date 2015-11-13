@@ -49,10 +49,10 @@
 
                     using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
                     {
-                        dynamicRepositoryPath = gitRepository.GetDotGitDirectory();
+                        dynamicRepositoryPath = gitRepository.DotGitDirectory;
 
                         gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.GetDotGitDirectory().ShouldBe(expectedDynamicRepoLocation + "\\.git");
+                        gitRepository.DotGitDirectory.ShouldBe(expectedDynamicRepoLocation + "\\.git");
 
                         var currentBranch = gitRepository.Repository.Head.CanonicalName;
 
@@ -94,7 +94,7 @@
 
                     using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
                     {
-                        dynamicRepositoryPath = gitRepository.GetDotGitDirectory();
+                        dynamicRepositoryPath = gitRepository.DotGitDirectory;
                     }
 
                     var newCommit = mainRepositoryFixture.Repository.MakeACommit();
@@ -145,7 +145,7 @@
                     using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
                     {
                         gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.GetDotGitDirectory().ShouldBe(expectedDynamicRepoLocation + "_1\\.git");
+                        gitRepository.DotGitDirectory.ShouldBe(expectedDynamicRepoLocation + "_1\\.git");
                     }
                 }
             }
@@ -162,6 +162,20 @@
                     DeleteHelper.DeleteGitRepository(expectedDynamicRepoLocation + "_1");
                 }
             }
+        }
+
+        [Test]
+        public void ThrowsExceptionWhenNotEnoughInfo()
+        {
+            var tempDir = Path.GetTempPath();
+
+            var repositoryInfo = new RepositoryInfo
+            {
+                Url = tempDir,
+                Branch = "master"
+            };
+
+            Should.Throw<Exception>(() => GitRepositoryFactory.CreateRepository(repositoryInfo));
         }
 
         [Test]

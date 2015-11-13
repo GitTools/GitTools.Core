@@ -26,15 +26,26 @@
             // TODO: find a better way to check for existing repositories
             if (!string.IsNullOrWhiteSpace(repositoryInfo.Directory))
             {
-                repositoryDirectory = repositoryInfo.Directory;
+                var expectedDirectory = Path.Combine(repositoryInfo.Directory, ".git");
+                if (Directory.Exists(expectedDirectory))
+                {
+                    repositoryDirectory = expectedDirectory;
+                }
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(repositoryDirectory))
             {
                 isDynamicRepository = true;
 
                 var tempRepositoryPath = CalculateTemporaryRepositoryPath(repositoryInfo.Url, repositoryDirectory);
                 repositoryDirectory = CreateDynamicRepository(tempRepositoryPath, repositoryInfo.Authentication,
                     repositoryInfo.Url, repositoryInfo.Branch, noFetch);
+            }
+
+            if (string.IsNullOrWhiteSpace(repositoryDirectory))
+            {
+                Log.Warn("Could not create a repository, not enough information was specified");
+                return null;
             }
 
             // TODO: Should we do something with fetch for existing repositoriess?

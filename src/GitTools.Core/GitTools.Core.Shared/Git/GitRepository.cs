@@ -9,25 +9,18 @@
         {
             Repository = repository;
             IsDynamic = isDynamic;
+
+            ProjectRootDirectory = repository.Info.WorkingDirectory;
+            DotGitDirectory = Path.Combine(ProjectRootDirectory, ".git");
         }
 
         public IRepository Repository { get; private set; }
 
         public bool IsDynamic { get; private set; }
 
-        // TODO: Consider using properties
-        public string GetDotGitDirectory()
-        {
-            var rootDirectory = GetProjectRootDirectory();
-            var directory = Path.Combine(rootDirectory, ".git");
-            return directory;
-        }
+        public string DotGitDirectory { get; private set; }
 
-        // TODO: Consider using properties
-        public string GetProjectRootDirectory()
-        {
-            return Repository.Info.WorkingDirectory;
-        }
+        public string ProjectRootDirectory { get; private set; }
 
         protected override void DisposeManaged()
         {
