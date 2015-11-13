@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\GitToolsException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\WarningException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\AuthenticationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\AuthenticationInfoExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\IRepositoryExtensions.cs" />
@@ -22,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\GitHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\TaggedCommit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ProcessHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\FileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Helpers\DeleteHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\Interfaces\IFileSystem.cs" />
