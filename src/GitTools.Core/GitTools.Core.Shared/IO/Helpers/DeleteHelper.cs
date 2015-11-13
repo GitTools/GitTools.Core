@@ -1,4 +1,4 @@
-﻿namespace GitVersion.IO
+﻿namespace GitTools.IO
 {
     using System.IO;
 
