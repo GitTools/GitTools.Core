@@ -18,6 +18,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\TaggedCommit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\FileSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Helpers\DeleteHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IO\Interfaces\IFileSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IO\TemporaryFilesContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logging\Extensions\LogExtensions.cs" />
   </ItemGroup>
