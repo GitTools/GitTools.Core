@@ -20,8 +20,10 @@
   </metadata>
   <files>
     <file src="net4\GitTools.Core.dll" target="lib\net4\" />
+	<file src="net4\GitTools.Core.pdb" target="lib\net4\" />
     <file src="net4\GitTools.Core.xml" target="lib\net4\" />
     <file src="net45\GitTools.Core.dll" target="lib\net45\" />
-    <file src="net45\GitTools.Core.xml" target="lib\net45\" />
+    <file src="net45\GitTools.Core.pdb" target="lib\net45\" />
+	<file src="net45\GitTools.Core.xml" target="lib\net45\" />
   </files>
 </package>
