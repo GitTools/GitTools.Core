@@ -25,21 +25,19 @@
         ///   </example>
         /// <exception cref="ArgumentNullException">The <paramref name="log"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">The <typeparamref name="TException"/> does not have a constructor accepting a string.</exception>
-        public static void ErrorAndThrowException<TException>(this ILog log, string messageFormat, params object[] args)
+        public static TException ErrorAndCreateException<TException>(this ILog log, string messageFormat, params object[] args)
             where TException : Exception
         {
-            if (log == null)
-            {
-                return;
-            }
-
             var message = messageFormat ?? string.Empty;
             if (args != null && args.Length > 0)
             {
                 message = string.Format(message, args);
             }
 
-            log.Error(message);
+            if (log != null)
+            {
+                log.Error(message);
+            }
 
             Exception exception;
 
@@ -54,11 +52,16 @@
 #endif
             {
                 var error = string.Format("Exception type '{0}' does not have a constructor accepting a string", typeof(TException).Name);
-                log.Error(error);
+
+                if (log != null)
+                {
+                    log.Error(error);
+                }
+
                 throw new NotSupportedException(error);
             }
 
-            throw exception;
+            return (TException)exception;
         }
     }
 }

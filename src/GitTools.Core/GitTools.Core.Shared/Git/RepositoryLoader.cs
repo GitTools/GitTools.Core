@@ -17,7 +17,7 @@
                 var branch = repository.Head;
                 if (branch.Tip == null)
                 {
-                    Log.ErrorAndThrowException<GitToolsException>("No Tip found. Has repo been initialized?");
+                    throw Log.ErrorAndCreateException<GitToolsException>("No Tip found. Has repo been initialized?");
                 }
 
                 return repository;
@@ -26,7 +26,7 @@
             {
                 if (ex.Message.Contains("LibGit2Sharp.Core.NativeMethods") || ex.Message.Contains("FilePathMarshaler"))
                 {
-                    Log.ErrorAndThrowException<GitToolsException>("Restart of the process may be required to load an updated version of LibGit2Sharp.");
+                    throw Log.ErrorAndCreateException<GitToolsException>("Restart of the process may be required to load an updated version of LibGit2Sharp.");
                 }
 
                 throw;

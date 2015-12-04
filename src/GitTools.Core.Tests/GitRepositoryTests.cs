@@ -22,7 +22,7 @@
                 using (var localFixture = fixture.CloneRepository())
                 {
                     localFixture.Checkout(commit.Sha);
-                    GitRepository.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: string.Empty);
+                    GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: string.Empty);
 
                     var normalisedPullBranch = localFixture.Repository.Branches["pull/3/merge"];
                     normalisedPullBranch.ShouldNotBe(null);
@@ -43,7 +43,7 @@
                 using (var localFixture = fixture.CloneRepository())
                 {
                     localFixture.Checkout(commit.Sha);
-                    GitRepository.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: true, currentBranch: "refs/pull/3/merge");
+                    GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: true, currentBranch: "refs/pull/3/merge");
 
                     var normalisedPullBranch = localFixture.Repository.Branches["pull/3/merge"];
                     normalisedPullBranch.ShouldNotBe(null);
@@ -65,7 +65,7 @@
                     localFixture.Checkout("feature/foo");
                     // Advance remote
                     var advancedCommit = fixture.Repository.MakeACommit();
-                    GitRepository.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: null);
+                    GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: null);
 
                     var normalisedBranch = localFixture.Repository.Branches["feature/foo"];
                     normalisedBranch.ShouldNotBe(null);
@@ -90,7 +90,7 @@
                     var advancedCommit = fixture.Repository.MakeACommit();
                     localFixture.Repository.Network.Fetch(localFixture.Repository.Network.Remotes["origin"]);
                     localFixture.Repository.Checkout(advancedCommit.Sha);
-                    GitRepository.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: "ref/heads/develop");
+                    GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: "ref/heads/develop");
 
                     var normalisedBranch = localFixture.Repository.Branches["develop"];
                     normalisedBranch.ShouldNotBe(null);
@@ -121,7 +121,7 @@
                     fixture.Checkout("feature/foo");
                     fixture.Repository.MakeACommit();
 
-                    GitRepository.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: null);
+                    GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: null);
                     
                     localFixture.Repository.Head.Tip.Sha.ShouldBe(lastCommitOnDevelop.Sha);
                 }
