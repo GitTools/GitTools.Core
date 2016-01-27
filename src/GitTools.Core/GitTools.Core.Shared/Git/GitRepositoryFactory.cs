@@ -112,7 +112,7 @@
             if (Directory.Exists(targetPath))
             {
                 Log.Info("Git repository already exists");
-                GitHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
+                GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
 
                 return gitDirectory;
             }
@@ -120,7 +120,7 @@
             CloneRepository(repositoryUrl, gitDirectory, authentication);
 
             // Normalize (download branches) before using the branch
-            GitHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
+            GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
 
             return gitDirectory;
         }

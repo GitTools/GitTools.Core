@@ -12,7 +12,7 @@
     /// </summary>
     public static class GitRepositoryHelper
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
         /// <summary>
         /// Normalisation of a git directory turns all remote branches into local branches, turns pull request refs into a real branch and a few other things. This is designed to be run *only on the build server* which checks out repositories in different ways.
