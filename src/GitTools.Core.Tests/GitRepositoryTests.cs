@@ -1,6 +1,5 @@
 ﻿namespace GitTools.Tests
 {
-    using Git;
     using GitTools.Git;
     using LibGit2Sharp;
     using NUnit.Framework;
@@ -26,6 +25,35 @@
 
                     var normalisedPullBranch = localFixture.Repository.Branches["pull/3/merge"];
                     normalisedPullBranch.ShouldNotBe(null);
+                }
+            }
+        }
+
+        [Test]
+        public void NormalisationOfTag()
+        {
+            using (var fixture = new EmptyRepositoryFixture())
+            {
+                fixture.Repository.MakeACommit();
+
+                fixture.Repository.Checkout(fixture.Repository.CreateBranch("feature/foo"));
+                fixture.Repository.MakeACommit();
+
+                fixture.BranchTo("release/2.0.0");
+                fixture.MakeACommit();
+                fixture.MakeATaggedCommit("2.0.0-rc.1");
+                fixture.Checkout("master");
+                fixture.MergeNoFF("release/2.0.0");
+                fixture.Repository.Branches.Remove(fixture.Repository.Branches["release/2.0.0"]);
+                var remoteTagSha = fixture.Repository.Tags["2.0.0-rc.1"].Target.Sha;
+
+                using (var localFixture = fixture.CloneRepository())
+                {
+                    localFixture.Checkout(remoteTagSha);
+                    GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: string.Empty);
+
+                    localFixture.Repository.Head.FriendlyName.ShouldBe("(no branch)");
+                    localFixture.Repository.Head.Tip.Sha.ShouldBe(remoteTagSha);
                 }
             }
         }
