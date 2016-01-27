@@ -8,7 +8,7 @@
 
     public static class GitRepositoryFactory
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
         /// <summary>
         /// Creates the repository based on the repository info. If the <see cref="RepositoryInfo.Directory"/> points 
@@ -49,7 +49,6 @@
             }
 
             // TODO: Should we do something with fetch for existing repositoriess?
-
             var repository = new Repository(repositoryDirectory);
             return new GitRepository(repository, isDynamicRepository);
         }
@@ -112,7 +111,7 @@
             if (Directory.Exists(targetPath))
             {
                 Log.Info("Git repository already exists");
-                GitHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
+                GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
 
                 return gitDirectory;
             }
@@ -120,7 +119,7 @@
             CloneRepository(repositoryUrl, gitDirectory, authentication);
 
             // Normalize (download branches) before using the branch
-            GitHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
+            GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
 
             return gitDirectory;
         }
