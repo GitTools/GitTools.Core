@@ -62,7 +62,7 @@
 
             foreach (var branch in branches.Where(b => (onlyTrackedBranches && !b.IsTracking)))
             {
-                var commits = repository.Commits.QueryBy(new CommitFilter { Since = branch }).Where(c => c.Sha == commit.Sha);
+                var commits = repository.Commits.QueryBy(new CommitFilter { IncludeReachableFrom = branch }).Where(c => c.Sha == commit.Sha);
 
                 if (!commits.Any())
                 {

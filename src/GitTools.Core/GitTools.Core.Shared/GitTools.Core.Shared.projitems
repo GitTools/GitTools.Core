@@ -9,7 +9,6 @@
     <Import_RootNamespace>GitTools</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)App_Packages\LibLog.4.2\LibLog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Diposable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\GitToolsException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\WarningException.cs" />

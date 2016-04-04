@@ -225,12 +225,12 @@
             {
                 Username = username,
                 Password = password
-            });
+            }).Select(r => r.ResolveToDirectReference());
         }
 
         static IEnumerable<DirectReference> GetRemoteTipsForAnonymousUser(Repository repo, Remote remote)
         {
-            return repo.Network.ListReferences(remote);
+            return repo.Network.ListReferences(remote).Select(r => r.ResolveToDirectReference());
         }
 
         static void CreateOrUpdateLocalBranchesFromRemoteTrackingOnes(Repository repo, string remoteName)
