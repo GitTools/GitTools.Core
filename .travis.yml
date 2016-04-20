@@ -1,8 +1,8 @@
 language: csharp
 solution: src/GitTools.Core.sln
-sudo: true
+sudo: false
 install:
-  - sudo nuget update -self
+  # - sudo nuget update -self
   - nuget restore src/GitTools.Core.sln
   - nuget install NUnit.Runners -Version 3.2.1 -OutputDirectory ./src/packages
 script:
