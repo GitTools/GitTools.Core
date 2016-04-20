@@ -52,7 +52,7 @@
                         dynamicRepositoryPath = gitRepository.DotGitDirectory;
 
                         gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.DotGitDirectory.ShouldBe(expectedDynamicRepoLocation + Path.DirectorySeparatorChar + ".git");
+                        gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git"));
 
                         var currentBranch = gitRepository.Repository.Head.CanonicalName;
 
@@ -145,7 +145,7 @@
                     using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
                     {
                         gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.DotGitDirectory.ShouldBe(expectedDynamicRepoLocation + "_1" + Path.DirectorySeparatorChar + ".git");
+                        gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git"));
                     }
                 }
             }
