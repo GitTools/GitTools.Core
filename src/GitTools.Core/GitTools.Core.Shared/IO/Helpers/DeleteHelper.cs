@@ -1,5 +1,6 @@
 ﻿namespace GitTools.IO
 {
+    using System;
     using System.IO;
 
     public static class DeleteHelper
@@ -27,11 +28,17 @@
                     catch (FileNotFoundException)
                     {
                     }
+                    catch (UnauthorizedAccessException)
+                    {
+                    }
                 }
 
                 Directory.Delete(directory, true);
             }
             catch (DirectoryNotFoundException)
+            {
+            }
+            catch (UnauthorizedAccessException)
             {
             }
         }
@@ -44,6 +51,9 @@
                 Directory.Delete(directory, recursive);
             }
             catch (DirectoryNotFoundException)
+            {
+            }
+            catch (UnauthorizedAccessException)
             {
             }
         }
