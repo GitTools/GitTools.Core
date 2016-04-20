@@ -99,12 +99,12 @@
         {
             var gitDirectory = repository.Info.Path;
 
-            gitDirectory = gitDirectory.TrimEnd('\\');
+            gitDirectory = gitDirectory.TrimEnd(Path.DirectorySeparatorChar);
 
             if (omitGitPostFix && gitDirectory.EndsWith(".git"))
             {
                 gitDirectory = gitDirectory.Substring(0, gitDirectory.Length - ".git".Length);
-                gitDirectory = gitDirectory.TrimEnd('\\');
+                gitDirectory = gitDirectory.TrimEnd(Path.DirectorySeparatorChar);
             }
 
             return gitDirectory;
