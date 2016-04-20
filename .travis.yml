@@ -7,4 +7,4 @@ install:
   - nuget install NUnit.Runners -Version 3.2.1 -OutputDirectory ./src/packages
 script:
   - xbuild ./src/GitTools.Core.sln /property:Configuration="Debug" /verbosity:detailed
-  - mono --debug --runtime=v4.0.30319 ./src/packages/NUnit.ConsoleRunner.3.2.1/tools/nunit3-console.exe ./src/GitTools.Core.Tests/bin/Debug/GitTools.Core.Tests.Tests.dll
+  - mono --debug --runtime=v4.0.30319 ./src/packages/NUnit.ConsoleRunner.3.2.1/tools/nunit3-console.exe ./output/debug/GitTools.Core.Tests/net45/GitTools.Core.Tests.dll
