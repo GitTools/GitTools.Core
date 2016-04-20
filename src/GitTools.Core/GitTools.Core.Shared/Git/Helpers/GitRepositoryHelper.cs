@@ -36,7 +36,7 @@
                     Log.Info(string.Format("Fetching from remote '{0}' using the following refspecs: {1}.",
                         remote.Name, string.Join(", ", remote.FetchRefSpecs.Select(r => r.Specification))));
                     var fetchOptions = BuildFetchOptions(authentication.Username, authentication.Password);
-                    repo.Network.Fetch(remote, fetchOptions);
+                    Commands.Fetch(repo, remote.Name, null, fetchOptions, null);
                 }
 
                 EnsureLocalBranchExistsForCurrentBranch(repo, currentBranch);
@@ -143,8 +143,8 @@
             var allBranchesFetchRefSpec = string.Format("+refs/heads/*:refs/remotes/{0}/*", remote.Name);
 
             Log.Info(string.Format("Adding refspec: {0}", allBranchesFetchRefSpec));
-
-            repo.Network.Remotes.Update(remote,
+            
+            repo.Network.Remotes.Update(remote.Name,
                 r => r.FetchRefSpecs.Add(allBranchesFetchRefSpec));
         }
 
