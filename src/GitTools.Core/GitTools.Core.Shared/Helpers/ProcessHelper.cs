@@ -132,14 +132,32 @@ namespace GitTools
 
         public struct ChangeErrorMode : IDisposable
         {
-            int oldMode;
+            readonly int oldMode;
 
             public ChangeErrorMode(ErrorModes mode)
             {
-                oldMode = SetErrorMode((int)mode);
+                try
+                {
+                    oldMode = SetErrorMode((int)mode);
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    oldMode = (int)mode;
+                }
             }
 
-            void IDisposable.Dispose() { SetErrorMode(oldMode); }
+
+            void IDisposable.Dispose()
+            {
+                try
+                {
+                    SetErrorMode(oldMode);
+                }
+                catch (EntryPointNotFoundException)
+                {
+                    // NOTE: Mono doesn't support DllImport("kernel32.dll") and its SetErrorMode method, obviously. @asbjornu
+                }
+            }
 
             [DllImport("kernel32.dll")]
             static extern int SetErrorMode(int newMode);
