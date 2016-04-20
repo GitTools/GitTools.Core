@@ -36,7 +36,7 @@
                     Log.Info(string.Format("Fetching from remote '{0}' using the following refspecs: {1}.",
                         remote.Name, string.Join(", ", remote.FetchRefSpecs.Select(r => r.Specification))));
                     var fetchOptions = BuildFetchOptions(authentication.Username, authentication.Password);
-                    Commands.Fetch(repo, remote.Name, null, fetchOptions, null);
+                    Commands.Fetch(repo, remote.Name, new string[0], fetchOptions, null);
                 }
 
                 EnsureLocalBranchExistsForCurrentBranch(repo, currentBranch);
