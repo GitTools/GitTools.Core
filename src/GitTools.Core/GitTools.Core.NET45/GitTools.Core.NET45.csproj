@@ -26,7 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\..\output\Debug\GitTools.Core\net45\GitTools.Core.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,414</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
