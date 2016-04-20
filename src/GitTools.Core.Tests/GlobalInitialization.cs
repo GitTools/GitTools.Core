@@ -3,7 +3,7 @@
 [SetUpFixture]
 public class GlobalInitialization
 {
-    [SetUp]
+    [OneTimeSetUp]
     public static void SetUp()
     {
 #if DEBUG
