@@ -151,10 +151,10 @@
             }
             finally
             {
-                Directory.Delete(tempDir, true);
+                DeleteHelper.DeleteDirectory(tempDir, true);
                 if (expectedDynamicRepoLocation != null)
                 {
-                    Directory.Delete(expectedDynamicRepoLocation, true);
+                    DeleteHelper.DeleteDirectory(expectedDynamicRepoLocation, true);
                 }
 
                 if (expectedDynamicRepoLocation != null)
