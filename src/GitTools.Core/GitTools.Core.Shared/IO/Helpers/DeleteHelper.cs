@@ -1,5 +1,6 @@
 ﻿namespace GitTools.IO
 {
+    using System;
     using System.IO;
 
     public static class DeleteHelper
@@ -11,17 +12,50 @@
                 return;
             }
 
-            foreach (var fileName in Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories))
+            try
             {
-                var fileInfo = new FileInfo(fileName)
+                foreach (var fileName in Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories))
                 {
-                    IsReadOnly = false
-                };
+                    var fileInfo = new FileInfo(fileName)
+                    {
+                        IsReadOnly = false
+                    };
 
-                fileInfo.Delete();
+                    try
+                    {
+                        fileInfo.Delete();
+                    }
+                    catch (FileNotFoundException)
+                    {
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                    }
+                }
+
+                Directory.Delete(directory, true);
             }
+            catch (DirectoryNotFoundException)
+            {
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+        }
 
-            Directory.Delete(directory, true);
+
+        public static void DeleteDirectory(string directory, bool recursive)
+        {
+            try
+            {
+                Directory.Delete(directory, recursive);
+            }
+            catch (DirectoryNotFoundException)
+            {
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
         }
     }
 }

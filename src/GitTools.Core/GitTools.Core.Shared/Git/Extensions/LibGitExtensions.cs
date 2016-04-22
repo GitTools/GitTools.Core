@@ -33,7 +33,7 @@
 
         static bool IsSameBranch(Branch branch, Branch b)
         {
-            return (b.IsRemote ? b.FriendlyName.Replace(b.Remote.Name + "/", string.Empty) : b.FriendlyName) != branch.FriendlyName;
+            return (b.IsRemote ? b.FriendlyName.Replace(b.RemoteName + "/", string.Empty) : b.FriendlyName) != branch.FriendlyName;
         }
 
         public static IEnumerable<Branch> GetBranchesContainingCommit([NotNull] this Commit commit, IRepository repository, IList<Branch> branches, bool onlyTrackedBranches)
@@ -99,12 +99,12 @@
         {
             var gitDirectory = repository.Info.Path;
 
-            gitDirectory = gitDirectory.TrimEnd('\\');
+            gitDirectory = gitDirectory.TrimEnd(Path.DirectorySeparatorChar);
 
             if (omitGitPostFix && gitDirectory.EndsWith(".git"))
             {
                 gitDirectory = gitDirectory.Substring(0, gitDirectory.Length - ".git".Length);
-                gitDirectory = gitDirectory.TrimEnd('\\');
+                gitDirectory = gitDirectory.TrimEnd(Path.DirectorySeparatorChar);
             }
 
             return gitDirectory;

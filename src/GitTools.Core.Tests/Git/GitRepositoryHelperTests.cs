@@ -87,7 +87,7 @@
                     // Advance remote
                     fixture.Repository.Checkout("develop");
                     var advancedCommit = fixture.Repository.MakeACommit();
-                    localFixture.Repository.Network.Fetch(localFixture.Repository.Network.Remotes["origin"]);
+                    Commands.Fetch((Repository)localFixture.Repository, localFixture.Repository.Network.Remotes["origin"].Name, new string[0], null, null);
                     localFixture.Repository.Checkout(advancedCommit.Sha);
                     localFixture.Repository.DumpGraph();
                     GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: "ref/heads/develop");

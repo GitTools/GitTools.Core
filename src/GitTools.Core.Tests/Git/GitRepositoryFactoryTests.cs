@@ -31,7 +31,7 @@
             {
                 using (var fixture = new EmptyRepositoryFixture())
                 {
-                    var expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split('\\').Last());
+                    var expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(Path.DirectorySeparatorChar).Last());
 
                     fixture.Repository.MakeCommits(5);
                     fixture.Repository.CreateFileAndCommit("TestFile.txt");
@@ -52,7 +52,7 @@
                         dynamicRepositoryPath = gitRepository.DotGitDirectory;
 
                         gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.DotGitDirectory.ShouldBe(expectedDynamicRepoLocation + "\\.git");
+                        gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git"));
 
                         var currentBranch = gitRepository.Repository.Head.CanonicalName;
 
@@ -133,7 +133,7 @@
                 {
                     fixture.Repository.CreateFileAndCommit("TestFile.txt");
                     File.Copy(Path.Combine(fixture.RepositoryPath, "TestFile.txt"), Path.Combine(tempDir, "TestFile.txt"));
-                    expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split('\\').Last());
+                    expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(Path.DirectorySeparatorChar).Last());
                     Directory.CreateDirectory(expectedDynamicRepoLocation);
 
                     var repositoryInfo = new RepositoryInfo
@@ -145,16 +145,16 @@
                     using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
                     {
                         gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.DotGitDirectory.ShouldBe(expectedDynamicRepoLocation + "_1\\.git");
+                        gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git"));
                     }
                 }
             }
             finally
             {
-                Directory.Delete(tempDir, true);
+                DeleteHelper.DeleteDirectory(tempDir, true);
                 if (expectedDynamicRepoLocation != null)
                 {
-                    Directory.Delete(expectedDynamicRepoLocation, true);
+                    DeleteHelper.DeleteDirectory(expectedDynamicRepoLocation, true);
                 }
 
                 if (expectedDynamicRepoLocation != null)
