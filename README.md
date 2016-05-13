@@ -1,4 +1,4 @@
-![Icon](https://raw.github.com/GitTools/GitTools.Core/develop/GitTools_logo.png)
+![Icon](https://raw.github.com/GitTools/GitTools.Core/master/GitTools_logo.png)
 
 GitTools.Core
 =============
@@ -8,9 +8,9 @@ GitTools.Core contains the building blocks and common functionality which is nee
 These core libraries may prove useful if you are a library or application with interacts with git
 
 ![License](https://img.shields.io/github/license/gittools/gittools.core.svg)
-![NuGet downloads](https://img.shields.io/nuget/dt/gittools.core.svg)
-![Version](https://img.shields.io/nuget/v/gittools.core.svg)
+[![Stable version](https://img.shields.io/nuget/v/GitTools.Core.svg?maxAge=2592000)](NuGet downloads)
 ![Pre-release version](https://img.shields.io/nuget/vpre/gittools.core.svg)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtc2o9tql0qqcc9w?svg=true)](https://ci.appveyor.com/project/GitTools/gittools-core)
 [![Build Status](https://travis-ci.org/GitTools/GitTools.Core.svg?branch=master)](https://travis-ci.org/GitTools/GitTools.Core)
 
 ## Features
