@@ -11,6 +11,7 @@ These core libraries may prove useful if you are a library or application with i
 [![NuGet](https://img.shields.io/nuget/v/GitTools.Core.svg?maxAge=2592000)](NuGet downloads)
 ![Version](https://img.shields.io/nuget/v/gittools.core.svg)
 ![Pre-release version](https://img.shields.io/nuget/vpre/gittools.core.svg)
+[![Build status](https://ci.appveyor.com/api/projects/status/jtc2o9tql0qqcc9w?svg=true)](https://ci.appveyor.com/project/GitTools/gittools-core)
 [![Build Status](https://travis-ci.org/GitTools/GitTools.Core.svg?branch=master)](https://travis-ci.org/GitTools/GitTools.Core)
 
 ## Features
