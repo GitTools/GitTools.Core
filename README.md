@@ -11,6 +11,7 @@ These core libraries may prove useful if you are a library or application with i
 ![NuGet downloads](https://img.shields.io/nuget/dt/gittools.core.svg)
 ![Version](https://img.shields.io/nuget/v/gittools.core.svg)
 ![Pre-release version](https://img.shields.io/nuget/vpre/gittools.core.svg)
+[![Build Status](https://travis-ci.org/GitTools/GitTools.Core.svg?branch=master)](https://travis-ci.org/GitTools/GitTools.Core)
 
 ## Features
  - Repository normalisation

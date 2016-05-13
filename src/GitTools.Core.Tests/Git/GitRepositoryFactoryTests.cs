@@ -19,6 +19,7 @@
         [Test]
         [TestCase(DefaultBranchName, DefaultBranchName)]
         [TestCase(SpecificBranchName, SpecificBranchName)]
+        [Category("NoMono")]
         public void WorksCorrectlyWithRemoteRepository(string branchName, string expectedBranchName)
         {
             var repoName = Guid.NewGuid().ToString();
@@ -119,6 +120,7 @@
         }
 
         [Test]
+        [Category("NoMono")]
         public void PicksAnotherDirectoryNameWhenDynamicRepoFolderTaken()
         {
             var repoName = Guid.NewGuid().ToString();
