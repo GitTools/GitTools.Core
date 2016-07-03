@@ -4,7 +4,7 @@
 
     public static class AuthenticationInfoExtensions
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetLogger(typeof(AuthenticationInfoExtensions));
 
         public static bool IsEmpty(this AuthenticationInfo authenticationInfo)
         {

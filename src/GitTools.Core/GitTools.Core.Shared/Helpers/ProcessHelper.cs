@@ -19,8 +19,10 @@ namespace GitTools
 
             lock (lockObject)
             {
+#if !NETSTANDARD
                 using (new ChangeErrorMode(ErrorModes.FailCriticalErrors | ErrorModes.NoGpFaultErrorBox))
                 {
+#endif
                     try
                     {
                         process = Process.Start(startInfo);
@@ -39,7 +41,9 @@ namespace GitTools
 
                         throw;
                     }
+#if !NETSTANDARD
                 }
+#endif
             }
 
             return process;
@@ -53,7 +57,7 @@ namespace GitTools
             if (output == null)
                 throw new ArgumentNullException("output");
 
-            workingDirectory = workingDirectory ?? Environment.CurrentDirectory;
+            workingDirectory = workingDirectory ?? Directory.GetCurrentDirectory();
 
             var psi = new ProcessStartInfo
             {
@@ -61,15 +65,29 @@ namespace GitTools
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true,
+#if !NETSTANDARD
                 WindowStyle = ProcessWindowStyle.Hidden,
-                CreateNoWindow = true,
                 ErrorDialog = false,
+#endif
+                CreateNoWindow = true,
                 WorkingDirectory = workingDirectory,
                 FileName = exe,
                 Arguments = args
             };
             foreach (var environmentalVariable in environmentalVariables)
             {
+#if NETSTANDARD
+                if (psi.Environment.ContainsKey(environmentalVariable.Key))
+                {
+                    psi.Environment[environmentalVariable.Key] = environmentalVariable.Value;
+                }
+                else
+                {
+                    psi.Environment.Add(environmentalVariable.Key, environmentalVariable.Value);
+                }
+                if (psi.Environment.ContainsKey(environmentalVariable.Key) && environmentalVariable.Value == null)
+                    psi.Environment.Remove(environmentalVariable.Key);
+#else
                 if (psi.EnvironmentVariables.ContainsKey(environmentalVariable.Key))
                 {
                     psi.EnvironmentVariables[environmentalVariable.Key] = environmentalVariable.Value;
@@ -80,6 +98,7 @@ namespace GitTools
                 }
                 if (psi.EnvironmentVariables.ContainsKey(environmentalVariable.Key) && environmentalVariable.Value == null)
                     psi.EnvironmentVariables.Remove(environmentalVariable.Key);
+#endif
             }
 
             using (var process = Start(psi))
@@ -110,7 +129,7 @@ namespace GitTools
                 while (input != null && null != (line = input.ReadLine()))
                     process.StandardInput.WriteLine(line);
 
-                process.StandardInput.Close();
+                process.StandardInput.Dispose();
                 process.WaitForExit();
 
                 mreOut.WaitOne();
@@ -130,6 +149,7 @@ namespace GitTools
             NoOpenFileErrorBox = 0x8000
         }
 
+#if !NETSTANDARD
         public struct ChangeErrorMode : IDisposable
         {
             readonly int oldMode;
@@ -162,5 +182,6 @@ namespace GitTools
             [DllImport("kernel32.dll")]
             static extern int SetErrorMode(int newMode);
         }
+#endif
     }
 }

@@ -8,7 +8,7 @@
 
     public static class GitRepositoryFactory
     {
-        static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetLogger(typeof(GitRepositoryFactory));
 
         /// <summary>
         /// Creates the repository based on the repository info. If the <see cref="RepositoryInfo.Directory"/> points 

@@ -13,7 +13,7 @@
 
     public static class LibGitExtensions
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetLogger(typeof(LibGitExtensions));
 
         public static DateTimeOffset When(this Commit commit)
         {
