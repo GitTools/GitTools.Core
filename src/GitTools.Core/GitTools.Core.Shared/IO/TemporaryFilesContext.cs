@@ -6,7 +6,7 @@
 
     public class TemporaryFilesContext : IDisposable
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        private static readonly ILog Log = LogProvider.GetLogger(typeof(TemporaryFilesContext));
         private readonly Guid _randomGuid = Guid.NewGuid();
         private readonly string _rootDirectory;
 

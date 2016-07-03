@@ -25,5 +25,7 @@
     <file src="net45\GitTools.Core.dll" target="lib\net45\" />
     <file src="net45\GitTools.Core.pdb" target="lib\net45\" />
     <file src="net45\GitTools.Core.xml" target="lib\net45\" />
+    <file src="netstandard1.3\GitTools.Core.dll" target="lib\netstandard1.3\" />
+    <file src="netstandard1.3\GitTools.Core.pdb" target="lib\netstandard1.3\" />
   </files>
 </package>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,11 +27,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.NET45", "GitT
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GitTools.Core.Shared", "GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.shproj", "{C4B449DF-3E78-4F3B-81A8-DE0DC5827532}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.NETSTANDARD", "GitTools.Core\GitTools.Core.NETSTANDARD\GitTools.Core.NETSTANDARD.csproj", "{FF02533D-68BA-4FB3-B7C3-294B08538809}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{66295d7c-58fd-4641-aeab-3df7ea8fa4d2}*SharedItemsImports = 4
-		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{c4b449df-3e78-4f3b-81a8-de0dc5827532}*SharedItemsImports = 13
 		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{c11252f9-0eca-44dc-860b-e029c04fbd10}*SharedItemsImports = 4
+		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{c4b449df-3e78-4f3b-81a8-de0dc5827532}*SharedItemsImports = 13
+		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{ff02533d-68ba-4fb3-b7c3-294b08538809}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +53,10 @@ Global
 		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF02533D-68BA-4FB3-B7C3-294B08538809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF02533D-68BA-4FB3-B7C3-294B08538809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF02533D-68BA-4FB3-B7C3-294B08538809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF02533D-68BA-4FB3-B7C3-294B08538809}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +65,6 @@ Global
 		{C11252F9-0ECA-44DC-860B-E029C04FBD10} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
 		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
 		{C4B449DF-3E78-4F3B-81A8-DE0DC5827532} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
+		{FF02533D-68BA-4FB3-B7C3-294B08538809} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
 	EndGlobalSection
 EndGlobal
