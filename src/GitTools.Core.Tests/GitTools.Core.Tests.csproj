@@ -71,7 +71,6 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>Properties\SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="GitRepositoryTests.cs" />
     <Compile Include="Git\Extensions\AuthenticationInfoExtensionsTests.cs" />
     <Compile Include="Git\GitDirFinderTests.cs" />
     <Compile Include="Git\GitRepositoryHelperTests.cs" />
