@@ -18,8 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\LibGitExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\GitDirFinder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepository.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepositoryFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\DynamicRepositories.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\BugException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\GitRepositoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryInfo.cs" />

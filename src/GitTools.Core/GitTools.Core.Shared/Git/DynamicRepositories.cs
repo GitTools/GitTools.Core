@@ -6,51 +6,30 @@
     using LibGit2Sharp;
     using Logging;
 
-    public static class GitRepositoryFactory
+    public static class DynamicRepositories
     {
         static readonly ILog Log = LogProvider.GetCurrentClassLogger();
 
         /// <summary>
-        /// Creates the repository based on the repository info. If the <see cref="RepositoryInfo.Directory"/> points 
-        /// to a valid directory, it will be used as the source for the git repository. Otherwise this method will create
-        /// a dynamic repository based on the url and authentication info.
+        /// Creates a dynamic repository based on the repository info
         /// </summary>
-        /// <param name="repositoryInfo">The repository information.</param>
+        /// <param name="repositoryInfo">The source repository information.</param>
+        /// <param name="dynamicRepsitoryPath">The path to create the dynamic repository, NOT thread safe.</param>
+        /// <param name="targetBranch"></param>
+        /// <param name="targetCommit"></param>
         /// <param name="noFetch">If set to <c>true</c>, don't fetch anything.</param>
         /// <returns>The git repository.</returns>
-        public static GitRepository CreateRepository(RepositoryInfo repositoryInfo, bool noFetch = false)
+        public static Repository CreateOrOpen(RepositoryInfo repositoryInfo, string dynamicRepsitoryPath, string targetBranch, string targetCommit, bool noFetch = false)
         {
-            bool isDynamicRepository = false;
-            string repositoryDirectory = null;
+            if (string.IsNullOrWhiteSpace(targetBranch))
+                throw new GitToolsException("Dynamic Git repositories must have a target branch");
+            if (string.IsNullOrWhiteSpace(targetCommit))
+                throw new GitToolsException("Dynamic Git repositories must have a target commit");
 
-            // TODO: find a better way to check for existing repositories
-            if (!string.IsNullOrWhiteSpace(repositoryInfo.Directory))
-            {
-                var expectedDirectory = Path.Combine(repositoryInfo.Directory, ".git");
-                if (Directory.Exists(expectedDirectory))
-                {
-                    repositoryDirectory = expectedDirectory;
-                }
-            }
+            var tempRepositoryPath = CalculateTemporaryRepositoryPath(repositoryInfo.Url, dynamicRepsitoryPath);
+            var dynamicRepositoryPath = CreateDynamicRepository(tempRepositoryPath, repositoryInfo, noFetch, targetBranch, targetCommit);
 
-            if (string.IsNullOrWhiteSpace(repositoryDirectory))
-            {
-                isDynamicRepository = true;
-
-                var tempRepositoryPath = CalculateTemporaryRepositoryPath(repositoryInfo.Url, repositoryDirectory);
-                repositoryDirectory = CreateDynamicRepository(tempRepositoryPath, repositoryInfo.Authentication,
-                    repositoryInfo.Url, repositoryInfo.Branch, noFetch);
-            }
-
-            if (string.IsNullOrWhiteSpace(repositoryDirectory))
-            {
-                Log.Warn("Could not create a repository, not enough information was specified");
-                return null;
-            }
-
-            // TODO: Should we do something with fetch for existing repositoriess?
-            var repository = new Repository(repositoryDirectory);
-            return new GitRepository(repository, isDynamicRepository);
+            return new Repository(dynamicRepositoryPath);
         }
 
         static string CalculateTemporaryRepositoryPath(string targetUrl, string dynamicRepositoryLocation)
@@ -98,33 +77,39 @@
             }
         }
 
-        static string CreateDynamicRepository(string targetPath, AuthenticationInfo authentication, string repositoryUrl, string targetBranch, bool noFetch)
+        static string CreateDynamicRepository(string targetPath, RepositoryInfo repositoryInfo, bool noFetch, string targetBranch, string targetCommit)
         {
-            if (string.IsNullOrWhiteSpace(targetBranch))
-            {
-                throw new GitToolsException("Dynamic Git repositories must have a target branch (/b)");
-            }
-
             Log.Info(string.Format("Creating dynamic repository at '{0}'", targetPath));
 
             var gitDirectory = Path.Combine(targetPath, ".git");
             if (Directory.Exists(targetPath))
             {
                 Log.Info("Git repository already exists");
-                GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
+                CheckoutCommit(targetCommit, gitDirectory);
+                GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, repositoryInfo.Authentication, noFetch, targetBranch);
 
                 return gitDirectory;
             }
 
-            CloneRepository(repositoryUrl, gitDirectory, authentication);
+            CloneRepository(repositoryInfo.Url, gitDirectory, repositoryInfo.Authentication);
+            CheckoutCommit(targetCommit, gitDirectory);
 
             // Normalize (download branches) before using the branch
-            GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, authentication, noFetch, targetBranch);
+            GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, repositoryInfo.Authentication, noFetch, targetBranch);
 
             return gitDirectory;
         }
 
-        private static void CloneRepository(string repositoryUrl, string gitDirectory, AuthenticationInfo authentication)
+        static void CheckoutCommit(string targetCommit, string gitDirectory)
+        {
+            using (var repo = new Repository(gitDirectory))
+            {
+                Log.Info(string.Format("Checking out {0}", targetCommit));
+                repo.Checkout(targetCommit);
+            }
+        }
+
+        static void CloneRepository(string repositoryUrl, string gitDirectory, AuthenticationInfo authentication)
         {
             Credentials credentials = null;
             if (!string.IsNullOrWhiteSpace(authentication.Username) && !string.IsNullOrWhiteSpace(authentication.Password))

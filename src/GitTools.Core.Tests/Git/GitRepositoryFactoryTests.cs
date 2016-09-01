@@ -37,25 +37,22 @@
                     fixture.Repository.MakeCommits(5);
                     fixture.Repository.CreateFileAndCommit("TestFile.txt");
 
-                    fixture.Repository.CreateBranch(SpecificBranchName);
+                    var branch = fixture.Repository.CreateBranch(SpecificBranchName);
 
                     // Copy contents into working directory
                     File.Copy(Path.Combine(fixture.RepositoryPath, "TestFile.txt"), Path.Combine(tempDir, "TestFile.txt"));
 
                     var repositoryInfo = new RepositoryInfo
                     {
-                        Url = fixture.RepositoryPath,
-                        Branch = branchName
+                        Url = fixture.RepositoryPath
                     };
 
-                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, branchName, branch.Tip.Sha))
                     {
-                        dynamicRepositoryPath = gitRepository.DotGitDirectory;
+                        dynamicRepositoryPath = gitRepository.Info.Path;
+                        gitRepository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git"));
 
-                        gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git"));
-
-                        var currentBranch = gitRepository.Repository.Head.CanonicalName;
+                        var currentBranch = gitRepository.Head.CanonicalName;
 
                         currentBranch.ShouldEndWith(expectedBranchName);
                     }
@@ -85,26 +82,24 @@
             {
                 using (var mainRepositoryFixture = new EmptyRepositoryFixture())
                 {
-                    mainRepositoryFixture.Repository.MakeCommits(1);
+                    var commit = mainRepositoryFixture.Repository.MakeACommit();
 
                     var repositoryInfo = new RepositoryInfo
                     {
-                        Url = mainRepositoryFixture.RepositoryPath,
-                        Branch = "master"
+                        Url = mainRepositoryFixture.RepositoryPath
                     };
 
-                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", commit.Sha))
                     {
-                        dynamicRepositoryPath = gitRepository.DotGitDirectory;
+                        dynamicRepositoryPath = gitRepository.Info.Path;
                     }
 
                     var newCommit = mainRepositoryFixture.Repository.MakeACommit();
 
-                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", commit.Sha))
                     {
-                        mainRepositoryFixture.Repository.DumpGraph();
-                        gitRepository.Repository.DumpGraph();
-                        gitRepository.Repository.Commits.ShouldContain(c => c.Sha == newCommit.Sha);
+                        gitRepository.Info.Path.ShouldBe(dynamicRepositoryPath);
+                        gitRepository.Commits.ShouldContain(c => c.Sha == newCommit.Sha);
                     }
                 }
             }
@@ -141,10 +136,10 @@
                     var repositoryInfo = new RepositoryInfo
                     {
                         Url = fixture.RepositoryPath,
-                        Branch = "master"
+                        TargetBranch = "master"
                     };
 
-                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
                     {
                         gitRepository.IsDynamic.ShouldBe(true);
                         gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git"));
@@ -174,10 +169,10 @@
             var repositoryInfo = new RepositoryInfo
             {
                 Url = tempDir,
-                Branch = "master"
+                TargetBranch = "master"
             };
 
-            Should.Throw<Exception>(() => GitRepositoryFactory.CreateRepository(repositoryInfo));
+            Should.Throw<Exception>(() => DynamicRepositories.CreateOrOpen(repositoryInfo));
         }
 
         [Test]
@@ -197,14 +192,14 @@
                     var repositoryInfo = new RepositoryInfo
                     {
                         Url = mainRepositoryFixture.RepositoryPath,
-                        Branch = "feature1"
+                        TargetBranch = "feature1"
                     };
 
                     mainRepositoryFixture.Repository.Checkout(mainRepositoryFixture.Repository.CreateBranch("feature1"));
 
                     Should.NotThrow(() =>
                     {
-                        using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                        using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
                         {
                             // this code shouldn't throw
                         }
@@ -234,12 +229,12 @@
                     var repositoryInfo = new RepositoryInfo
                     {
                         Url = mainRepositoryFixture.RepositoryPath,
-                        Branch = null
+                        TargetBranch = null
                     };
 
                     Should.Throw<Exception>(() =>
                     {
-                        using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                        using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
                         {
                             // this code shouldn't throw
                         }
@@ -265,12 +260,12 @@
                 var repositoryInfo = new RepositoryInfo
                 {
                     Url = "http://127.0.0.1/testrepo.git",
-                    Branch = "master"
+                    TargetBranch = "master"
                 };
 
                 Should.Throw<Exception>(() =>
                 {
-                    using (var gitRepository = GitRepositoryFactory.CreateRepository(repositoryInfo))
+                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
                     {
                         // this code shouldn't throw
                     }
