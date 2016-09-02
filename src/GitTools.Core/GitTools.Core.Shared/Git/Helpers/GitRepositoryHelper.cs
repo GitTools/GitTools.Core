@@ -117,7 +117,7 @@
 
 To disable this error set an environmental variable called IGNORE_NORMALISATION_GIT_HEAD_MOVE to 1
 
-Please run `{0}` and submit it along with your build log (with personal info removed) in a new issue at https://github.com/GitTools/GitTools.Core",
+Please run `git {0}` and submit it along with your build log (with personal info removed) in a new issue at https://github.com/GitTools/GitTools.Core",
                                 LibGitExtensions.CreateGitLogArgs(100)));
                         }
                     }
