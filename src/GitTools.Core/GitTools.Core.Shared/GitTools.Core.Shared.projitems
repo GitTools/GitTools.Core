@@ -14,12 +14,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\WarningException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\AuthenticationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\DynamicRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\AuthenticationInfoExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\LibGitExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\GitDirFinder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepository.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Git\GitRepositoryFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\DynamicRepositories.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\BugException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Helpers\GitRepositoryHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\RepositoryLoader.cs" />

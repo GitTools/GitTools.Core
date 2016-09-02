@@ -166,8 +166,7 @@
                     e => output.AppendLineFormat("ERROR: {0}", e),
                     null,
                     "git",
-                    @"log --graph --format=""%h %cr %d"" --decorate --date=relative --all --remotes=*" + (maxCommits != null ? string.Format(" -n {0}", maxCommits) : null),
-                    //@"log --graph --abbrev-commit --decorate --date=relative --all --remotes=*",
+                    CreateGitLogArgs(maxCommits),
                     workingDirectory);
             }
             catch (FileNotFoundException exception)
@@ -189,6 +188,11 @@
             {
                 Console.Write(output.ToString());
             }
+        }
+
+        public static string CreateGitLogArgs(int? maxCommits)
+        {
+            return @"log --graph --format=""%h %cr %d"" --decorate --date=relative --all --remotes=*" + (maxCommits != null ? string.Format(" -n {0}", maxCommits) : null);
         }
     }
 }
