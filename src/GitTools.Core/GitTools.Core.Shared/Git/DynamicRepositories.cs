@@ -21,7 +21,7 @@
         /// <returns>The git repository.</returns>
         public static DynamicRepository CreateOrOpen(RepositoryInfo repositoryInfo, string dynamicRepsitoryPath, string targetBranch, string targetCommit)
         {
-            if (!Directory.Exists(dynamicRepsitoryPath))
+            if (string.IsNullOrWhiteSpace(dynamicRepsitoryPath) || !Directory.Exists(dynamicRepsitoryPath))
                 throw new GitToolsException(string.Format("Dynamic repository path {0} does not exist, ensure it is created before trying to create dynamic repository.", dynamicRepsitoryPath));
             if (string.IsNullOrWhiteSpace(targetBranch))
                 throw new GitToolsException("Dynamic Git repositories must have a target branch");
@@ -70,14 +70,8 @@
 
         static string GetAndLockTemporaryRepositoryPath(string targetUrl, string dynamicRepositoryLocation)
         {
-            var userTemp = dynamicRepositoryLocation;
-            if (string.IsNullOrWhiteSpace(userTemp))
-            {
-                userTemp = Path.GetTempPath();
-            }
-
             var repositoryName = targetUrl.Split('/', '\\').Last().Replace(".git", string.Empty);
-            var possiblePath = Path.Combine(userTemp, repositoryName);
+            var possiblePath = Path.Combine(dynamicRepositoryLocation, repositoryName);
 
             var i = 1;
             var originalPath = possiblePath;
