@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\WarningException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\AuthenticationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Git\DynamicRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\AuthenticationInfoExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\IRepositoryExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Git\Extensions\LibGitExtensions.cs" />

@@ -37,10 +37,7 @@
                     }
                     else
                     {
-                        Log.Info(string.Format("Fetching from remote '{0}' using the following refspecs: {1}.",
-                            remote.Name, string.Join(", ", remote.FetchRefSpecs.Select(r => r.Specification))));
-                        var fetchOptions = BuildFetchOptions(authentication.Username, authentication.Password);
-                        Commands.Fetch(repo, remote.Name, new string[0], fetchOptions, null);
+                        Fetch(authentication, remote, repo);
                     }
 
                     EnsureLocalBranchExistsForCurrentBranch(repo, currentBranch);
@@ -113,14 +110,26 @@
                 {
                     if (repo.Head.Tip.Sha != expectedSha)
                     {
-                        // Whoa, HEAD has moved, it shouldn't have. We need to blow up because there is a bug in normalisation
-                        throw new BugException(string.Format(@"GitTools.Core has a bug, your HEAD has moved after repo normalisation.
+                        if (Environment.GetEnvironmentVariable("IGNORE_NORMALISATION_GIT_HEAD_MOVE") != "1")
+                        {
+                            // Whoa, HEAD has moved, it shouldn't have. We need to blow up because there is a bug in normalisation
+                            throw new BugException(string.Format(@"GitTools.Core has a bug, your HEAD has moved after repo normalisation.
+
+To disable this error set an environmental variable called IGNORE_NORMALISATION_GIT_HEAD_MOVE to 1
 
 Please run `{0}` and submit it along with your build log (with personal info removed) in a new issue at https://github.com/GitTools/GitTools.Core",
-LibGitExtensions.CreateGitLogArgs(100)));
+                                LibGitExtensions.CreateGitLogArgs(100)));
+                        }
                     }
                 }
             }
+        }
+
+        public static void Fetch(AuthenticationInfo authentication, Remote remote, Repository repo)
+        {
+            Log.Info(string.Format("Fetching from remote '{0}' using the following refspecs: {1}.",
+                remote.Name, string.Join(", ", remote.FetchRefSpecs.Select(r => r.Specification))));
+            Commands.Fetch(repo, remote.Name, new string[0], authentication.ToFetchOptions(), null);
         }
 
         static void EnsureLocalBranchExistsForCurrentBranch(Repository repo, string currentBranch)
@@ -162,22 +171,6 @@ LibGitExtensions.CreateGitLogArgs(100)));
 
             repo.Network.Remotes.Update(remote.Name,
                 r => r.FetchRefSpecs.Add(allBranchesFetchRefSpec));
-        }
-
-        static FetchOptions BuildFetchOptions(string username, string password)
-        {
-            var fetchOptions = new FetchOptions();
-
-            if (!string.IsNullOrEmpty(username))
-            {
-                fetchOptions.CredentialsProvider = (url, user, types) => new UsernamePasswordCredentials
-                {
-                    Username = username,
-                    Password = password
-                };
-            }
-
-            return fetchOptions;
         }
 
         static void CreateFakeBranchPointingAtThePullRequestTip(Repository repo, AuthenticationInfo authentication)
@@ -286,7 +279,7 @@ LibGitExtensions.CreateGitLogArgs(100)));
             }
         }
 
-        static Remote EnsureOnlyOneRemoteIsDefined(IRepository repo)
+        public static Remote EnsureOnlyOneRemoteIsDefined(IRepository repo)
         {
             var remotes = repo.Network.Remotes;
             var howMany = remotes.Count();

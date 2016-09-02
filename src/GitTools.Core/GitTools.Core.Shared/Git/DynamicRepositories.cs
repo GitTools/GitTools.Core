@@ -1,6 +1,7 @@
 ﻿namespace GitTools.Git
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using LibGit2Sharp;
@@ -17,22 +18,57 @@
         /// <param name="dynamicRepsitoryPath">The path to create the dynamic repository, NOT thread safe.</param>
         /// <param name="targetBranch"></param>
         /// <param name="targetCommit"></param>
-        /// <param name="noFetch">If set to <c>true</c>, don't fetch anything.</param>
         /// <returns>The git repository.</returns>
-        public static Repository CreateOrOpen(RepositoryInfo repositoryInfo, string dynamicRepsitoryPath, string targetBranch, string targetCommit, bool noFetch = false)
+        public static DynamicRepository CreateOrOpen(RepositoryInfo repositoryInfo, string dynamicRepsitoryPath, string targetBranch, string targetCommit)
         {
+            if (!Directory.Exists(dynamicRepsitoryPath))
+                throw new GitToolsException(string.Format("Dynamic repository path {0} does not exist, ensure it is created before trying to create dynamic repository.", dynamicRepsitoryPath));
             if (string.IsNullOrWhiteSpace(targetBranch))
                 throw new GitToolsException("Dynamic Git repositories must have a target branch");
             if (string.IsNullOrWhiteSpace(targetCommit))
                 throw new GitToolsException("Dynamic Git repositories must have a target commit");
 
-            var tempRepositoryPath = CalculateTemporaryRepositoryPath(repositoryInfo.Url, dynamicRepsitoryPath);
-            var dynamicRepositoryPath = CreateDynamicRepository(tempRepositoryPath, repositoryInfo, noFetch, targetBranch, targetCommit);
+            var tempRepositoryPath = GetAndLockTemporaryRepositoryPath(repositoryInfo.Url, dynamicRepsitoryPath);
+            var dynamicRepositoryPath = CreateDynamicRepository(tempRepositoryPath, repositoryInfo, targetBranch, targetCommit);
 
-            return new Repository(dynamicRepositoryPath);
+            return new DynamicRepository(new Repository(dynamicRepositoryPath), () => ReleaseDynamicRepoLock(tempRepositoryPath));
         }
 
-        static string CalculateTemporaryRepositoryPath(string targetUrl, string dynamicRepositoryLocation)
+        static void ReleaseDynamicRepoLock(string repoPath)
+        {
+            var lockFile = GetLockFile(repoPath);
+            try
+            {
+                File.Delete(lockFile);
+            }
+            catch (Exception ex)
+            {
+                throw new GitToolsException(string.Format("Failed to delete dynamic repository lock file '{0}', this dynamic repository will not be used until the lock file is removed", lockFile), ex);
+            }
+        }
+
+        static bool TakeDynamicRepoLock(string possibleDynamicRepoPath)
+        {
+            try
+            {
+                // Ensure directory exists
+                try { Directory.CreateDirectory(possibleDynamicRepoPath); } catch (IOException) { }
+                // Check if file exists and create lock file in a safe way
+                using (new FileStream(GetLockFile(possibleDynamicRepoPath), FileMode.CreateNew)) { }
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        static string GetLockFile(string repoPath)
+        {
+            return Path.Combine(repoPath, "dynamicrepository.lock");
+        }
+
+        static string GetAndLockTemporaryRepositoryPath(string targetUrl, string dynamicRepositoryLocation)
         {
             var userTemp = dynamicRepositoryLocation;
             if (string.IsNullOrWhiteSpace(userTemp))
@@ -43,23 +79,42 @@
             var repositoryName = targetUrl.Split('/', '\\').Last().Replace(".git", string.Empty);
             var possiblePath = Path.Combine(userTemp, repositoryName);
 
-            // Verify that the existing directory is ok for us to use
-            if (Directory.Exists(possiblePath))
+            var i = 1;
+            var originalPath = possiblePath;
+            var possiblePathExists = Directory.Exists(possiblePath);
+            if (VerifyDynamicRepositoryTarget(targetUrl, possiblePathExists, possiblePath)) return possiblePath;
+            do
             {
-                if (!GitRepoHasMatchingRemote(possiblePath, targetUrl))
+                if (i > 10)
                 {
-                    var i = 1;
-                    var originalPath = possiblePath;
-                    bool possiblePathExists;
-                    do
-                    {
-                        possiblePath = string.Concat(originalPath, "_", i++.ToString());
-                        possiblePathExists = Directory.Exists(possiblePath);
-                    } while (possiblePathExists && !GitRepoHasMatchingRemote(possiblePath, targetUrl));
+                    throw new GitToolsException(string.Format(
+                        "Failed to find a dynamic repository path at {0} -> {1}",
+                        originalPath,
+                        possiblePath));
                 }
-            }
+                possiblePath = string.Concat(originalPath, "_", i++.ToString());
+                possiblePathExists = Directory.Exists(possiblePath);
+            } while (!VerifyDynamicRepositoryTarget(targetUrl, possiblePathExists, possiblePath));
 
             return possiblePath;
+        }
+
+        static bool VerifyDynamicRepositoryTarget(string targetUrl, bool possiblePathExists, string possiblePath)
+        {
+            // First take a lock on that path
+            var lockTaken = TakeDynamicRepoLock(possiblePath);
+            if (!lockTaken) return false;
+
+            if (!possiblePathExists) return true;
+
+            // Then verify it's suitable
+            if (!GitRepoHasMatchingRemote(possiblePath, targetUrl))
+            {
+                // Release lock if not suitable
+                ReleaseDynamicRepoLock(possiblePath);
+                return false;
+            }
+            return true;
         }
 
         static bool GitRepoHasMatchingRemote(string possiblePath, string targetUrl)
@@ -77,36 +132,45 @@
             }
         }
 
-        static string CreateDynamicRepository(string targetPath, RepositoryInfo repositoryInfo, bool noFetch, string targetBranch, string targetCommit)
+        [SuppressMessage("ReSharper", "ArgumentsStyleLiteral")]
+        [SuppressMessage("ReSharper", "ArgumentsStyleNamedExpression")]
+        static string CreateDynamicRepository(string targetPath, RepositoryInfo repositoryInfo, string targetBranch, string targetCommit)
         {
             Log.Info(string.Format("Creating dynamic repository at '{0}'", targetPath));
 
             var gitDirectory = Path.Combine(targetPath, ".git");
-            if (Directory.Exists(targetPath))
+            if (Directory.Exists(gitDirectory))
             {
                 Log.Info("Git repository already exists");
-                CheckoutCommit(targetCommit, gitDirectory);
-                GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, repositoryInfo.Authentication, noFetch, targetBranch);
+                using (var repo = new Repository(gitDirectory))
+                {
+                    // We need to fetch before we can checkout the commit
+                    var remote = GitRepositoryHelper.EnsureOnlyOneRemoteIsDefined(repo);
+                    GitRepositoryHelper.Fetch(repositoryInfo.Authentication, remote, repo);
+                    CheckoutCommit(repo, targetCommit);
+                }
+                GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, repositoryInfo.Authentication, noFetch: true, currentBranch: targetBranch);
 
                 return gitDirectory;
             }
 
             CloneRepository(repositoryInfo.Url, gitDirectory, repositoryInfo.Authentication);
-            CheckoutCommit(targetCommit, gitDirectory);
+
+            using (var repo = new Repository(gitDirectory))
+            {
+                CheckoutCommit(repo, targetCommit);
+            }
 
             // Normalize (download branches) before using the branch
-            GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, repositoryInfo.Authentication, noFetch, targetBranch);
+            GitRepositoryHelper.NormalizeGitDirectory(gitDirectory, repositoryInfo.Authentication, noFetch: true, currentBranch: targetBranch);
 
             return gitDirectory;
         }
 
-        static void CheckoutCommit(string targetCommit, string gitDirectory)
+        static void CheckoutCommit(IRepository repo, string targetCommit)
         {
-            using (var repo = new Repository(gitDirectory))
-            {
-                Log.Info(string.Format("Checking out {0}", targetCommit));
-                repo.Checkout(targetCommit);
-            }
+            Log.Info(string.Format("Checking out {0}", targetCommit));
+            repo.Checkout(targetCommit);
         }
 
         static void CloneRepository(string repositoryUrl, string gitDirectory, AuthenticationInfo authentication)

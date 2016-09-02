@@ -8,5 +8,9 @@
             : base(string.Format(messageFormat, args))
         {
         }
+        public GitToolsException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }

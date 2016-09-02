@@ -11,7 +11,7 @@
     using Testing;
 
     [TestFixture]
-    public class GitRepositoryFactoryTests
+    public class DynamicRepositoriesTests
     {
         const string DefaultBranchName = "master";
         const string SpecificBranchName = "feature/foo";
@@ -47,12 +47,12 @@
                         Url = fixture.RepositoryPath
                     };
 
-                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, branchName, branch.Tip.Sha))
+                    using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, branchName, branch.Tip.Sha))
                     {
-                        dynamicRepositoryPath = gitRepository.Info.Path;
-                        gitRepository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git"));
+                        dynamicRepositoryPath = dynamicRepository.Repository.Info.Path;
+                        dynamicRepository.Repository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git\\"));
 
-                        var currentBranch = gitRepository.Head.CanonicalName;
+                        var currentBranch = dynamicRepository.Repository.Head.CanonicalName;
 
                         currentBranch.ShouldEndWith(expectedBranchName);
                     }
@@ -89,17 +89,17 @@
                         Url = mainRepositoryFixture.RepositoryPath
                     };
 
-                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", commit.Sha))
+                    using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", commit.Sha))
                     {
-                        dynamicRepositoryPath = gitRepository.Info.Path;
+                        dynamicRepositoryPath = dynamicRepository.Repository.Info.Path;
                     }
 
                     var newCommit = mainRepositoryFixture.Repository.MakeACommit();
 
-                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", commit.Sha))
+                    using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", newCommit.Sha))
                     {
-                        gitRepository.Info.Path.ShouldBe(dynamicRepositoryPath);
-                        gitRepository.Commits.ShouldContain(c => c.Sha == newCommit.Sha);
+                        dynamicRepository.Repository.Info.Path.ShouldBe(dynamicRepositoryPath);
+                        dynamicRepository.Repository.Commits.ShouldContain(c => c.Sha == newCommit.Sha);
                     }
                 }
             }
@@ -128,21 +128,19 @@
             {
                 using (var fixture = new EmptyRepositoryFixture())
                 {
-                    fixture.Repository.CreateFileAndCommit("TestFile.txt");
+                    var head = fixture.Repository.CreateFileAndCommit("TestFile.txt");
                     File.Copy(Path.Combine(fixture.RepositoryPath, "TestFile.txt"), Path.Combine(tempDir, "TestFile.txt"));
                     expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(Path.DirectorySeparatorChar).Last());
                     Directory.CreateDirectory(expectedDynamicRepoLocation);
 
                     var repositoryInfo = new RepositoryInfo
                     {
-                        Url = fixture.RepositoryPath,
-                        TargetBranch = "master"
+                        Url = fixture.RepositoryPath
                     };
 
-                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
+                    using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", head.Sha))
                     {
-                        gitRepository.IsDynamic.ShouldBe(true);
-                        gitRepository.DotGitDirectory.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git"));
+                        dynamicRepository.Repository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git\\"));
                     }
                 }
             }
@@ -162,17 +160,57 @@
         }
 
         [Test]
+        [Category("NoMono")]
+        public void PicksAnotherDirectoryNameWhenDynamicRepoFolderIsInUse()
+        {
+            var tempPath = Path.GetTempPath();
+            var expectedDynamicRepoLocation = default(string);
+            var expectedDynamicRepo2Location = default(string);
+
+            try
+            {
+                using (var fixture = new EmptyRepositoryFixture())
+                {
+                    var head = fixture.Repository.CreateFileAndCommit("TestFile.txt");
+                    var repositoryInfo = new RepositoryInfo
+                    {
+                        Url = fixture.RepositoryPath
+                    };
+
+                    using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", head.Sha))
+                    using (var dynamicRepository2 = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", head.Sha))
+                    {
+                        expectedDynamicRepoLocation = dynamicRepository.Repository.Info.Path;
+                        expectedDynamicRepo2Location = dynamicRepository2.Repository.Info.Path;
+                        dynamicRepository.Repository.Info.Path.ShouldNotBe(dynamicRepository2.Repository.Info.Path);
+                    }
+                }
+            }
+            finally
+            {
+                if (expectedDynamicRepoLocation != null)
+                {
+                    DeleteHelper.DeleteDirectory(expectedDynamicRepoLocation, true);
+                }
+
+                if (expectedDynamicRepo2Location != null)
+                {
+                    DeleteHelper.DeleteGitRepository(expectedDynamicRepo2Location);
+                }
+            }
+        }
+
+        [Test]
         public void ThrowsExceptionWhenNotEnoughInfo()
         {
             var tempDir = Path.GetTempPath();
 
             var repositoryInfo = new RepositoryInfo
             {
-                Url = tempDir,
-                TargetBranch = "master"
+                Url = tempDir
             };
 
-            Should.Throw<Exception>(() => DynamicRepositories.CreateOrOpen(repositoryInfo));
+            Should.Throw<Exception>(() => DynamicRepositories.CreateOrOpen(repositoryInfo, tempDir, null, null));
         }
 
         [Test]
@@ -187,21 +225,19 @@
             {
                 using (var mainRepositoryFixture = new EmptyRepositoryFixture())
                 {
-                    mainRepositoryFixture.Repository.MakeACommit();
+                    var commit = mainRepositoryFixture.Repository.MakeACommit();
 
                     var repositoryInfo = new RepositoryInfo
                     {
-                        Url = mainRepositoryFixture.RepositoryPath,
-                        TargetBranch = "feature1"
+                        Url = mainRepositoryFixture.RepositoryPath
                     };
 
                     mainRepositoryFixture.Repository.Checkout(mainRepositoryFixture.Repository.CreateBranch("feature1"));
 
                     Should.NotThrow(() =>
                     {
-                        using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
+                        using (DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "feature1", commit.Sha))
                         {
-                            // this code shouldn't throw
                         }
                     });
                 }
@@ -215,35 +251,46 @@
         [Test]
         public void UsingDynamicRepositoryWithoutTargetBranchFails()
         {
-            var repoName = Guid.NewGuid().ToString();
             var tempPath = Path.GetTempPath();
-            var tempDir = Path.Combine(tempPath, repoName);
-            Directory.CreateDirectory(tempDir);
 
-            try
+            using (var mainRepositoryFixture = new EmptyRepositoryFixture())
             {
-                using (var mainRepositoryFixture = new EmptyRepositoryFixture())
+                mainRepositoryFixture.Repository.MakeACommit();
+
+                var repositoryInfo = new RepositoryInfo
                 {
-                    mainRepositoryFixture.Repository.MakeACommit();
+                    Url = mainRepositoryFixture.RepositoryPath
+                };
 
-                    var repositoryInfo = new RepositoryInfo
+                Should.Throw<GitToolsException>(() =>
+                {
+                    using (DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, null, null))
                     {
-                        Url = mainRepositoryFixture.RepositoryPath,
-                        TargetBranch = null
-                    };
-
-                    Should.Throw<Exception>(() =>
-                    {
-                        using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
-                        {
-                            // this code shouldn't throw
-                        }
-                    });
-                }
+                    }
+                });
             }
-            finally
+        }
+
+        [Test]
+        public void UsingDynamicRepositoryWithoutTargetBranchCommitFails()
+        {
+            var tempPath = Path.GetTempPath();
+
+            using (var mainRepositoryFixture = new EmptyRepositoryFixture())
             {
-                Directory.Delete(tempDir, true);
+                mainRepositoryFixture.Repository.MakeACommit();
+
+                var repositoryInfo = new RepositoryInfo
+                {
+                    Url = mainRepositoryFixture.RepositoryPath
+                };
+
+                Should.Throw<GitToolsException>(() =>
+                {
+                    using (DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", null))
+                    {
+                    }
+                });
             }
         }
 
@@ -259,15 +306,13 @@
             {
                 var repositoryInfo = new RepositoryInfo
                 {
-                    Url = "http://127.0.0.1/testrepo.git",
-                    TargetBranch = "master"
+                    Url = "http://127.0.0.1/testrepo.git"
                 };
 
                 Should.Throw<Exception>(() =>
                 {
-                    using (var gitRepository = DynamicRepositories.CreateOrOpen(repositoryInfo))
+                    using (DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", "sha"))
                     {
-                        // this code shouldn't throw
                     }
                 });
             }
