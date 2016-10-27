@@ -1,10 +1,30 @@
 ﻿namespace GitTools.Git
 {
+    using LibGit2Sharp;
     using Logging;
 
     public static class AuthenticationInfoExtensions
     {
         private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+
+        public static FetchOptions ToFetchOptions(this AuthenticationInfo authenticationInfo)
+        {
+            var fetchOptions = new FetchOptions();
+
+            if (authenticationInfo != null)
+            {
+                if (!string.IsNullOrEmpty(authenticationInfo.Username))
+                {
+                    fetchOptions.CredentialsProvider = (url, user, types) => new UsernamePasswordCredentials
+                    {
+                        Username = authenticationInfo.Username,
+                        Password = authenticationInfo.Password
+                    };
+                }
+            }
+
+            return fetchOptions;
+        }
 
         public static bool IsEmpty(this AuthenticationInfo authenticationInfo)
         {
