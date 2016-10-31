@@ -80,7 +80,7 @@ deployment/InnoSetup/template/snippets
 deployment/InnoSetup/template/libraries
 deployment/InnoSetup/template/doc
 
-# Installshield output folder 
+# Installshield output folder
 [Ee]xpress
 
 # DocProject is a documentation generator add-in
@@ -115,7 +115,7 @@ Backup*/
 UpgradeLog*.XML
 
 # Windows image file caches
-Thumbs.db 
+Thumbs.db
 
 # Folder config file
 Desktop.ini
@@ -123,3 +123,9 @@ Desktop.ini
 # mstest test results
 TestResults
 src/_NCrunch_GitTools.Core/
+
+
+####################
+# JetBrains IDEs
+####################
+.idea
