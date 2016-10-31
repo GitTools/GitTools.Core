@@ -24,11 +24,11 @@ namespace GitTools
                     try
                     {
                         process = Process.Start(startInfo);
-                        process.PriorityClass = ProcessPriorityClass.Idle;
                     }
                     catch (Win32Exception exception)
                     {
-                        // NOTE: https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396 @asbjornu
+                        // NOTE: https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx
+                        // -- @asbjornu
                         if (exception.NativeErrorCode == 2)
                         {
                             throw new FileNotFoundException(string.Format("The executable file '{0}' could not be found.",
@@ -38,6 +38,28 @@ namespace GitTools
                         }
 
                         throw;
+                    }
+
+                    try
+                    {
+                        if (process != null)
+                        {
+                            process.PriorityClass = ProcessPriorityClass.Idle;
+                        }
+                    }
+                    catch (Win32Exception exception)
+                    {
+
+                        // NOTE: It seems like in some situations, setting the priority class will throw an exception
+                        // with the error code set to "Success", which I think we can safely interpret as a success and
+                        // not an exception.
+                        // See https://travis-ci.org/GitTools/GitVersion/jobs/171288284#L2026
+                        // and https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx
+                        // -- @asbjornu
+                        if (exception.NativeErrorCode == 0)
+                        {
+                            throw;
+                        }
                     }
                 }
             }
