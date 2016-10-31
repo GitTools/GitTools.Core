@@ -176,5 +176,52 @@
                 }
             }
         }
+
+
+        [Test]
+        // Copied from GitVersion, to attempt fixing this bug: https://travis-ci.org/GitTools/GitVersion/jobs/171288284#L2025
+        public void GitHubFlowMajorRelease()
+        {
+            using (var fixture = new EmptyRepositoryFixture())
+            {
+                fixture.SequenceDiagram.Participant("master");
+
+                fixture.Repository.MakeACommit();
+                fixture.ApplyTag("1.3.0");
+
+                // Create release branch
+                fixture.BranchTo("release/2.0.0", "release");
+                fixture.SequenceDiagram.Activate("release/2.0.0");
+                fixture.MakeACommit();
+                // fixture.AssertFullSemver("2.0.0-beta.1+1");
+                fixture.MakeACommit();
+                // fixture.AssertFullSemver("2.0.0-beta.1+2");
+
+                // Apply beta.1 tag should be exact tag
+                fixture.ApplyTag("2.0.0-beta.1");
+                // fixture.AssertFullSemver("2.0.0-beta.1");
+
+                // test that the CommitsSinceVersionSource should still return commit count
+                // var version = fixture.GetVersion();
+                // version.CommitsSinceVersionSource.ShouldBe("2");
+
+                // Make a commit after a tag should bump up the beta
+                fixture.MakeACommit();
+                // fixture.AssertFullSemver("2.0.0-beta.2+3");
+
+                // Complete release
+                fixture.Checkout("master");
+                fixture.MergeNoFF("release/2.0.0");
+                fixture.SequenceDiagram.Destroy("release/2.0.0");
+                fixture.SequenceDiagram.NoteOver("Release branches are deleted once merged", "release/2.0.0");
+
+                //fixture.AssertFullSemver("2.0.0+0");
+                fixture.ApplyTag("2.0.0");
+                // fixture.AssertFullSemver("2.0.0");
+                fixture.MakeACommit();
+                fixture.Repository.DumpGraph();
+                // fixture.AssertFullSemver("2.0.1+1");
+            }
+        }
     }
 }
