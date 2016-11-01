@@ -27,14 +27,22 @@ namespace GitTools
                     }
                     catch (Win32Exception exception)
                     {
-                        // NOTE: https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx
-                        // -- @asbjornu
-                        if (exception.NativeErrorCode == 2)
+                        switch ((NativeErrorCode)exception.NativeErrorCode)
                         {
-                            throw new FileNotFoundException(string.Format("The executable file '{0}' could not be found.",
-                                                                          startInfo.FileName),
-                                                            startInfo.FileName,
-                                                            exception);
+                            case NativeErrorCode.Success:
+                                // Success is not a failure.
+                                break;
+
+                            case NativeErrorCode.FileNotFound:
+                                throw new FileNotFoundException(string.Format("The executable file '{0}' could not be found.",
+                                        startInfo.FileName),
+                                    startInfo.FileName,
+                                    exception);
+
+                            case NativeErrorCode.PathNotFound:
+                                throw new DirectoryNotFoundException(string.Format("The path to the executable file '{0}' could not be found.",
+                                        startInfo.FileName),
+                                    exception);
                         }
 
                         throw;
@@ -47,19 +55,24 @@ namespace GitTools
                             process.PriorityClass = ProcessPriorityClass.Idle;
                         }
                     }
-                    catch (Win32Exception exception)
+                    catch
                     {
-
-                        // NOTE: It seems like in some situations, setting the priority class will throw an exception
+                        // NOTE: It seems like in some situations, setting the priority class will throw a Win32Exception
                         // with the error code set to "Success", which I think we can safely interpret as a success and
                         // not an exception.
-                        // See https://travis-ci.org/GitTools/GitVersion/jobs/171288284#L2026
-                        // and https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx
+                        //
+                        // See: https://travis-ci.org/GitTools/GitVersion/jobs/171288284#L2026
+                        // And: https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx
+                        //
+                        // There's also the case where the process might be killed before we try to adjust its priority
+                        // class, in which case it will throw an InvalidOperationException. What we ideally should do
+                        // is start the process in a "suspended" state, adjust the priority class, then resume it, but
+                        // that's not possible in pure .NET.
+                        //
+                        // See: https://travis-ci.org/GitTools/GitVersion/jobs/166709203#L2278
+                        // And: http://www.codeproject.com/Articles/230005/Launch-a-process-suspended
+                        //
                         // -- @asbjornu
-                        if (exception.NativeErrorCode == 0)
-                        {
-                            throw;
-                        }
                     }
                 }
             }
@@ -140,6 +153,17 @@ namespace GitTools
 
                 return process.ExitCode;
             }
+        }
+
+        /// <summary>
+        /// System error codes.
+        /// See: https://msdn.microsoft.com/en-us/library/windows/desktop/ms681382.aspx
+        /// </summary>
+        private enum NativeErrorCode
+        {
+            Success = 0x0,
+            FileNotFound = 0x2,
+            PathNotFound = 0x3
         }
 
         [Flags]
