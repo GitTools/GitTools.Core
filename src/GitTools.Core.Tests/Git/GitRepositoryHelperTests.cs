@@ -15,7 +15,7 @@
             {
                 fixture.Repository.MakeACommit();
 
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("feature/foo"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("feature/foo"));
                 fixture.Repository.MakeACommit();
                 var commit = fixture.Repository.CreatePullRequestRef("feature/foo", "master", prNumber: 3);
                 using (var localFixture = fixture.CloneRepository())
@@ -36,7 +36,7 @@
             {
                 fixture.Repository.MakeACommit();
 
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("feature/foo"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("feature/foo"));
                 fixture.Repository.MakeACommit();
                 var commit = fixture.Repository.CreatePullRequestRef("feature/foo", "master", prNumber: 3, allowFastFowardMerge: true);
                 using (var localFixture = fixture.CloneRepository())
@@ -57,7 +57,7 @@
             {
                 fixture.Repository.MakeACommit();
 
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("feature/foo"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("feature/foo"));
                 fixture.Repository.MakeACommit();
 
                 fixture.BranchTo("release/2.0.0");
@@ -85,16 +85,16 @@
             using (var fixture = new EmptyRepositoryFixture())
             {
                 fixture.Repository.MakeACommit();
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("develop"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("develop"));
                 fixture.Repository.MakeACommit();
-                fixture.Repository.Checkout("master");
+                Commands.Checkout(fixture.Repository, "master");
                 using (var localFixture = fixture.CloneRepository())
                 {
                     // Advance remote
-                    fixture.Repository.Checkout("develop");
+                    Commands.Checkout(fixture.Repository, "develop");
                     var advancedCommit = fixture.Repository.MakeACommit();
                     Commands.Fetch((Repository)localFixture.Repository, localFixture.Repository.Network.Remotes["origin"].Name, new string[0], null, null);
-                    localFixture.Repository.Checkout(advancedCommit.Sha);
+                    Commands.Checkout(localFixture.Repository, advancedCommit.Sha);
                     GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: "refs/heads/develop");
 
                     var normalisedBranch = localFixture.Repository.Branches["develop"];
@@ -112,15 +112,15 @@
             {
                 fixture.Repository.MakeATaggedCommit("v1.0.0");
 
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("develop"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("develop"));
                 var lastCommitOnDevelop = fixture.Repository.MakeACommit();
 
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("feature/foo"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("feature/foo"));
                 fixture.Repository.MakeACommit();
 
                 using (var localFixture = fixture.CloneRepository())
                 {
-                    localFixture.Repository.Checkout("origin/develop");
+                    Commands.Checkout(localFixture.Repository, "origin/develop");
 
                     // Another commit on feature/foo will force an update
                     fixture.Checkout("feature/foo");
@@ -140,7 +140,7 @@
             {
                 fixture.Repository.MakeACommit();
 
-                fixture.Repository.Checkout(fixture.Repository.CreateBranch("feature/foo"));
+                Commands.Checkout(fixture.Repository, fixture.Repository.CreateBranch("feature/foo"));
                 fixture.Repository.MakeACommit();
                 using (var localFixture = fixture.CloneRepository())
                 {
@@ -168,7 +168,7 @@
 
                 using (var localFixture = fixture.CloneRepository())
                 {
-                    localFixture.Repository.Checkout(commitToBuild);
+                    Commands.Checkout(localFixture.Repository, commitToBuild);
                     GitRepositoryHelper.NormalizeGitDirectory(localFixture.RepositoryPath, new AuthenticationInfo(), noFetch: false, currentBranch: "refs/heads/master");
 
                     var normalisedBranch = localFixture.Repository.Branches["master"];

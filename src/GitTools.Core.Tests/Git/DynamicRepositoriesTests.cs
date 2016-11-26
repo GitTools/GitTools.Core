@@ -232,7 +232,7 @@
                         Url = mainRepositoryFixture.RepositoryPath
                     };
 
-                    mainRepositoryFixture.Repository.Checkout(mainRepositoryFixture.Repository.CreateBranch("feature1"));
+                    Commands.Checkout(mainRepositoryFixture.Repository, mainRepositoryFixture.Repository.CreateBranch("feature1"));
 
                     Should.NotThrow(() =>
                     {

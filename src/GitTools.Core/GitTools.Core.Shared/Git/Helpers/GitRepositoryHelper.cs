@@ -65,7 +65,7 @@
                     if (matchingCurrentBranch != null)
                     {
                         Log.Info(string.Format("Checking out local branch '{0}'.", currentBranch));
-                        repo.Checkout(matchingCurrentBranch);
+                        Commands.Checkout(repo, matchingCurrentBranch);
                     }
                     else if (localBranchesWhereCommitShaIsHead.Count > 1)
                     {
@@ -78,7 +78,7 @@
                         if (master != null)
                         {
                             Log.Warn("Because one of the branches is 'master', will build master." + moveBranchMsg);
-                            repo.Checkout(master);
+                            Commands.Checkout(repo, master);
                         }
                         else
                         {
@@ -87,7 +87,7 @@
                             {
                                 var branchWithoutSeparator = branchesWithoutSeparators[0];
                                 Log.Warn(string.Format("Choosing {0} as it is the only branch without / or - in it. " + moveBranchMsg, branchWithoutSeparator.CanonicalName));
-                                repo.Checkout(branchWithoutSeparator);
+                                Commands.Checkout(repo, branchWithoutSeparator);
                             }
                             else
                             {
@@ -103,7 +103,7 @@
                     else
                     {
                         Log.Info(string.Format("Checking out local branch 'refs/heads/{0}'.", localBranchesWhereCommitShaIsHead[0].FriendlyName));
-                        repo.Checkout(repo.Branches[localBranchesWhereCommitShaIsHead[0].FriendlyName]);
+                        Commands.Checkout(repo, repo.Branches[localBranchesWhereCommitShaIsHead[0].FriendlyName]);
                     }
                 }
                 finally
@@ -157,7 +157,7 @@ Please run `git {0}` and submit it along with your build log (with personal info
                 repo.Refs.UpdateTarget(repo.Refs[localCanonicalName], repoTipId);
             }
 
-            repo.Checkout(localCanonicalName);
+            Commands.Checkout(repo, localCanonicalName);
         }
 
         static void AddMissingRefSpecs(Repository repo, Remote remote)
@@ -209,7 +209,7 @@ Please run `git {0}` and submit it along with your build log (with personal info
             if (canonicalName.StartsWith("refs/tags"))
             {
                 Log.Info(string.Format("Checking out tag '{0}'", canonicalName));
-                repo.Checkout(reference.Target.Sha);
+                Commands.Checkout(repo, reference.Target.Sha);
                 return;
             }
 
@@ -225,7 +225,7 @@ Please run `git {0}` and submit it along with your build log (with personal info
             repo.Refs.Add(fakeBranchName, new ObjectId(headTipSha));
 
             Log.Info(string.Format("Checking local branch '{0}' out.", fakeBranchName));
-            repo.Checkout(fakeBranchName);
+            Commands.Checkout(repo, fakeBranchName);
         }
 
         static IEnumerable<DirectReference> GetRemoteTipsUsingUsernamePasswordCredentials(Repository repo, Remote remote, string username, string password)

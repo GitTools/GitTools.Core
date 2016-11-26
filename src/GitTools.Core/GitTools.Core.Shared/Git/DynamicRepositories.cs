@@ -164,7 +164,7 @@
         static void CheckoutCommit(IRepository repo, string targetCommit)
         {
             Log.Info(string.Format("Checking out {0}", targetCommit));
-            repo.Checkout(targetCommit);
+            Commands.Checkout(repo, targetCommit);
         }
 
         static void CloneRepository(string repositoryUrl, string gitDirectory, AuthenticationInfo authentication)
