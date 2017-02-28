@@ -139,7 +139,17 @@ Please run `git {0}` and submit it along with your build log (with personal info
             var isRef = currentBranch.Contains("refs");
             var isBranch = currentBranch.Contains("refs/heads");
             var localCanonicalName = !isRef ? "refs/heads/" + currentBranch : isBranch ? currentBranch : currentBranch.Replace("refs/", "refs/heads/");
+
             var repoTip = repo.Head.Tip;
+            
+            // We currently have the rep.Head of the *default* branch, now we need to look up the right one
+            var originCanonicalName = string.Format("origin/{0}", currentBranch);
+            var originBranch = repo.Branches[originCanonicalName];
+            if (originBranch != null)
+            {
+                repoTip = originBranch.Tip;
+            }
+
             var repoTipId = repoTip.Id;
 
             if (repo.Branches.All(b => b.CanonicalName != localCanonicalName))
