@@ -1,6 +1,6 @@
 install:
   - choco install gitversion.portable -pre -y
-  - cinst gitlink -pre -y
+  - cinst gitlink -y
   
 platform:
   - Any CPU
