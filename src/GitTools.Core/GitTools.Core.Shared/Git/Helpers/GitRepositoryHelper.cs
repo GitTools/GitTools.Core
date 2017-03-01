@@ -40,7 +40,7 @@
                         Fetch(authentication, remote, repo);
                     }
 
-                    EnsureLocalBranchExistsForCurrentBranch(repo, currentBranch);
+                    EnsureLocalBranchExistsForCurrentBranch(repo, remote, currentBranch);
                     CreateOrUpdateLocalBranchesFromRemoteTrackingOnes(repo, remote.Name);
 
                     var headSha = repo.Refs.Head.TargetIdentifier;
@@ -132,7 +132,7 @@ Please run `git {0}` and submit it along with your build log (with personal info
             Commands.Fetch(repo, remote.Name, new string[0], authentication.ToFetchOptions(), null);
         }
 
-        static void EnsureLocalBranchExistsForCurrentBranch(Repository repo, string currentBranch)
+        static void EnsureLocalBranchExistsForCurrentBranch(Repository repo, Remote remote, string currentBranch)
         {
             if (string.IsNullOrEmpty(currentBranch)) return;
 
@@ -143,7 +143,7 @@ Please run `git {0}` and submit it along with your build log (with personal info
             var repoTip = repo.Head.Tip;
             
             // We currently have the rep.Head of the *default* branch, now we need to look up the right one
-            var originCanonicalName = string.Format("origin/{0}", currentBranch);
+            var originCanonicalName = string.Format("{0}/{1}", remote.Name, currentBranch);
             var originBranch = repo.Branches[originCanonicalName];
             if (originBranch != null)
             {
