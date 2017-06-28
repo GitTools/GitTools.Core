@@ -1,10 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{72ECAB81-A674-4AC8-8795-7AD71C3E1A5A}"
 	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
 		..\.travis.yml = ..\.travis.yml
 		..\appveyor.yml = ..\appveyor.yml
 		GitTools.Core.sln.DotSettings = GitTools.Core.sln.DotSettings
@@ -12,29 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".misc", ".misc", "{72ECAB81
 		..\README.md = ..\README.md
 		Settings.StyleCop = Settings.StyleCop
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
-		..\.gitattributes = ..\.gitattributes
-		..\.gitignore = ..\.gitignore
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.Tests", "GitTools.Core.Tests\GitTools.Core.Tests.csproj", "{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.NET40", "GitTools.Core\GitTools.Core.NET40\GitTools.Core.NET40.csproj", "{C11252F9-0ECA-44DC-860B-E029C04FBD10}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitTools.Core", "GitTools.Core", "{753DD689-12ED-42D8-8AF7-936336D65FA0}"
-	ProjectSection(SolutionItems) = preProject
-		GitTools.Core\GitTools.Core.nuspec = GitTools.Core\GitTools.Core.nuspec
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitTools.Core.NET45", "GitTools.Core\GitTools.Core.NET45\GitTools.Core.NET45.csproj", "{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GitTools.Core.Shared", "GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.shproj", "{C4B449DF-3E78-4F3B-81A8-DE0DC5827532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitTools.Core", "GitTools.Core\GitTools.Core.csproj", "{DD19E93F-C6CC-4748-9EF8-146101AA7F59}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{66295d7c-58fd-4641-aeab-3df7ea8fa4d2}*SharedItemsImports = 4
-		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{c4b449df-3e78-4f3b-81a8-de0dc5827532}*SharedItemsImports = 13
-		GitTools.Core\GitTools.Core.Shared\GitTools.Core.Shared.projitems*{c11252f9-0eca-44dc-860b-e029c04fbd10}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -44,21 +30,12 @@ Global
 		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0834BE9B-5CDE-4CAB-A683-C70A7D91450B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C11252F9-0ECA-44DC-860B-E029C04FBD10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD19E93F-C6CC-4748-9EF8-146101AA7F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD19E93F-C6CC-4748-9EF8-146101AA7F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD19E93F-C6CC-4748-9EF8-146101AA7F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD19E93F-C6CC-4748-9EF8-146101AA7F59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C11252F9-0ECA-44DC-860B-E029C04FBD10} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
-		{66295D7C-58FD-4641-AEAB-3DF7EA8FA4D2} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
-		{C4B449DF-3E78-4F3B-81A8-DE0DC5827532} = {753DD689-12ED-42D8-8AF7-936336D65FA0}
 	EndGlobalSection
 EndGlobal

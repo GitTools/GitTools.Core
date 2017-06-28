@@ -11,6 +11,7 @@ namespace GitTools
         {
         }
 
+        
         protected WarningException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

@@ -79,12 +79,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GitTools.Core\GitTools.Core.NET40\GitTools.Core.NET40.csproj">
-      <Project>{C11252F9-0ECA-44DC-860B-E029C04FBD10}</Project>
-      <Name>GitTools.Core.NET40</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
