@@ -5,7 +5,7 @@
 
     public static class AuthenticationInfoExtensions
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetLogger(typeof(AuthenticationInfoExtensions));
 
         public static FetchOptions ToFetchOptions(this AuthenticationInfo authenticationInfo)
         {

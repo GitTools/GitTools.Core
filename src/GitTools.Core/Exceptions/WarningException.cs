@@ -10,5 +10,12 @@ namespace GitTools
             : base(message)
         {
         }
+
+#if NETDESKTOP
+        protected WarningException(SerializationInfo info, StreamingContext context)
+          : base(info, context)
+        {
+        }
+#endif
     }
 }
