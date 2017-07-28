@@ -17,5 +17,5 @@ install:
 script:
   - dotnet restore "./src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" /p:TargetFramework=netcoreapp1.1 /verbosity:detailed
   - dotnet build "./src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" --configuration Debug --framework netcoreapp1.1 /verbosity:detailed
-  - dotnet test ".src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" --framework netcoreapp1.1
+  - dotnet test "./src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" --framework netcoreapp1.1
   # - mono --debug --runtime=v4.0.30319 %userprofile%.nuget/packages/nunit.consolerunner/3.6.1/tools/nunit3-console.exe ./output/debug/GitTools.Core.Tests/net45/GitTools.Core.Tests.dll -where "cat != NoMono"
