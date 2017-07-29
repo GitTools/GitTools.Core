@@ -8,7 +8,7 @@
     /// </summary>
     public abstract class Disposable : IDisposable
     {
-        static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetLogger(typeof(Disposable));
 
         readonly object _syncRoot = new object();
 

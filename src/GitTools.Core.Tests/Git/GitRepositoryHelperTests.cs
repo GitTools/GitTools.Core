@@ -219,7 +219,10 @@
                 fixture.ApplyTag("2.0.0");
                 // fixture.AssertFullSemver("2.0.0");
                 fixture.MakeACommit();
+
+#if !NETCOREAPP1_1
                 fixture.Repository.DumpGraph();
+#endif
                 // fixture.AssertFullSemver("2.0.1+1");
             }
         }

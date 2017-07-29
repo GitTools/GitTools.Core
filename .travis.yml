@@ -1,10 +1,21 @@
 language: csharp
 solution: src/GitTools.Core.sln
 sudo: false
+dotnet: 1.0.3
+dist: trusty
+mono: none
+addons:
+  apt:
+    sources:
+    - sourceline: 'deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main'
+      key_url: 'https://apt-mo.trafficmanager.net/keys/microsoft.asc'
+    packages:
+    - dotnet-dev-1.0.3
 install:
   # - sudo nuget update -self
-  - nuget restore src/GitTools.Core.sln
-  - nuget install NUnit.Runners -Version 3.2.1 -OutputDirectory ./src/packages
+  - dotnet restore "./src/GitTools.Core.sln"
 script:
-  - xbuild ./src/GitTools.Core.sln /property:Configuration="Debug" /verbosity:detailed
-  - mono --debug --runtime=v4.0.30319 ./src/packages/NUnit.ConsoleRunner.3.2.1/tools/nunit3-console.exe ./output/debug/GitTools.Core.Tests/net45/GitTools.Core.Tests.dll -where "cat != NoMono"
+  - dotnet restore "./src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" /p:TargetFramework=netcoreapp1.1 /verbosity:detailed
+  - dotnet build "./src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" --configuration Debug --framework netcoreapp1.1 /verbosity:detailed
+  - dotnet test "./src/GitTools.Core.Tests/GitTools.Core.Tests.csproj" --framework netcoreapp1.1 --filter TestCategory!=NoMono
+  # - mono --debug --runtime=v4.0.30319 %userprofile%.nuget/packages/nunit.consolerunner/3.6.1/tools/nunit3-console.exe ./output/debug/GitTools.Core.Tests/net45/GitTools.Core.Tests.dll -where "cat != NoMono"

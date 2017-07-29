@@ -9,7 +9,7 @@
 
     public static class DynamicRepositories
     {
-        static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetLogger(typeof(DynamicRepositories));
 
         /// <summary>
         /// Creates a dynamic repository based on the repository info

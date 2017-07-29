@@ -6,7 +6,7 @@
 
     public class RepositoryLoader
     {
-        private static readonly ILog Log = LogProvider.GetCurrentClassLogger();
+        static readonly ILog Log = LogProvider.GetLogger(typeof(RepositoryLoader));
 
         public static Repository GetRepo(string gitDirectory)
         {

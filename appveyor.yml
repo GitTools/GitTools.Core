@@ -1,26 +1,27 @@
+environment:
+  path_to_sln: src/GitTools.Core.sln 
+
 install:
   - choco install gitversion.portable -pre -y
   - cinst gitlink -y
   
-platform:
-  - Any CPU
-
-configuration:
-  - Release
+platform: Any CPU
+configuration: Release
+image: Visual Studio 2017
 
 assembly_info:
   patch: false
 
 before_build:
-  - nuget restore src\
   - ps: gitversion /l console /output buildserver /updateAssemblyInfo src\SolutionAssemblyInfo.cs
+  - cmd: msbuild %path_to_sln% /t:restore /p:PackageVersion=%GitVersion_NuGetVersion% /p:Configuration=Release /p:Platform="Any CPU"
 
-build:
-  project: src\GitTools.Core.sln
+build_script:
+  - cmd: msbuild %path_to_sln% /t:Build /p:Configuration=Release /p:Platform="Any CPU"
 
 after_build:
-  - cmd: gitlink . -u https://github.com/gittools/gittools.core -b %APPVEYOR_REPO_BRANCH% -s %APPVEYOR_REPO_COMMIT% -f src\GitTools.Core.sln
-  - cmd: nuget pack src\GitTools.Core\GitTools.Core.nuspec -BasePath output\%CONFIGURATION%\GitTools.Core\ -version "%GitVersion_NuGetVersion%"
+  - cmd: gitlink . -u https://github.com/gittools/gittools.core -b %APPVEYOR_REPO_BRANCH% -s %APPVEYOR_REPO_COMMIT% -f %path_to_sln%
+  - cmd: msbuild %path_to_sln% /t:Pack /p:PackageVersion=%GitVersion_NuGetVersion% /p:PackageOutputPath="%APPVEYOR_BUILD_FOLDER%"
   - cmd: appveyor PushArtifact "GitTools.Core.%GitVersion_NuGetVersion%.nupkg"
 
 cache:
