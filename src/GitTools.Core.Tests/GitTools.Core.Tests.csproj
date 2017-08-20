@@ -2,12 +2,10 @@
 <Project Sdk="Microsoft.NET.Sdk">  
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
-   
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>   
     <OutputType>Library</OutputType>
     <TargetFramework>net46</TargetFramework>
-    <TargetFrameworks>netcoreapp1.1;net46</TargetFrameworks>
-    <!--<TargetFramework>netcoreapp1.1;net46</TargetFramework>-->
+    <TargetFrameworks>netcoreapp1.1;net46</TargetFrameworks>  
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,9 +35,7 @@
   
   <ItemGroup Condition=" '$(Configuration)' == 'net46' ">
     <PackageReference Include="Atlassian.SDK" Version="2.5.0" />      
-  </ItemGroup>
-
- 
+  </ItemGroup> 
  
   <ItemGroup>
     <ProjectReference Include="..\GitTools.Core\GitTools.Core.csproj" />      
@@ -47,17 +43,6 @@
   
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup> 
-  
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup> 
+  </ItemGroup>   
  
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

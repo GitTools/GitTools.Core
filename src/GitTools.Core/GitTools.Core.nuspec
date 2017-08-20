@@ -15,7 +15,7 @@
     <licenseUrl>https://github.com/GitTools/GitTools.Core/blob/master/LICENSE</licenseUrl>
     <iconUrl>https://raw.github.com/GitTools/GitTools.Core/master/GitTools_logo.png</iconUrl>
     <dependencies>
-      <dependency id="LibGit2Sharp" version="0.24.0" />
+      <dependency id="LibGit2Sharp" version="0.25.0-preview-0033" />
     </dependencies>
   </metadata>
   <files>
