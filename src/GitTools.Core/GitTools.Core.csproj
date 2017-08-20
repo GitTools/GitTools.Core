@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <!--<TargetFramework>netstandard1.3</TargetFramework>-->
     <OutputType>Library</OutputType>
@@ -16,9 +15,7 @@
     <Copyright>Copyright GitTools 2015.</Copyright>
     <PackageLicenseUrl>https://github.com/GitTools/GitTools.Core/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://raw.github.com/GitTools/GitTools.Core/master/GitTools_logo.png</PackageIconUrl>
-
   </PropertyGroup>
-
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net45'">
     <DefineConstants>TRACE;NET45;NETDESKTOP</DefineConstants>
@@ -26,7 +23,6 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net40'">
     <DefineConstants>TRACE;NET40;NETDESKTOP</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <DefineConstants>TRACE;LIBLOG_PORTABLE;NETSTANDARD1_3;</DefineConstants>
   </PropertyGroup>
@@ -36,18 +32,14 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
-
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-
-  
+    <Reference Include="System.Xml" />  
     <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
-
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">   
@@ -56,17 +48,12 @@
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
   </ItemGroup>
-
-  <!-- TODO: Unify this dependency with the LibGit2Sharp NuGet dependency
-    when the portable NuGet has been officially released. -->
+  
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
     <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />    
-  </ItemGroup>
-
- 
-
+  </ItemGroup> 
 </Project>
