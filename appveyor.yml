@@ -18,11 +18,10 @@ before_build:
 
 build_script:
 # Need to fetch unshallow otherwise gitlink can't find commits.
-  - cmd: git fetch --unshallow
   - cmd: msbuild %path_to_sln% /t:Build /p:Configuration=Release /p:Platform="Any CPU"
 
 after_build:
-  - cmd: gitlink . -u https://github.com/gittools/gittools.core -b %APPVEYOR_REPO_BRANCH% -s %APPVEYOR_REPO_COMMIT% -f %path_to_sln%
+  - cmd: IF "%APPVEYOR_PULL_REQUEST_NUMBER%"=="" gitlink . -u https://github.com/gittools/gittools.core -b %APPVEYOR_REPO_BRANCH% -s %APPVEYOR_REPO_COMMIT% -f %path_to_sln%
   - cmd: msbuild %path_to_sln% /t:Pack /p:PackageVersion=%GitVersion_NuGetVersion% /p:PackageOutputPath="%APPVEYOR_BUILD_FOLDER%"
   - cmd: appveyor PushArtifact "GitTools.Core.%GitVersion_NuGetVersion%.nupkg"
 
