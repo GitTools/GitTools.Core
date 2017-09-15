@@ -17,7 +17,6 @@ before_build:
   - cmd: msbuild %path_to_sln% /t:restore /p:PackageVersion=%GitVersion_NuGetVersion% /p:Configuration=Release /p:Platform="Any CPU"
 
 build_script:
-# Need to fetch unshallow otherwise gitlink can't find commits.
   - cmd: msbuild %path_to_sln% /t:Build /p:Configuration=Release /p:Platform="Any CPU"
 
 after_build:
