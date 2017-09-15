@@ -17,6 +17,8 @@ before_build:
   - cmd: msbuild %path_to_sln% /t:restore /p:PackageVersion=%GitVersion_NuGetVersion% /p:Configuration=Release /p:Platform="Any CPU"
 
 build_script:
+# Need to convert from shallow to complete for Pkg.clone to work  
+  - cmd: IF EXIST .git\shallow (git fetch --unshallow) 
   - cmd: msbuild %path_to_sln% /t:Build /p:Configuration=Release /p:Platform="Any CPU"
 
 after_build:
