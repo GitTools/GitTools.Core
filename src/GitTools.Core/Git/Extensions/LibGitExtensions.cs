@@ -150,7 +150,6 @@
             }
         }
 
-#if !NETSTANDARD1_3
         public static void DumpGraph(this IRepository repository, Action<string> writer = null, int? maxCommits = null)
         {
             DumpGraph(repository.Info.Path, writer, maxCommits);
@@ -191,7 +190,7 @@
                 Console.Write(output.ToString());
             }
         }
-#endif
+
         public static string CreateGitLogArgs(int? maxCommits)
         {
             return @"log --graph --format=""%h %cr %d"" --decorate --date=relative --all --remotes=*" + (maxCommits != null ? string.Format(" -n {0}", maxCommits) : null);
