@@ -129,3 +129,6 @@ src/_NCrunch_GitTools.Core/
 # JetBrains IDEs
 ####################
 .idea
+
+# Visual Studio 2017
+.vs
