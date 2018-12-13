@@ -150,7 +150,7 @@
             }
         }
 
-#if !NETSTANDARD1_3
+#if !NETSTANDARD2_0
         public static void DumpGraph(this IRepository repository, Action<string> writer = null, int? maxCommits = null)
         {
             DumpGraph(repository.Info.Path, writer, maxCommits);

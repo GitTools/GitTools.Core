@@ -32,7 +32,7 @@
             {
                 using (var fixture = new EmptyRepositoryFixture())
                 {
-                    var expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(Path.DirectorySeparatorChar).Last());
+                    var expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).Last());
 
                     fixture.Repository.MakeCommits(5);
                     fixture.Repository.CreateFileAndCommit("TestFile.txt");
@@ -50,7 +50,7 @@
                     using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, branchName, branch.Tip.Sha))
                     {
                         dynamicRepositoryPath = dynamicRepository.Repository.Info.Path;
-                        dynamicRepository.Repository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git\\"));
+                        dynamicRepository.Repository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation, ".git" + Path.DirectorySeparatorChar));
 
                         var currentBranch = dynamicRepository.Repository.Head.CanonicalName;
 
@@ -130,7 +130,7 @@
                 {
                     var head = fixture.Repository.CreateFileAndCommit("TestFile.txt");
                     File.Copy(Path.Combine(fixture.RepositoryPath, "TestFile.txt"), Path.Combine(tempDir, "TestFile.txt"));
-                    expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(Path.DirectorySeparatorChar).Last());
+                    expectedDynamicRepoLocation = Path.Combine(tempPath, fixture.RepositoryPath.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).Last());
                     Directory.CreateDirectory(expectedDynamicRepoLocation);
 
                     var repositoryInfo = new RepositoryInfo
@@ -140,7 +140,7 @@
 
                     using (var dynamicRepository = DynamicRepositories.CreateOrOpen(repositoryInfo, tempPath, "master", head.Sha))
                     {
-                        dynamicRepository.Repository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git\\"));
+                        dynamicRepository.Repository.Info.Path.ShouldBe(Path.Combine(expectedDynamicRepoLocation + "_1", ".git" + Path.DirectorySeparatorChar));
                     }
                 }
             }

@@ -70,7 +70,7 @@
 
         static string GetAndLockTemporaryRepositoryPath(string targetUrl, string dynamicRepositoryLocation)
         {
-            var repositoryName = targetUrl.Split('/', '\\').Last().Replace(".git", string.Empty);
+            var repositoryName = targetUrl.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries).Last().Replace(".git", string.Empty);
             var possiblePath = Path.Combine(dynamicRepositoryLocation, repositoryName);
 
             var i = 1;

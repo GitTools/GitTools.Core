@@ -1,6 +1,6 @@
-#if !NETSTANDARD1_3
+#if !NETSTANDARD2_0
 namespace GitTools
-{  
+{
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -8,7 +8,7 @@ namespace GitTools
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Threading;
-    
+
 
     public static class ProcessHelper
     {
