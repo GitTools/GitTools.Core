@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>   
     <OutputType>Library</OutputType>
     <TargetFramework>net46</TargetFramework>
-    <TargetFrameworks>netcoreapp1.1;net46</TargetFrameworks>  
+    <TargetFrameworks>netcoreapp2.1;net46</TargetFrameworks>  
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,14 +22,14 @@
   
   <ItemGroup>  
     <PackageReference Include="GitTools.Testing" Version="1.2.0" />
-    <PackageReference Include="NUnit" Version="3.7.1" />
-    <PackageReference Include="NUnit.ConsoleRunner" Version="3.7.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />
-    <PackageReference Include="Shouldly" Version="2.8.3" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.9.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(Configuration)' == 'netcoreapp1.1' ">
+  <ItemGroup Condition=" '$(Configuration)' == 'netcoreapp2.1' ">
     <PackageReference Include="Atlassian.SDK" Version="9.5.0" />    
   </ItemGroup>
   
