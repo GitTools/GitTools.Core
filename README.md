@@ -1,7 +1,7 @@
-![Icon](https://raw.github.com/GitTools/GitTools.Core/master/GitTools_logo.png)
-
-GitTools.Core
-=============
+<h1>
+   <img src="logo/GitTools_logo.svg" alt="Network" height="100">
+   GitTools.Core
+</h1>
 
 GitTools.Core contains the building blocks and common functionality which is needed by other projects in GitTools.
 
@@ -21,4 +21,4 @@ These core libraries may prove useful if you are a library or application with i
 
 
 ## Icon
-[Network](https://thenounproject.com/term/network/60865/) by Lorena Salagre from the Noun Project
+[Network](https://thenounproject.com/term/network/60865/) by Lorena Salagre from the Noun Project.
