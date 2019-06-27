@@ -3,22 +3,15 @@
    GitTools.Core
 </h1>
 
-GitTools.Core contains the building blocks and common functionality which is needed by other projects in GitTools.
-
-These core libraries may prove useful if you are a library or application with interacts with git
+GitTools.Core used to contain the building blocks and common functionality which is needed by other
+projects in GitTools, such as for [GitVersion][gitversion]. This is, however, no longer the case and
+the repository is therefore **archived**.
 
 ![License][license]
 [![Stable version][nuget-stable-badge]][nuget-stable]
 ![Pre-release version][nuget-pre-badge]
 [![Build status][appveyor-badge]][appveyor]
 [![Build Status][travis-badge]][travis]
-
-## Features
- - Repository normalisation
-    - Fixes up repositories on build servers which do not create local branches
- - Dynamic Repositories
-    - Abstracts cloning/normalising a repository for use on the build server or in another automated way
-
 
 ## Icon
 [Network][network] by Lorena Salagre from the Noun Project.
@@ -33,3 +26,4 @@ These core libraries may prove useful if you are a library or application with i
    [travis-badge]:         https://travis-ci.org/GitTools/GitTools.Core.svg?branch=master
    [travis]:               https://travis-ci.org/GitTools/GitTools.Core
    [network]:              https://thenounproject.com/term/network/60865/
+   [gitversion]:           https://github.com/GitTools/GitVersion
